@@ -58,6 +58,8 @@ $ht_modules = array(
     'about',              // pagina "Despre noi"
     'home-about',         // blocul "Despre noi" de pe prima pagina
     'footer',             // coloanele, contactele si platile din subsol
+    'floating',           // stiva de butoane plutitoare din coltul din dreapta-jos
+    'call',               // butonul plutitor de apel telefonic
     'whatsapp',           // butonul plutitor de WhatsApp
     'redirects',          // 301 de pe adresele vechi (Shopify) catre cele noi
     'admin',              // ajustari in zona de administrare

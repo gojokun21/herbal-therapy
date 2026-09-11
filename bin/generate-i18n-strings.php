@@ -46,7 +46,7 @@ function ht_i18n_sections()
         array('#^inc/about\.php$|^templates/about\.php$#',        'Despre noi'),
         array('#^inc/contact\.php$|^templates/contact\.php$#',    'Contact'),
         array('#^inc/b2b\.php$|^templates/b2b\.php$#',            'B2B'),
-        array('#^inc/whatsapp\.php$#',                           'WhatsApp'),
+        array('#^inc/(floating|call|whatsapp)\.php$#',           'Contact rapid'),
         array('#^inc/favorites\.php$|^templates/favorites\.php$#', 'Favorite'),
         array('#^inc/(account)\.php$|^templates/account\.php$|^woocommerce/myaccount/#', 'Cont'),
         array('#^inc/checkout\.php$|^templates/checkout\.php$|^woocommerce/checkout/#', 'Checkout'),

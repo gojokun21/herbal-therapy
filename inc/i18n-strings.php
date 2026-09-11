@@ -276,6 +276,14 @@ return array(
         '[%s] Mesaj nou din formularul de contact',
     ),
 
+    /* Contact rapid (4) */
+    'Contact rapid' => array(
+        'Bună ziua! Aș dori mai multe informații despre produsele Herbal Therapy.',
+        'Bună ziua! Aș dori mai multe informații despre produsul „%1$s”: %2$s',
+        'Scrie-ne pe WhatsApp',
+        'Sună-ne la %s',
+    ),
+
     /* Coș (25) */
     'Coș' => array(
         'Activează',
@@ -481,12 +489,5 @@ return array(
         'Spune-ne cum ți s-a părut produsul: textura, mirosul, rezultatul după câteva utilizări.',
         'Trebuie să fii %1$sautentificat%2$s ca să lași o recenzie.',
         'Trimite recenzia',
-    ),
-
-    /* WhatsApp (3) */
-    'WhatsApp' => array(
-        'Bună ziua! Aș dori mai multe informații despre produsele Herbal Therapy.',
-        'Bună ziua! Aș dori mai multe informații despre produsul „%1$s”: %2$s',
-        'Scrie-ne pe WhatsApp',
     ),
 );

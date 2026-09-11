@@ -1,0 +1,151 @@
+/* ---------------------------------------------------------------------------
+ * Stiva de butoane plutitoare (inc/floating.php)
+ *
+ * Sta in coltul din dreapta-jos, sub cosul rapid (z-index 990) si sub
+ * notificarile de cos (985), ca panourile deschise sa o acopere. Butoanele se
+ * aseaza pe verticala: apelul telefonic sus, WhatsApp jos. Fiecare e o bulina
+ * simpla, doar cu iconita; eticheta ramane in aria-label si intr-un text
+ * ascuns vizual, pentru cititoarele de ecran.
+ * ------------------------------------------------------------------------ */
+
+.ht-floating {
+    --ht-fab-size: 56px;
+    --ht-fab-gap: 12px;
+    --ht-fab-offset: 24px;
+
+    position: fixed;
+    right: var(--ht-fab-offset);
+    bottom: var(--ht-fab-offset);
+    z-index: 980;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--ht-fab-gap);
+}
+
+.ht-fab {
+    --ht-fab-bg: #567c55;
+    --ht-fab-bg-hover: #4a6c49;
+    --ht-fab-ink: #fff;
+    --ht-fab-glow: 86, 124, 85;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--ht-fab-size);
+    height: var(--ht-fab-size);
+    border-radius: 50%;
+    background: var(--ht-fab-bg);
+    color: var(--ht-fab-ink);
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(var(--ht-fab-glow), .35), 0 2px 6px rgba(32, 32, 32, .12);
+    transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    animation: ht-fab-in .4s ease .6s both;
+}
+
+/* al doilea buton intra cu o fractiune mai tarziu, ca o cascada */
+.ht-fab:nth-child(2) {
+    animation-delay: .72s;
+}
+
+.ht-fab:hover,
+.ht-fab:focus-visible {
+    background: var(--ht-fab-bg-hover);
+    color: var(--ht-fab-ink);
+    box-shadow: 0 12px 28px rgba(var(--ht-fab-glow), .45), 0 2px 6px rgba(32, 32, 32, .12);
+    transform: translateY(-2px);
+}
+
+.ht-fab:focus-visible {
+    outline: 3px solid rgba(var(--ht-fab-glow), .45);
+    outline-offset: 3px;
+}
+
+/* apelul telefonic - oliv deschis, culoare aleasa de client */
+.ht-fab--call {
+    --ht-fab-bg: #a9a271;
+    --ht-fab-bg-hover: #948d5f;
+    --ht-fab-glow: 169, 162, 113;
+}
+
+/* WhatsApp - verdele brandului */
+.ht-fab--whatsapp {
+    --ht-fab-bg: #25d366;
+    --ht-fab-bg-hover: #1ebe5d;
+    --ht-fab-glow: 37, 211, 102;
+}
+
+.ht-fab__icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+}
+
+.ht-fab__icon svg {
+    display: block;
+    width: 28px;
+    height: 28px;
+}
+
+/* eticheta e doar pentru cititoarele de ecran */
+.ht-fab__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+    .ht-floating {
+        --ht-fab-size: 52px;
+        --ht-fab-offset: 16px;
+    }
+
+    /* la capatul paginii bulinele ar sta peste legaturile legale din subsol;
+     * fisierul se incarca doar cand stiva exista, deci rezervam loc sub ele:
+     * un buton implicit, doua cand stiva are doi copii */
+    .ht-footer__bottom {
+        padding-bottom: calc(52px + 2 * 16px);
+    }
+
+    body:has(.ht-floating > .ht-fab:nth-child(2)) .ht-footer__bottom {
+        padding-bottom: calc(2 * 52px + 12px + 2 * 16px);
+    }
+}
+
+@keyframes ht-fab-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ht-fab {
+        animation: none;
+        transition: none;
+    }
+
+    .ht-fab:hover,
+    .ht-fab:focus-visible {
+        transform: none;
+    }
+}
+
+/* butoanele nu au ce cauta pe hartie */
+@media print {
+    .ht-floating {
+        display: none;
+    }
+}

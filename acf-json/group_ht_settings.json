@@ -23,6 +23,26 @@
             "append": ""
         },
         {
+            "key": "field_ht_call_number",
+            "label": "Număr de telefon pentru apel",
+            "name": "ht_call_number",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Numărul pentru butonul plutitor „Sună-ne”, cu prefixul de țară (ex. +373 78 88 40 61); pe telefon deschide direct apelul. Gol = se folosește numărul de telefon din pagina de contact.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "+373 ...",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_ht_terms_page",
             "label": "Pagina „Termenii și condițiile”",
             "name": "ht_terms_page",
@@ -70,5 +90,5 @@
     "active": true,
     "description": "Setări comune întregului site, din meniul „Setări generale”.",
     "show_in_rest": 0,
-    "modified": 1788500000
+    "modified": 1789100000
 }

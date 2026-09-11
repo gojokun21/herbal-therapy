@@ -469,11 +469,12 @@ return array(
             'Trimite recenzia' => 'Отправить отзыв',
         ),
 
-        /* WhatsApp */
-        'WhatsApp' => array(
+        /* Contact rapid - butoanele plutitoare de apel si WhatsApp */
+        'Contact rapid' => array(
             'Bună ziua! Aș dori mai multe informații despre produsele Herbal Therapy.' => 'Здравствуйте! Хотел(а) бы узнать больше о продукции Herbal Therapy.',
             'Bună ziua! Aș dori mai multe informații despre produsul „%1$s”: %2$s' => 'Здравствуйте! Хотел(а) бы узнать больше о товаре «%1$s»: %2$s',
             'Scrie-ne pe WhatsApp' => 'Напишите нам в WhatsApp',
+            'Sună-ne la %s' => 'Позвоните нам: %s',
         ),
     ),
 );

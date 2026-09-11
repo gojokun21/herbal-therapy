@@ -32,7 +32,9 @@ require dirname(__DIR__) . '/inc/favorites.php';
 
 require dirname(__DIR__) . '/inc/permalinks.php';
 require dirname(__DIR__) . '/inc/redirects.php';
+require dirname(__DIR__) . '/inc/floating.php';
 require dirname(__DIR__) . '/inc/whatsapp.php';
+require dirname(__DIR__) . '/inc/call.php';
 
 /* inc/contact.php - impartirea pe randuri a campurilor textarea */
 require dirname(__DIR__) . '/inc/contact.php';

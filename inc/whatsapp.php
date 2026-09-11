@@ -2,16 +2,16 @@
 /**
  * Butonul plutitor de WhatsApp.
  *
- * Un singur link, lipit in coltul din dreapta-jos pe toate paginile, care
- * deschide o conversatie pe WhatsApp cu un mesaj pregatit dinainte. Pe pagina
- * unui produs mesajul numeste produsul, ca vanzatorul sa stie din prima despre
- * ce e vorba.
+ * O legatura in stiva din coltul din dreapta-jos (inc/floating.php), sub cea
+ * de apel telefonic, care deschide o conversatie pe WhatsApp cu un mesaj
+ * pregatit dinainte. Pe pagina unui produs mesajul numeste produsul, ca
+ * vanzatorul sa stie din prima despre ce e vorba.
  *
  * Numarul vine din Setari generale (campul "Numar WhatsApp") sau, cand acesta
  * e gol, din randul cu telefon al paginii de contact. Asa numarul se schimba
  * dintr-un singur loc si butonul dispare singur cat timp nu exista niciun numar.
  *
- * Butonul nu are JavaScript: e un <a> cu CSS propriu (assets/css/whatsapp.css).
+ * Butonul nu are JavaScript: e un <a> stilat in assets/css/floating.css.
  *
  * @package Herbal_Therapy
  */
@@ -112,16 +112,9 @@ function ht_whatsapp_number()
         ? (string)get_field('ht_whatsapp_number', 'option')
         : '';
 
-    if ('' === trim($number) && function_exists('ht_contact_methods')) {
-        foreach (ht_contact_methods() as $method) {
-            if ('phone' !== $method['icon']) {
-                continue;
-            }
-
-            $number = '' !== $method['href'] ? $method['href'] : $method['lines'][0];
-
-            break;
-        }
+    if ('' === trim($number)) {
+        $phone = ht_floating_contact_phone();
+        $number = '' !== $phone['href'] ? $phone['href'] : $phone['text'];
     }
 
     return (string)apply_filters('ht_whatsapp_number', trim($number));
@@ -191,41 +184,24 @@ function ht_whatsapp_button()
 
     $label = __('Scrie-ne pe WhatsApp', 'herbal-therapy');
 
-    return sprintf(
-        '<a class="ht-whatsapp" href="%1$s" target="_blank" rel="noopener" aria-label="%2$s">'
-        . '%3$s<span class="ht-whatsapp__label">%4$s</span></a>',
-        esc_url($url),
-        esc_attr($label),
-        ht_get_icon('whatsapp', 'ht-whatsapp__icon'),
-        esc_html($label)
-    );
+    return ht_floating_button('whatsapp', $url, 'whatsapp', $label, $label, array(
+        'target' => '_blank',
+        'rel'    => 'noopener',
+    ));
 }
 
 /**
- * Pune butonul in pagina, inaintea scripturilor din subsol.
+ * Pune butonul in stiva plutitoare, sub cel de apel telefonic.
+ *
+ * @param array<string, string> $buttons Butoanele adunate pana acum.
+ *
+ * @return array<string, string>
  */
-function ht_whatsapp_render()
+function ht_whatsapp_floating_button(array $buttons)
 {
-    echo ht_whatsapp_button(); // phpcs:ignore WordPress.Security.EscapeOutput -- markup escapat in ht_whatsapp_button().
+    $buttons['whatsapp'] = ht_whatsapp_button();
+
+    return $buttons;
 }
 
-add_action('wp_footer', 'ht_whatsapp_render', 7);
-
-/**
- * Stilul butonului; se incarca doar cand butonul exista.
- */
-function ht_whatsapp_assets()
-{
-    if (!ht_whatsapp_enabled()) {
-        return;
-    }
-
-    wp_enqueue_style(
-        'ht-whatsapp',
-        ht_asset_uri('/assets/css/whatsapp.css'),
-        array('ht-style'),
-        ht_asset_version('/assets/css/whatsapp.css')
-    );
-}
-
-add_action('wp_enqueue_scripts', 'ht_whatsapp_assets', 20);
+add_filter('ht_floating_buttons', 'ht_whatsapp_floating_button', 20);
