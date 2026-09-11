@@ -1,0 +1,5 @@
+# Directorul temei e servit public (CSS, JS, imagini); depozitul git si
+# fisierele de lucru nu au ce cauta pe web.
+RedirectMatch 404 /\.(git|env|idea|editorconfig|phpunit\.result\.cache)
+RedirectMatch 404 /(composer\.(json|lock)|phpunit\.xml\.dist)$
+RedirectMatch 404 /(bin|tests|vendor)/
