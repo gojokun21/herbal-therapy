@@ -1145,6 +1145,61 @@ a.ht-pp__bundle-name:hover {
     margin-top: 16px;
 }
 
+/*
+ * Titlurile din descriere. Global h2 are 35px bold - mai mare decat numele
+ * produsului (32px) - deci in panou primesc o scara proprie, sub numele
+ * produsului si peste textul de 16px: h2 20px, h3 18px, h4 16px. Spatiul
+ * mare sta deasupra titlului (separa sectiunile), cel mic dedesubt (leaga
+ * titlul de textul lui).
+ */
+.ht-pp__panel h2,
+.ht-pp__panel h3,
+.ht-pp__panel h4 {
+    margin-top: 36px;
+    color: var(--ht-pp-ink);
+    font-weight: 600;
+    letter-spacing: -.01em;
+}
+
+.ht-pp__panel h2 {
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.ht-pp__panel h3 {
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.ht-pp__panel h4 {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.ht-pp__panel > :first-child {
+    margin-top: 0;
+}
+
+.ht-pp__panel h2 + *,
+.ht-pp__panel h3 + *,
+.ht-pp__panel h4 + * {
+    margin-top: 10px;
+}
+
+/* primul titlu, cand repeta numele produsului, sta ca o introducere */
+.ht-pp__panel > h2:first-child {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ht-pp-line);
+}
+
+.ht-pp__panel li + li {
+    margin-top: 6px;
+}
+
+.ht-pp__panel li::marker {
+    color: var(--ht-pp-green);
+}
+
 .ht-pp__panel strong,
 .ht-pp__panel b {
     color: #000;
@@ -1304,6 +1359,22 @@ a.ht-pp__bundle-name:hover {
 
     .ht-pp__name {
         font-size: 26px;
+    }
+
+    .ht-pp__panel h2,
+    .ht-pp__panel h3,
+    .ht-pp__panel h4 {
+        margin-top: 28px;
+    }
+
+    .ht-pp__panel h2 {
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    .ht-pp__panel h3 {
+        font-size: 17px;
+        line-height: 24px;
     }
 
     .ht-pp__price {
