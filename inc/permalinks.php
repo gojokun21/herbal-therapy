@@ -284,6 +284,12 @@ add_filter('product_cat_rewrite_rules', 'ht_category_rewrite_rules', 5);
  * la fel, cererea devine una de produs. Merge identic si sub /ru/: regula
  * prefixata a Polylang pastreaza 'name' si adauga 'lang'.
  *
+ * Slug-urile vechi ale produselor (meta '_wp_old_slug', scrisa de WP la
+ * schimbarea slug-ului) primesc doar 'post_type' = 'product': cererea ramane
+ * 404, dar wp_old_slug_redirect() cauta atunci printre produse si face 301
+ * catre adresa noua. Fara asta ar cauta doar printre articole si adresa veche
+ * ar da 404.
+ *
  * @param array $vars Variabilele cererii.
  *
  * @return array
@@ -308,6 +314,10 @@ function ht_product_request_without_base($vars)
     $product = get_page_by_path($vars['name'], OBJECT, 'product');
 
     if (!$product instanceof WP_Post || 'publish' !== $product->post_status) {
+        if (ht_product_has_old_slug($vars['name'])) {
+            $vars['post_type'] = 'product';
+        }
+
         return $vars;
     }
 
@@ -315,6 +325,31 @@ function ht_product_request_without_base($vars)
     $vars['product'] = $vars['name'];
 
     return $vars;
+}
+
+/**
+ * Exista un produs publicat care a avut candva acest slug?
+ *
+ * Aceeasi cautare ca _find_post_by_old_slug() din WP, restransa la produse.
+ *
+ * @param string $slug Slug-ul cerut.
+ *
+ * @return bool
+ */
+function ht_product_has_old_slug($slug)
+{
+    global $wpdb;
+
+    $id = $wpdb->get_var($wpdb->prepare(
+        "SELECT pm.post_id FROM {$wpdb->postmeta} pm
+         INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+         WHERE pm.meta_key = '_wp_old_slug' AND pm.meta_value = %s
+           AND p.post_type = 'product' AND p.post_status = 'publish'
+         LIMIT 1",
+        $slug
+    ));
+
+    return (int)$id > 0;
 }
 
 add_filter('request', 'ht_product_request_without_base');

@@ -2,7 +2,7 @@
 /**
  * Harta redirecturilor 301 de pe site-ul vechi (Shopify) catre cel nou.
  *
- * FISIER GENERAT de bin/redirects/build-map.php pe 2026-09-05 - nu se editeaza de mana.
+ * FISIER GENERAT de bin/redirects/build-map.php pe 2026-09-11 - nu se editeaza de mana.
  * Cheile sunt caile vechi normalizate (fara domeniu, fara prefixul de limba,
  * litere mici, fara slash final); valorile sunt caile noi pe limbi. Cand
  * lipseste varianta ruseasca, se foloseste cea romaneasca.
@@ -11,14 +11,14 @@
  */
 
 return array(
-    'generated' => '2026-09-05',
+    'generated' => '2026-09-11',
     'fallback' => array(
         'shop' => array('ro' => '/produse/', 'ru' => '/ru/produkty/'),
         'home' => array('ro' => '/', 'ru' => '/ru/'),
         'blog' => array('ro' => '/blog/', 'ru' => '/ru/blog/'),
         'cart' => array('ro' => '/cos/', 'ru' => '/ru/cart/'),
         'account' => array('ro' => '/contul-meu/', 'ru' => '/ru/my-account/'),
-        'terms' => array('ro' => '/termenii-si-conditiile/'),
+        'terms' => array('ro' => '/termenii-si-conditiile/', 'ru' => '/ru/usloviya-ispolzovaniya/'),
     ),
     'paths' => array(
         '/blogs/dureri-reumatice-și-musculare' => array('ro' => '/blog/', 'ru' => '/ru/blog/'),
@@ -49,25 +49,25 @@ return array(
         '/pages/collection-bundles' => array('ro' => '/reduceri/', 'ru' => '/ru/skidki/'),
         '/pages/contact' => array('ro' => '/contact/', 'ru' => '/ru/kontakty/'),
         '/pages/despre-noi' => array('ro' => '/despre-noi/', 'ru' => '/ru/o-nas/'),
-        '/pages/formular-returnare-produs' => array('ro' => '/termenii-si-conditiile/'),
+        '/pages/formular-returnare-produs' => array('ro' => '/termenii-si-conditiile/', 'ru' => '/ru/usloviya-ispolzovaniya/'),
         '/pages/intrebari-frecvente' => array('ro' => '/contact/', 'ru' => '/ru/kontakty/'),
-        '/pages/modalitați-de-plata' => array('ro' => '/termenii-si-conditiile/'),
+        '/pages/modalitați-de-plata' => array('ro' => '/termenii-si-conditiile/', 'ru' => '/ru/usloviya-ispolzovaniya/'),
         '/pages/politica-cookie' => array('ro' => '/politica-de-confidentialitate/', 'ru' => '/ru/politika-konfidentsialnosti/'),
         '/pages/politica-de-confidentialitate' => array('ro' => '/politica-de-confidentialitate/', 'ru' => '/ru/politika-konfidentsialnosti/'),
-        '/pages/politica-de-livrare-și-retur' => array('ro' => '/termenii-si-conditiile/'),
+        '/pages/politica-de-livrare-și-retur' => array('ro' => '/termenii-si-conditiile/', 'ru' => '/ru/usloviya-ispolzovaniya/'),
         '/pages/prelucrarea-datelor-cu-caracter-personal' => array('ro' => '/politica-de-confidentialitate/', 'ru' => '/ru/politika-konfidentsialnosti/'),
         '/pages/produse-copii' => array('ro' => '/produse/', 'ru' => '/ru/produkty/'),
         '/pages/program-de-fidelizare' => array('ro' => '/despre-noi/', 'ru' => '/ru/o-nas/'),
         '/pages/program-livrare-sarbatori' => array('ro' => '/contact/', 'ru' => '/ru/kontakty/'),
         '/pages/reviews' => array('ro' => '/', 'ru' => '/ru/'),
         '/pages/shared-wishlists' => array('ro' => '/favorite/', 'ru' => '/ru/izbrannoe/'),
-        '/pages/termeni-și-condiții' => array('ro' => '/termenii-si-conditiile/'),
+        '/pages/termeni-și-condiții' => array('ro' => '/termenii-si-conditiile/', 'ru' => '/ru/usloviya-ispolzovaniya/'),
         '/pages/wishlist' => array('ro' => '/favorite/', 'ru' => '/ru/izbrannoe/'),
         '/policies/contact-information' => array('ro' => '/contact/', 'ru' => '/ru/kontakty/'),
         '/policies/privacy-policy' => array('ro' => '/politica-de-confidentialitate/', 'ru' => '/ru/politika-konfidentsialnosti/'),
-        '/policies/refund-policy' => array('ro' => '/termenii-si-conditiile/'),
-        '/policies/shipping-policy' => array('ro' => '/termenii-si-conditiile/'),
-        '/policies/terms-of-service' => array('ro' => '/termenii-si-conditiile/'),
+        '/policies/refund-policy' => array('ro' => '/termenii-si-conditiile/', 'ru' => '/ru/usloviya-ispolzovaniya/'),
+        '/policies/shipping-policy' => array('ro' => '/termenii-si-conditiile/', 'ru' => '/ru/usloviya-ispolzovaniya/'),
+        '/policies/terms-of-service' => array('ro' => '/termenii-si-conditiile/', 'ru' => '/ru/usloviya-ispolzovaniya/'),
         '/products/apa-micelara-200ml' => array('ro' => '/apa-micelara-cu-hidrolat-de-lavanda-200-ml/', 'ru' => '/ru/micellyarnaya-voda-s-gidrolatom-lavandy-200-ml/'),
         '/products/apa-oxigenata-3' => array('ro' => '/apa-oxigenata-3-200-ml/', 'ru' => '/ru/perekis-vodoroda-3-200-ml/'),
         '/products/asigura-comanda-impotriva-furtului-sau-pierderii' => array('ro' => '/produse/', 'ru' => '/ru/produkty/'),
@@ -149,7 +149,7 @@ return array(
         '/products/sapun-lichid-cu-extract-de-galbenele-și-uleiuri-naturale-herbal-therapy-500-ml' => array('ro' => '/sapun-lichid-cu-extract-de-galbenele-si-uleiuri-naturale-500-ml/', 'ru' => '/ru/zhidkoe-mylo-s-ekstraktom-kalenduly-i-naturalnymi-maslami-500-ml/'),
         '/products/sapun-lichid-cu-extract-de-mușețel-și-uleiuri-naturale-herbal-therapy-500-ml' => array('ro' => '/sapun-lichid-cu-extract-de-musetel-si-uleiuri-naturale-500-ml/', 'ru' => '/ru/zhidkoe-mylo-s-ekstraktom-romashki-i-naturalnymi-maslami-500-ml/'),
         '/products/sapun-lichid-cu-extract-herbal-și-uleiuri-naturale-herbal-therapy-500-ml' => array('ro' => '/sapun-lichid-cu-extracte-herbal-si-uleiuri-naturale-500-ml/', 'ru' => '/ru/zhidkoe-mylo-s-ekstraktami-herbal-i-naturalnymi-maslami-500-ml/'),
-        '/products/seleniu-l-selenometionina-200-µg-30-capsule' => array('ro' => '/seleniu-l-selenometionina-200-%c2%b5g-30-capsule/', 'ru' => '/ru/selen-l-selenometionin-200-mkg-30-kapsul/'),
+        '/products/seleniu-l-selenometionina-200-µg-30-capsule' => array('ro' => '/seleniu-l-selenometionina-200-mcg-n30/', 'ru' => '/ru/selen-l-selenometionin-200-mkg-30-kapsul/'),
         '/products/sirop-imuno-cimbrișor-200-ml-herbal-therapy' => array('ro' => '/sirop-imuno-cimbrisor-200-ml/', 'ru' => '/ru/sirop-imuno-timyan-200-ml/'),
         '/products/sirop-imuno-detox-herbal-therapy-200-ml' => array('ro' => '/sirop-imuno-detox-200-ml/', 'ru' => '/ru/sirop-imuno-detox-200-ml/'),
         '/products/sirop-imuno-echinacea-patlagina-și-ghimbir-vitamina-c-200-ml' => array('ro' => '/sirop-imuno-echinaceea-patlagina-ghimbir-si-vitamina-c-200-ml/', 'ru' => '/ru/sirop-imuno-ehinaceya-podorozhnik-imbir-i-vitamin-c-200-ml/'),
