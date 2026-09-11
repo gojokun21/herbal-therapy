@@ -1,0 +1,143 @@
+/*
+ * Sectiunea de recenzii de pe prima pagina.
+ *
+ * Referinta de design nu are blocul, asa ca e scris in limbajul temei:
+ * scheletul sectiunii (capul cu titlu si sageti) vine din products.css, iar
+ * aici stau doar cardul de recenzie si randul de stele.
+ *
+ * Randul de stele e copia fidela a celui din reviews.css (incarcat doar pe
+ * pagina de produs): aceleasi clase si valori, ca stelele sa arate identic
+ * oriunde apar, iar dubla incarcare pe pagina de produs sa nu schimbe nimic.
+ */
+
+.ht-stars {
+    --ht-rev-star: #ffc108;
+    --ht-rev-star-off: #e4e4e4;
+    --ht-star-size: 16px;
+    --ht-star-gap: 4px;
+
+    position: relative;
+    display: inline-block;
+    width: -moz-fit-content;
+    width: fit-content;
+    vertical-align: middle;
+    line-height: 0;
+}
+
+.ht-stars__row {
+    display: flex;
+    gap: var(--ht-star-gap);
+}
+
+.ht-stars__icon {
+    flex: none;
+    width: var(--ht-star-size);
+    height: var(--ht-star-size);
+    fill: var(--ht-rev-star-off);
+}
+
+.ht-stars__row--fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.ht-stars__row--fill .ht-stars__icon {
+    fill: var(--ht-rev-star);
+}
+
+/* ---------------------------------------------------------------------------
+ * Cardul de recenzie
+ * ------------------------------------------------------------------------ */
+
+.ht-home-reviews__slide {
+    height: auto;
+}
+
+.ht-home-review {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--ht-card-bg);
+    color: var(--ht-card-ink);
+}
+
+.ht-home-review__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.4rem;
+    line-height: 1.55;
+}
+
+/* autorul sta mereu jos, oricat de scurt e textul */
+.ht-home-review__author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.ht-home-review__avatar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--ht-card-cta);
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ht-home-review__who {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.ht-home-review__name {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.ht-home-review__product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+.ht-home-review__product:hover {
+    color: var(--accent);
+}
+
+.ht-home-review__product-img {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #fff;
+}
+
+@media (max-width: 48rem) {
+    .ht-home-review {
+        gap: 10px;
+        padding: 16px;
+    }
+}

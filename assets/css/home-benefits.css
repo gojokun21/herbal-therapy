@@ -1,0 +1,191 @@
+/* ------------------------------------------------------------------
+ * Sectiunea "Puterea naturii" de pe prima pagina (inc/home-benefits.php).
+ *
+ * Referinta de design nu are blocul, asa ca e scris in limbajul temei:
+ * titlul are masura titlurilor de sectiune (--ht-title-section), cardurile
+ * stau pe aceeasi placa gri ca recenziile (--ht-card-bg, 12px raza), iar
+ * iconita sta intr-o bulina alba, ca sa ramana lizibila si cand editorul
+ * urca o imagine cu fundal.
+ *
+ * Grila: 4 carduri pe desktop. Sub 900px patru carduri inalte unul sub altul
+ * ar lungi prea mult pagina, asa ca acolo assets/js/home-benefits.js porneste
+ * un Swiper (2 carduri pe tableta, 1 si un colt pe telefon); markup-ul e deja
+ * cel de Swiper, iar aici grila anuleaza flex-ul lui pe desktop.
+ * ---------------------------------------------------------------- */
+
+.ht-home-benefits {
+    padding: 56px 0;
+}
+
+.ht-home-benefits__head {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.ht-home-benefits__title {
+    max-width: 20em;
+    margin: 0 auto;
+    font-size: var(--ht-title-section);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ht-card-ink);
+}
+
+/* pe desktop Swiper e distrus: containerul nu taie nimic, iar wrapper-ul e grila */
+.ht-home-benefits__swiper {
+    overflow: visible;
+}
+
+.ht-home-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.ht-home-benefits__slide {
+    height: auto;
+}
+
+.ht-home-benefits__pagination {
+    position: static;
+    display: none;
+    margin-top: 20px;
+    --swiper-pagination-color: var(--ht-card-cta);
+    --swiper-pagination-bullet-inactive-color: var(--ht-card-cta);
+    --swiper-pagination-bullet-inactive-opacity: .25;
+}
+
+/* ---------------------------------------------------------------------------
+ * Cardul
+ * ------------------------------------------------------------------------ */
+
+.ht-home-benefit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    height: 100%;
+    padding: 28px 24px;
+    border-radius: 12px;
+    background: var(--ht-card-bg);
+    color: var(--ht-card-ink);
+}
+
+.ht-home-benefit__icon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--surface);
+}
+
+.ht-home-benefit__img {
+    display: block;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.ht-home-benefit__title {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.ht-home-benefit__text {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+.ht-home-benefit__text p {
+    margin: 0;
+}
+
+.ht-home-benefit__text p + p {
+    margin-top: .8em;
+}
+
+.ht-home-benefit__text strong {
+    font-weight: 600;
+    color: var(--ht-card-ink);
+}
+
+.ht-home-benefit__text a {
+    color: var(--ht-card-cta);
+    text-decoration: underline;
+}
+
+.ht-home-benefit__text a:hover {
+    color: var(--ht-card-cta-hover);
+}
+
+@media (max-width: 1200px) {
+    .ht-home-benefits__grid {
+        gap: 20px;
+    }
+
+    .ht-home-benefit {
+        padding: 24px 20px;
+    }
+}
+
+/* sub 900px: carusel (vezi assets/js/home-benefits.js); distanta dintre carduri o da Swiper */
+@media (max-width: 899.98px) {
+    .ht-home-benefits__swiper {
+        overflow: hidden;
+    }
+
+    .ht-home-benefits__grid {
+        display: flex;
+        gap: 0;
+    }
+
+    .ht-home-benefits__pagination {
+        display: block;
+    }
+}
+
+@media (max-width: 48rem) {
+    .ht-home-benefits {
+        padding: 32px 0;
+    }
+
+    .ht-home-benefits__head {
+        margin-bottom: 24px;
+        text-align: left;
+    }
+
+    .ht-home-benefits__title {
+        max-width: none;
+        margin: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .ht-home-benefit {
+        gap: 12px;
+        padding: 20px 16px;
+    }
+
+    .ht-home-benefit__icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .ht-home-benefit__img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .ht-home-benefit__title {
+        font-size: 1.8rem;
+    }
+
+    .ht-home-benefit__text {
+        font-size: 1.4rem;
+    }
+}

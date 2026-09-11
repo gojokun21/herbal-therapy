@@ -1,0 +1,1206 @@
+/* ---------------------------------------------------------------------------
+ * Cosul rapid - stilizat pe tokenii temei (style.css):
+ * verde brand, auriu soft pentru accente, colturi discret rotunjite.
+ * Structura, unitatea --ht-mc-u si breakpoint-urile raman neschimbate.
+ * ------------------------------------------------------------------------ */
+
+.ht-minicart {
+    --ht-mc-ink: var(--text, #202020);
+    --ht-mc-soft: #f6f6f6;
+    --ht-mc-line: var(--line, #ebebeb);
+    --ht-mc-mute: var(--muted, #6f6f6f);
+    --ht-mc-alert: #ff4949;
+    --ht-mc-alert-bg: #ffe0e1;
+    --ht-mc-brand: var(--brand, #274f32);
+    --ht-mc-brand-dark: var(--brand-dark, #1b3a24);
+    --ht-mc-green: #567c55;
+    --ht-mc-gold: var(--gold, #f9e29d);
+    --ht-mc-gold-soft: var(--gold-soft, #fdf7e7);
+    --ht-mc-radius: calc(10 * var(--ht-mc-u));
+    --ht-mc-radius-sm: calc(6 * var(--ht-mc-u));
+
+    /* Unitatea cosului rapid: .1rem = 1px, adica valoarea din macheta de
+     * 1440px. Toate masurile sunt multipli de --ht-mc-u, iar pe ecrane
+     * foarte late urca in trepte (vezi finalul fisierului). */
+    --ht-mc-u: .1rem;
+    --ht-mc-gutter: calc(20 * var(--ht-mc-u));
+
+    position: fixed;
+    inset: 0;
+    z-index: 990;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.ht-minicart.is-open {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.ht-minicart__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background .3s ease;
+}
+
+.ht-minicart.is-open .ht-minicart__overlay {
+    background: rgba(0, 0, 0, .45);
+}
+
+.ht-minicart__panel {
+    position: relative;
+    width: 100%;
+    max-height: 90vh;
+    min-height: 90vh;
+    background: var(--surface, #fff);
+    font-family: var(--font-main, inherit);
+    font-size: calc(14 * var(--ht-mc-u));
+    line-height: 1.2;
+    color: var(--ht-mc-ink);
+    border-radius: calc(12 * var(--ht-mc-u)) calc(12 * var(--ht-mc-u)) 0 0;
+    box-shadow: 0 -10px 30px rgba(32, 32, 32, .12), 0 -2px 6px rgba(32, 32, 32, .06);
+    transform: translateY(100%);
+    transition: transform .35s cubic-bezier(.22, .61, .36, 1);
+}
+
+.ht-minicart.is-open .ht-minicart__panel {
+    transform: translateY(0);
+}
+
+@supports (height: 90dvh) {
+    .ht-minicart__panel {
+        max-height: 90dvh;
+        min-height: 90dvh;
+    }
+}
+
+.ht-minicart__inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* iconitele din butoane: span-ul flex + svg block, altfel svg-ul inline
+ * lasa spatiu sub baseline si iconul cade cu cativa pixeli mai sus de centru */
+.ht-minicart__close-icon,
+.ht-minicart-product__delete-icon,
+.ht-minicart-product__fav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.ht-minicart__close-icon svg,
+.ht-minicart-product__delete-icon svg,
+.ht-minicart-product__fav-icon svg {
+    display: block;
+}
+
+/* ---- Antet ------------------------------------------------------------- */
+
+.ht-minicart__top {
+    flex: 0 0 auto;
+    padding: calc(20 * var(--ht-mc-u)) var(--ht-mc-gutter) calc(16 * var(--ht-mc-u));
+    border-bottom: 1px solid var(--ht-mc-line);
+}
+
+.ht-minicart__head {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: calc(34 * var(--ht-mc-u));
+    padding-right: calc(44 * var(--ht-mc-u));
+}
+
+.ht-minicart__title {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--ht-mc-u));
+    margin: 0;
+    font-size: calc(20 * var(--ht-mc-u));
+    font-weight: 600;
+    line-height: 1.15;
+    text-align: left;
+    color: var(--ht-mc-ink);
+}
+
+/* numarul de produse - badge verde deschis, ca bara de livrare gratuita */
+.ht-minicart__title span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(24 * var(--ht-mc-u));
+    height: calc(24 * var(--ht-mc-u));
+    padding: 0 calc(8 * var(--ht-mc-u));
+    border-radius: var(--ht-mc-radius);
+    background: #e3eee1;
+    color: var(--ht-mc-brand-dark);
+    font-size: calc(12 * var(--ht-mc-u));
+    font-weight: 600;
+}
+
+.ht-minicart__title span:empty {
+    display: none;
+}
+
+.ht-minicart__close {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: calc(34 * var(--ht-mc-u));
+    height: calc(34 * var(--ht-mc-u));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ht-mc-radius-sm);
+    background: var(--ht-mc-soft);
+    color: var(--ht-mc-ink);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-minicart__close:hover,
+.ht-minicart__close:focus-visible {
+    background: var(--ht-mc-brand);
+    color: #fff;
+}
+
+.ht-minicart__close-icon svg {
+    width: calc(14 * var(--ht-mc-u));
+    height: calc(14 * var(--ht-mc-u));
+}
+
+.ht-minicart__alert {
+    display: none;
+    margin: calc(12 * var(--ht-mc-u)) 0 0;
+    padding: calc(10 * var(--ht-mc-u)) calc(14 * var(--ht-mc-u));
+    border-radius: var(--ht-mc-radius-sm);
+    background: var(--ht-mc-gold-soft);
+    font-size: calc(12 * var(--ht-mc-u));
+    line-height: 1.35;
+    color: var(--ht-mc-brand-dark);
+}
+
+.ht-minicart__alert.is-visible {
+    display: block;
+}
+
+.ht-minicart__alert.is-error {
+    background: var(--ht-mc-alert-bg);
+    color: var(--ht-mc-alert);
+}
+
+/* ---- Zona derulabila --------------------------------------------------- */
+
+.ht-minicart__scroll {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    overflow-anchor: none;
+    padding: calc(10 * var(--ht-mc-u)) var(--ht-mc-gutter) 0;
+}
+
+.ht-minicart__scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ht-minicart__scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ht-minicart__scroll::-webkit-scrollbar-thumb {
+    background: var(--ht-mc-line);
+    border-radius: 100px;
+}
+
+.ht-minicart__scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--ht-mc-mute);
+}
+
+.ht-minicart__body {
+    padding-bottom: calc(10 * var(--ht-mc-u));
+}
+
+/* ---- Progresul spre livrarea gratuita ---------------------------------- */
+
+/* Acelasi bloc si in sumarul paginii de cos (inc/shipping-progress.php),
+ * de aceea nu depinde de unitatea --ht-mc-u si de variabilele panoului. */
+.ht-ship-progress {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 0 0 20px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: #eef4ee;
+    color: var(--text, #202020);
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+.ht-ship-progress__text {
+    margin: 0;
+}
+
+.ht-ship-progress__text strong {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ht-ship-progress__bar {
+    height: 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .08);
+}
+
+.ht-ship-progress__fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #567c55;
+    transition: width .4s ease;
+}
+
+.ht-ship-progress.is-reached {
+    background: #e3eee1;
+}
+
+.ht-cart-summary .ht-ship-progress {
+    margin-bottom: 4px;
+}
+
+/* ---- Lista de produse -------------------------------------------------- */
+
+.ht-minicart__list {
+    display: flex;
+    flex-direction: column;
+    margin: 0 calc(var(--ht-mc-gutter) * -1) calc(20 * var(--ht-mc-u));
+    padding: 0 var(--ht-mc-gutter);
+    overflow: hidden;
+    list-style: none;
+}
+
+.ht-minicart__item:not(:first-child) {
+    padding-top: calc(10 * var(--ht-mc-u));
+    border-top: 1px solid var(--ht-mc-line);
+}
+
+.ht-minicart__item:not(:last-child) {
+    padding-bottom: calc(10 * var(--ht-mc-u));
+}
+
+.ht-minicart-product {
+    position: relative;
+    display: flex;
+    gap: calc(12 * var(--ht-mc-u));
+    padding: calc(5 * var(--ht-mc-u)) 0;
+    transition: opacity .3s ease;
+}
+
+.ht-minicart-product.is-busy {
+    opacity: .4;
+    pointer-events: none;
+}
+
+.ht-minicart-product__img {
+    flex-shrink: 0;
+    width: calc(70 * var(--ht-mc-u));
+    height: calc(70 * var(--ht-mc-u));
+    border-radius: var(--ht-mc-radius-sm);
+    background-color: var(--ht-mc-soft);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ht-minicart-product__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    row-gap: calc(6 * var(--ht-mc-u));
+    min-width: 0;
+}
+
+.ht-minicart-product__top {
+    display: flex;
+    justify-content: space-between;
+    gap: calc(10 * var(--ht-mc-u));
+}
+
+.ht-minicart-product__heading {
+    min-width: 0;
+}
+
+.ht-minicart-product__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: calc(13 * var(--ht-mc-u));
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--ht-mc-ink);
+    transition: color .2s ease;
+}
+
+.ht-minicart-product__title:hover {
+    color: var(--ht-mc-brand);
+}
+
+.ht-minicart-product__meta {
+    margin-top: calc(4 * var(--ht-mc-u));
+    font-size: calc(11 * var(--ht-mc-u));
+    line-height: 1.3;
+    color: var(--ht-mc-mute);
+}
+
+.ht-minicart-product__meta p {
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.ht-minicart-product__delete {
+    flex-shrink: 0;
+    width: calc(28 * var(--ht-mc-u));
+    height: calc(28 * var(--ht-mc-u));
+    margin: calc(-4 * var(--ht-mc-u)) 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ht-mc-radius-sm);
+    background: none;
+    color: var(--ht-mc-mute);
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-minicart-product__delete:hover,
+.ht-minicart-product__delete:focus-visible {
+    background: var(--ht-mc-alert-bg);
+    color: var(--ht-mc-alert);
+}
+
+.ht-minicart-product__delete-icon svg {
+    width: calc(12 * var(--ht-mc-u));
+    height: calc(12 * var(--ht-mc-u));
+}
+
+.ht-minicart-product__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(10 * var(--ht-mc-u));
+    min-height: calc(28 * var(--ht-mc-u));
+}
+
+/* selector cantitate - caseta cu chenar, ca pe pagina de produs */
+.ht-minicart-product__qty {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: calc(2 * var(--ht-mc-u));
+    border: 1px solid var(--ht-mc-line);
+    border-radius: var(--ht-mc-radius);
+    background: var(--surface, #fff);
+    transition: border-color .2s ease;
+}
+
+.ht-minicart-product__qty:focus-within {
+    border-color: var(--ht-mc-green);
+}
+
+.ht-minicart-product__qty-btn {
+    flex-shrink: 0;
+    width: calc(22 * var(--ht-mc-u));
+    height: calc(22 * var(--ht-mc-u));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ht-mc-radius-sm);
+    background: transparent;
+    color: var(--ht-mc-ink);
+    font-size: calc(14 * var(--ht-mc-u));
+    line-height: 1;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, opacity .2s ease;
+}
+
+.ht-minicart-product__qty-btn:hover {
+    background: var(--ht-mc-brand);
+    color: #fff;
+}
+
+.ht-minicart-product__qty-btn:disabled {
+    opacity: .35;
+    cursor: default;
+    background: transparent;
+    color: var(--ht-mc-ink);
+}
+
+.ht-minicart-product__qty-input {
+    width: calc(30 * var(--ht-mc-u));
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ht-mc-ink);
+    font-family: inherit;
+    font-size: calc(13 * var(--ht-mc-u));
+    font-weight: 500;
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+.ht-minicart-product__qty-input::-webkit-outer-spin-button,
+.ht-minicart-product__qty-input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+.ht-minicart-product__single {
+    font-size: calc(12 * var(--ht-mc-u));
+    color: var(--ht-mc-mute);
+}
+
+.ht-minicart-product__fav {
+    width: calc(32 * var(--ht-mc-u));
+    height: calc(32 * var(--ht-mc-u));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ht-mc-radius-sm);
+    background: none;
+    color: var(--ht-mc-mute);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .3s ease, color .2s ease, background .2s ease;
+}
+
+.ht-minicart-product__fav-icon svg {
+    width: calc(17 * var(--ht-mc-u));
+    height: calc(17 * var(--ht-mc-u));
+    fill: none;
+    stroke: currentColor;
+}
+
+.ht-minicart-product__fav:hover {
+    background: var(--ht-mc-soft);
+    color: var(--ht-mc-brand);
+}
+
+.ht-minicart-product__fav.is-active {
+    color: var(--ht-mc-brand);
+}
+
+.ht-minicart-product__fav.is-active .ht-minicart-product__fav-icon svg {
+    fill: currentColor;
+}
+
+@media (hover: hover) {
+    .ht-minicart-product:hover .ht-minicart-product__fav,
+    .ht-minicart-product__fav:focus-visible,
+    .ht-minicart-product__fav.is-active {
+        opacity: 1;
+    }
+}
+
+@media (hover: none) {
+    .ht-minicart-product__fav {
+        opacity: 1;
+    }
+}
+
+.ht-minicart-product__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: calc(2 * var(--ht-mc-u)) calc(7 * var(--ht-mc-u));
+}
+
+.ht-minicart-product__price-old {
+    font-size: calc(12 * var(--ht-mc-u));
+    color: var(--ht-mc-mute);
+    text-decoration: line-through;
+    white-space: nowrap;
+}
+
+.ht-minicart-product__price-value {
+    font-size: calc(14 * var(--ht-mc-u));
+    font-weight: 600;
+    color: var(--ht-mc-ink);
+    white-space: nowrap;
+}
+
+/* ---- Cupon ------------------------------------------------------------- */
+
+.ht-minicart-promo {
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(10 * var(--ht-mc-u));
+    margin-bottom: calc(20 * var(--ht-mc-u));
+}
+
+.ht-minicart-promo__label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(8 * var(--ht-mc-u));
+    min-height: calc(46 * var(--ht-mc-u));
+    padding: calc(4 * var(--ht-mc-u));
+    border: 1px solid var(--ht-mc-line);
+    border-radius: var(--ht-mc-radius);
+    background: var(--ht-mc-soft);
+    transition: border-color .2s ease, background .2s ease;
+}
+
+.ht-minicart-promo__label:focus-within {
+    border-color: var(--ht-mc-green);
+    background: var(--surface, #fff);
+}
+
+.ht-minicart-promo__label.is-applied {
+    border-color: var(--ht-mc-green);
+}
+
+.ht-minicart-promo__label.is-error {
+    border-color: var(--ht-mc-alert);
+    background: #fff5f5;
+}
+
+.ht-minicart-promo__label.is-error .ht-minicart-promo__input {
+    color: var(--ht-mc-alert);
+}
+
+.ht-minicart-promo__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: calc(8 * var(--ht-mc-u)) calc(8 * var(--ht-mc-u)) calc(8 * var(--ht-mc-u)) calc(16 * var(--ht-mc-u));
+    border: 0;
+    background: none;
+    color: var(--ht-mc-ink);
+    font-family: inherit;
+    font-size: calc(12 * var(--ht-mc-u));
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.ht-minicart-promo__input::placeholder {
+    color: var(--ht-mc-mute);
+    font-size: calc(12 * var(--ht-mc-u));
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.ht-minicart-promo__buttons {
+    display: flex;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.ht-minicart-promo__send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    transition: opacity .3s ease;
+}
+
+.ht-minicart-promo__send::before {
+    content: "";
+    display: block;
+    width: calc(36 * var(--ht-mc-u));
+    height: calc(36 * var(--ht-mc-u));
+    border-radius: var(--ht-mc-radius-sm);
+    background: var(--ht-mc-brand) no-repeat 50% 50% / 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 10h13m-5-5 5 5-5 5'/%3E%3C/svg%3E");
+    transition: background-color .2s ease, transform .2s ease;
+}
+
+.ht-minicart-promo__send:hover::before {
+    background-color: var(--ht-mc-brand-dark);
+    transform: translateX(2px);
+}
+
+.ht-minicart-promo__send:disabled {
+    opacity: .45;
+    pointer-events: none;
+    cursor: default;
+}
+
+.ht-minicart-promo__applied {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(8 * var(--ht-mc-u));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* cupon aplicat - chip auriu, in ton cu accentul temei */
+.ht-minicart-promo__applied-item {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(8 * var(--ht-mc-u));
+    padding: calc(5 * var(--ht-mc-u)) calc(6 * var(--ht-mc-u)) calc(5 * var(--ht-mc-u)) calc(14 * var(--ht-mc-u));
+    border: 1px solid var(--ht-mc-gold);
+    border-radius: var(--ht-mc-radius);
+    background: var(--ht-mc-gold-soft);
+    font-size: calc(12 * var(--ht-mc-u));
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ht-mc-brand-dark);
+}
+
+.ht-minicart-promo__applied-item button {
+    padding: calc(3 * var(--ht-mc-u)) calc(9 * var(--ht-mc-u));
+    border: 0;
+    border-radius: var(--ht-mc-radius);
+    background: transparent;
+    color: var(--ht-mc-mute);
+    font-family: inherit;
+    font-size: calc(11 * var(--ht-mc-u));
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-minicart-promo__applied-item button:hover {
+    background: var(--ht-mc-alert-bg);
+    color: var(--ht-mc-alert);
+}
+
+/* ---- Totaluri ---------------------------------------------------------- */
+
+.ht-minicart-total {
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(10 * var(--ht-mc-u));
+    margin-bottom: calc(20 * var(--ht-mc-u));
+    padding: calc(16 * var(--ht-mc-u));
+    border-radius: var(--ht-mc-radius);
+    background: var(--ht-mc-soft);
+}
+
+.ht-minicart-total__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(15 * var(--ht-mc-u));
+    font-size: calc(13 * var(--ht-mc-u));
+    color: var(--ht-mc-mute);
+}
+
+.ht-minicart-total__row--discount {
+    color: var(--ht-mc-green);
+}
+
+.ht-minicart-total__row--discount .ht-minicart-total__value {
+    font-weight: 600;
+}
+
+.ht-minicart-total__row--shipping.is-free .ht-minicart-total__value {
+    font-weight: 600;
+    color: var(--ht-mc-green);
+}
+
+.ht-minicart-total__row--sum {
+    margin-top: calc(4 * var(--ht-mc-u));
+    padding-top: calc(12 * var(--ht-mc-u));
+    border-top: 1px solid var(--ht-mc-line);
+    color: var(--ht-mc-ink);
+}
+
+.ht-minicart-total__row--sum .ht-minicart-total__text {
+    font-size: calc(15 * var(--ht-mc-u));
+    font-weight: 600;
+}
+
+.ht-minicart-total__row--sum .ht-minicart-total__value {
+    font-size: calc(18 * var(--ht-mc-u));
+    font-weight: 700;
+    color: var(--ht-mc-brand);
+}
+
+.ht-minicart-total__value {
+    white-space: nowrap;
+}
+
+/* ---- Cos gol ----------------------------------------------------------- */
+
+.ht-minicart-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(300 * var(--ht-mc-u));
+    padding: calc(30 * var(--ht-mc-u));
+    background: var(--ht-mc-gold-soft);
+    border-radius: var(--ht-mc-radius);
+}
+
+.ht-minicart-empty__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: calc(16 * var(--ht-mc-u));
+    max-width: calc(280 * var(--ht-mc-u));
+}
+
+.ht-minicart-empty__title {
+    margin: 0;
+    font-size: calc(18 * var(--ht-mc-u));
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    color: var(--ht-mc-brand-dark);
+}
+
+.ht-minicart-empty__text {
+    margin: 0;
+    font-size: calc(14 * var(--ht-mc-u));
+    line-height: 1.4;
+    text-align: center;
+    color: var(--ht-mc-mute);
+}
+
+.ht-minicart-empty__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(191 * var(--ht-mc-u));
+    min-height: calc(46 * var(--ht-mc-u));
+    padding: calc(10 * var(--ht-mc-u)) calc(28 * var(--ht-mc-u));
+    border-radius: var(--ht-mc-radius);
+    background: var(--ht-mc-brand);
+    color: #fff;
+    font-size: calc(14 * var(--ht-mc-u));
+    font-weight: 600;
+    text-align: center;
+    transition: background .2s ease;
+}
+
+.ht-minicart-empty__button:hover,
+.ht-minicart-empty__button:focus-visible {
+    background: var(--ht-mc-brand-dark);
+    color: #fff;
+}
+
+/* ---- Produse recomandate ----------------------------------------------- */
+
+.ht-minicart__products {
+    margin: calc(24 * var(--ht-mc-u)) calc(var(--ht-mc-gutter) * -1) calc(20 * var(--ht-mc-u));
+    padding: calc(24 * var(--ht-mc-u)) var(--ht-mc-gutter) 0;
+    border-top: 1px solid var(--ht-mc-line);
+}
+
+.ht-minicart__products-title {
+    margin: 0 0 calc(15 * var(--ht-mc-u));
+    font-size: calc(18 * var(--ht-mc-u));
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ht-mc-ink);
+}
+
+.ht-minicart__products-track {
+    --ht-mc-slide-gap: calc(12 * var(--ht-mc-u));
+
+    position: relative;
+    container-type: inline-size;
+    column-gap: var(--ht-mc-slide-gap);
+}
+
+.ht-minicart__arrow {
+    position: absolute;
+    top: calc((100cqw - var(--ht-mc-slide-gap)) / 4);
+    z-index: 2;
+    width: calc(36 * var(--ht-mc-u));
+    height: calc(36 * var(--ht-mc-u));
+    opacity: .7;
+    transform: translateY(-50%);
+    box-shadow: 0 4px 20px rgba(32, 32, 32, .15);
+    transition: opacity .2s ease;
+}
+
+.ht-minicart__arrow:hover {
+    opacity: 1;
+}
+
+.ht-minicart__arrow.swiper-button-lock {
+    display: none;
+}
+
+.ht-minicart__arrow--prev {
+    left: calc(4 * var(--ht-mc-u));
+}
+
+.ht-minicart__arrow--next {
+    right: calc(4 * var(--ht-mc-u));
+}
+
+/* ---- Subsol ------------------------------------------------------------ */
+
+.ht-minicart__foot {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(8 * var(--ht-mc-u));
+    padding: calc(14 * var(--ht-mc-u)) var(--ht-mc-gutter);
+    background: var(--surface, #fff);
+    border-top: 1px solid var(--ht-mc-line);
+    box-shadow: 0 -8px 20px rgba(32, 32, 32, .04);
+}
+
+.ht-minicart__foot:empty {
+    display: none;
+}
+
+.ht-minicart__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(50 * var(--ht-mc-u));
+    padding: calc(10 * var(--ht-mc-u)) calc(24 * var(--ht-mc-u));
+    border-radius: var(--ht-mc-radius);
+    background: var(--ht-mc-brand);
+    color: #fff;
+    font-size: calc(14 * var(--ht-mc-u));
+    font-weight: 600;
+    text-align: center;
+    white-space: pre-wrap;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.ht-minicart__submit:hover,
+.ht-minicart__submit:focus-visible {
+    background: var(--ht-mc-brand-dark);
+    color: #fff;
+}
+
+.ht-minicart__submit:active {
+    transform: translateY(1px);
+}
+
+/* link secundar catre pagina cosului - buton outline, sub cel principal */
+.ht-minicart__cart-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(44 * var(--ht-mc-u));
+    padding: calc(8 * var(--ht-mc-u)) calc(24 * var(--ht-mc-u));
+    border: 1px solid var(--ht-mc-line);
+    border-radius: var(--ht-mc-radius);
+    background: transparent;
+    color: var(--ht-mc-ink);
+    font-size: calc(13 * var(--ht-mc-u));
+    font-weight: 500;
+    text-align: center;
+    transition: border-color .2s ease, color .2s ease, background .2s ease;
+}
+
+.ht-minicart__cart-link:hover,
+.ht-minicart__cart-link:focus-visible {
+    border-color: var(--ht-mc-brand);
+    background: var(--ht-mc-soft);
+    color: var(--ht-mc-brand);
+}
+
+/* ---- Desktop ----------------------------------------------------------- */
+
+@media (min-width: 651px) {
+
+    .ht-minicart {
+        --ht-mc-gutter: calc(24 * var(--ht-mc-u));
+
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .ht-minicart__panel {
+        width: calc(380 * var(--ht-mc-u));
+        max-height: none;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: -8px 0 32px rgba(27, 58, 36, .12);
+        transform: translateX(100%);
+    }
+
+    @supports (height: 100dvh) {
+        .ht-minicart__panel {
+            min-height: 100dvh;
+        }
+    }
+
+    .ht-minicart.is-open .ht-minicart__panel {
+        transform: translateX(0);
+    }
+
+    .ht-minicart__top {
+        padding: calc(22 * var(--ht-mc-u)) var(--ht-mc-gutter) calc(14 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__head {
+        min-height: calc(34 * var(--ht-mc-u));
+        padding-right: calc(44 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__title {
+        font-size: calc(19 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__title span {
+        min-width: calc(22 * var(--ht-mc-u));
+        height: calc(22 * var(--ht-mc-u));
+        font-size: calc(11 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__close {
+        width: calc(34 * var(--ht-mc-u));
+        height: calc(34 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__close-icon svg {
+        width: calc(13 * var(--ht-mc-u));
+        height: calc(13 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__alert {
+        font-size: calc(12 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__scroll {
+        padding-top: calc(10 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__body {
+        padding-bottom: calc(14 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__list {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .ht-minicart__item:not(:first-child) {
+        padding-top: calc(11 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__item:not(:last-child) {
+        padding-bottom: calc(11 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product {
+        gap: calc(12 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__img {
+        width: calc(68 * var(--ht-mc-u));
+        height: calc(68 * var(--ht-mc-u));
+        border-radius: var(--ht-mc-radius-sm);
+    }
+
+    .ht-minicart-product__title {
+        font-size: calc(13 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__meta {
+        font-size: calc(11 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__delete {
+        width: calc(26 * var(--ht-mc-u));
+        height: calc(26 * var(--ht-mc-u));
+        margin-top: calc(-3 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__delete-icon svg {
+        width: calc(11 * var(--ht-mc-u));
+        height: calc(11 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__bottom {
+        min-height: calc(28 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__qty-btn {
+        width: calc(22 * var(--ht-mc-u));
+        height: calc(22 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__qty-input {
+        width: calc(28 * var(--ht-mc-u));
+        font-size: calc(12 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__fav {
+        width: calc(30 * var(--ht-mc-u));
+        height: calc(30 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__price {
+        gap: calc(7 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__price-old {
+        font-size: calc(11 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-product__price-value {
+        font-size: calc(14 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-promo {
+        margin-bottom: calc(16 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-promo__label {
+        min-height: calc(44 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-promo__input,
+    .ht-minicart-promo__input::placeholder {
+        font-size: calc(12 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-promo__input {
+        padding-left: calc(16 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-promo__send::before {
+        width: calc(34 * var(--ht-mc-u));
+        height: calc(34 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-total {
+        row-gap: calc(8 * var(--ht-mc-u));
+        padding: calc(14 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-total__row {
+        font-size: calc(12 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-total__row--sum .ht-minicart-total__text {
+        font-size: calc(14 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-total__row--sum .ht-minicart-total__value {
+        font-size: calc(17 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-empty {
+        min-height: calc(240 * var(--ht-mc-u));
+    }
+
+    .ht-minicart-empty__title {
+        font-size: calc(17 * var(--ht-mc-u));
+        line-height: 1.2;
+    }
+
+    .ht-minicart__products {
+        margin: calc(20 * var(--ht-mc-u)) 0 calc(12 * var(--ht-mc-u));
+        padding: calc(18 * var(--ht-mc-u)) 0 0;
+    }
+
+    .ht-minicart__products-title {
+        font-size: calc(16 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__arrow {
+        width: calc(34 * var(--ht-mc-u));
+        height: calc(34 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__arrow--prev {
+        left: calc(-12 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__arrow--next {
+        right: calc(-12 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__foot {
+        row-gap: calc(8 * var(--ht-mc-u));
+        padding: calc(12 * var(--ht-mc-u)) var(--ht-mc-gutter) calc(18 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__cart-link {
+        min-height: calc(40 * var(--ht-mc-u));
+        font-size: calc(13 * var(--ht-mc-u));
+    }
+
+    .ht-minicart__submit {
+        min-height: calc(46 * var(--ht-mc-u));
+        font-size: calc(14 * var(--ht-mc-u));
+    }
+}
+
+/* sectiunea de produse foloseste si stilurile .ht-products; anulam
+ * spatierea verticala globala a acelei componente */
+.ht-minicart__products.ht-products {
+    padding-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ht-minicart__overlay,
+    .ht-minicart__panel,
+    .ht-minicart-promo__send::before,
+    .ht-minicart__submit {
+        transition: none;
+    }
+}
+
+/* Panoul urca spre macheta de 1920px pe ecranele late
+ * (100rem = 1600px, 120rem = 1920px). */
+@media (min-width: 100rem) {
+    .ht-minicart {
+        --ht-mc-u: .105rem;
+    }
+}
+
+@media (min-width: 120rem) {
+    .ht-minicart {
+        --ht-mc-u: .115rem;
+    }
+}
+
+/* iOS: Safari face zoom la focus daca inputul are sub 16px */
+@media (hover: none) and (pointer: coarse) {
+    .ht-minicart-product__qty-input,
+    .ht-minicart-promo__input {
+        font-size: 1.6rem;
+    }
+}

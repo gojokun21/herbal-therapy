@@ -1,0 +1,167 @@
+{
+    "key": "group_ht_hero",
+    "title": "Carusel principal (hero)",
+    "fields": [
+        {
+            "key": "field_ht_hero_slides",
+            "label": "Slide-uri",
+            "name": "ht_hero_slides",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Fara niciun slide, caruselul nu se afiseaza.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Adauga slide",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_ht_hero_image",
+                    "label": "Imagine desktop",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Ideal 1440x656. Se afiseaza de la 651px in sus.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp,svg",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_ht_hero_slides"
+                },
+                {
+                    "key": "field_ht_hero_mobile",
+                    "label": "Imagine mobil",
+                    "name": "mobile",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Ideal 750x1000. Se afiseaza sub 651px. Goala inseamna ca se foloseste imaginea de desktop.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp,svg",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_ht_hero_slides"
+                },
+                {
+                    "key": "field_ht_hero_title",
+                    "label": "Titlu",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Textul mare de peste imagine. Gol inseamna slide doar cu imagine.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_hero_slides"
+                },
+                {
+                    "key": "field_ht_hero_text",
+                    "label": "Descriere",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Optionala, sub titlu.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "br",
+                    "parent_repeater": "field_ht_hero_slides"
+                },
+                {
+                    "key": "field_ht_hero_button",
+                    "label": "Buton",
+                    "name": "button",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Gol inseamna slide fara buton. Fara text, butonul afiseaza \"Descopera produsele\".",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_ht_hero_slides"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/home-template.php"
+            }
+        ],
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Slide-urile afisate pe prima pagina, sub header.",
+    "show_in_rest": 0,
+    "modified": 1787112000
+}

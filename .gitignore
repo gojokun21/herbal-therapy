@@ -1,0 +1,36 @@
+# Sistem
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Dependinte / build
+node_modules/
+vendor/
+*.log
+
+# Fisiere temporare
+*.bak
+*.tmp
+*~
+
+# secretele scripturilor de import
+bin/import/.env
+bin/import/data/
+__pycache__/
+
+# teste
+.phpunit.result.cache
+
+# imagini de prezentare generate
+bin/images/.env
+bin/images/data/
+
+# model de upscaling (38 MB, se descarca separat)
+EDSR_x4.pb
+
+# date brute Ahrefs
+bin/seo/ahrefs/data/

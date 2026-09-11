@@ -1,0 +1,151 @@
+{
+    "key": "group_ht_home_reviews",
+    "title": "Recenzii (prima pagina)",
+    "fields": [
+        {
+            "key": "field_ht_home_reviews",
+            "label": "Recenzii",
+            "name": "ht_recenzii",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Recenziile afisate in caruselul \"Ce spun clientii\". Fara niciun rand, sectiunea nu se afiseaza.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_ht_home_review_autor",
+            "button_label": "Adauga recenzie",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_ht_home_review_autor",
+                    "label": "Autor",
+                    "name": "autor",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Numele clientului, ex. \"Maria C.\"",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_home_reviews"
+                },
+                {
+                    "key": "field_ht_home_review_nota",
+                    "label": "Nota",
+                    "name": "nota",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "De la 1 la 5.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 5,
+                    "min": 1,
+                    "max": 5,
+                    "step": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_home_reviews"
+                },
+                {
+                    "key": "field_ht_home_review_text",
+                    "label": "Text",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Textul recenziei. Fara text, randul nu se afiseaza.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_ht_home_reviews"
+                },
+                {
+                    "key": "field_ht_home_review_produs",
+                    "label": "Produsul recenzat",
+                    "name": "produs",
+                    "aria-label": "",
+                    "type": "post_object",
+                    "instructions": "Optional: cardul primeste poza produsului si link catre el.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": [
+                        "product"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "return_format": "id",
+                    "multiple": 0,
+                    "allow_null": 1,
+                    "allow_in_bindings": 0,
+                    "bidirectional": 0,
+                    "ui": 1,
+                    "bidirectional_target": [],
+                    "parent_repeater": "field_ht_home_reviews"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/home-template.php"
+            }
+        ],
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Recenziile din caruselul \"Ce spun clientii\" de pe prima pagina.",
+    "show_in_rest": 0,
+    "modified": 1788134400
+}

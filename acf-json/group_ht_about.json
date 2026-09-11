@@ -1,0 +1,708 @@
+{
+    "key": "group_ht_about",
+    "title": "Pagina despre noi",
+    "fields": [
+        {
+            "key": "field_ht_about_tab_hero",
+            "label": "Cap de pagina",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_about_hero_title",
+            "label": "Titlu",
+            "name": "ht_about_hero_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Titlul mare de peste fotografia cu iarba. Gol inseamna textul din design.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_about_hero_intro",
+            "label": "Text sub titlu",
+            "name": "ht_about_hero_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Un rand liber desparte paragrafele. Se accepta <strong> pentru cuvintele ingrosate.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 5,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_ht_about_hero_image",
+            "label": "Fotografia de fundal",
+            "name": "ht_about_hero_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Banda cu iarba, pe toata latimea. Ideal 1920x503.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_about_hero_products",
+            "label": "Gama de produse",
+            "name": "ht_about_hero_products",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Se aseaza peste iarba, la baza. Ideal patrata, cu fundal transparent.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_about_tab_care",
+            "label": "Cu grija pentru corp",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_about_care_title",
+            "label": "Titlu",
+            "name": "ht_about_care_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_about_care_text",
+            "label": "Text",
+            "name": "ht_about_care_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Un rand liber desparte paragrafele.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 6,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_ht_about_care_image",
+            "label": "Fotografia din stanga",
+            "name": "ht_about_care_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Ideal 638x484.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_about_tab_cosmetics",
+            "label": "Despre cosmetice",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_about_cosmetics_title",
+            "label": "Titlu",
+            "name": "ht_about_cosmetics_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_about_cosmetics_text",
+            "label": "Text",
+            "name": "ht_about_cosmetics_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Un rand liber desparte paragrafele.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 5,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_ht_about_cosmetics_image",
+            "label": "Fotografia din dreapta",
+            "name": "ht_about_cosmetics_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Ideal 592x474, cu fundal transparent.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_about_tab_mission",
+            "label": "Misiunea noastra",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_about_mission_title",
+            "label": "Titlu",
+            "name": "ht_about_mission_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_about_mission_text",
+            "label": "Text",
+            "name": "ht_about_mission_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Un rand liber desparte paragrafele. Se accepta <strong>.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 6,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_ht_about_mission_image",
+            "label": "Fotografia din stanga",
+            "name": "ht_about_mission_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Eprubetele. Ideal 393x423, cu fundal transparent.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_about_tab_values",
+            "label": "Siguranta / Eficacitate / Calitate",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_about_values",
+            "label": "Cartonase",
+            "name": "ht_about_values",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Fara niciun rand se afiseaza cele trei cartonase din design.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Adauga cartonas",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_ht_about_value_title",
+                    "label": "Titlu",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_about_values"
+                },
+                {
+                    "key": "field_ht_about_value_image",
+                    "label": "Iconita",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Emblema din coltul de sus. Ideal patrata, cu fundal transparent.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_ht_about_values"
+                },
+                {
+                    "key": "field_ht_about_value_text",
+                    "label": "Text",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Un rand liber desparte paragrafele.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 6,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_ht_about_values"
+                }
+            ]
+        },
+        {
+            "key": "field_ht_about_tab_vision",
+            "label": "Viziunea brandului",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_about_vision_title",
+            "label": "Titlu",
+            "name": "ht_about_vision_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_about_vision_lead",
+            "label": "Primul bloc de text",
+            "name": "ht_about_vision_lead",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Sta sub titlu, pe toata latimea coloanei.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 6,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_ht_about_vision_note",
+            "label": "Al doilea bloc de text",
+            "name": "ht_about_vision_note",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Blocul retras, cu fotografia mica in stanga. Se accepta <strong>.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 6,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_ht_about_vision_image",
+            "label": "Fotografia mare",
+            "name": "ht_about_vision_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Ideal 565x555.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_about_vision_thumb",
+            "label": "Fotografia mica",
+            "name": "ht_about_vision_thumb",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Ideal 122x175.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_about_tab_factory",
+            "label": "Fabrica si Depozit",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_about_factory_title",
+            "label": "Titlu",
+            "name": "ht_about_factory_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_about_factory_images",
+            "label": "Fotografii",
+            "name": "ht_about_factory_images",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Fara niciun rand se afiseaza cele patru fotografii din design.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Adauga fotografie",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_ht_about_factory_image",
+                    "label": "Fotografie",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Ideal 340x460.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "preview_size": "medium",
+                    "parent_repeater": "field_ht_about_factory_images"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/about.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Textele si fotografiile paginii \"Despre noi\". Ce ramane gol se afiseaza cu valoarea din design.",
+    "show_in_rest": 0,
+    "modified": 1788128758
+}

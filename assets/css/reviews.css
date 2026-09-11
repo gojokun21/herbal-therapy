@@ -1,0 +1,587 @@
+/* ---------------------------------------------------------------------------
+ * Recenziile de produs - masuratorile din Figma (nodul 141:9976).
+ *
+ * In stanga rezumatul cu nota si distributia notelor, in dreapta numarul de
+ * recenzii, sortarea si lista de carduri.
+ * ------------------------------------------------------------------------ */
+
+.ht-stars,
+.ht-rev {
+    --ht-rev-star: #ffc108;
+    --ht-rev-star-off: #e4e4e4;
+    --ht-rev-ink: #191a24;
+    --ht-rev-dim: #8f9396;
+    --ht-rev-soft: #f8f8f8;
+    --ht-rev-green: #567c55;
+}
+
+/* ---------------------------------------------------------------------------
+ * Randul de stele
+ * ------------------------------------------------------------------------ */
+
+.ht-stars {
+    --ht-star-size: 16px;
+    --ht-star-gap: 4px;
+
+    position: relative;
+    display: inline-block;
+    width: -moz-fit-content;
+    width: fit-content;
+    vertical-align: middle;
+    line-height: 0;
+}
+
+.ht-stars--sm {
+    --ht-star-size: 14px;
+    --ht-star-gap: 0px;
+}
+
+.ht-stars--lg {
+    --ht-star-size: 26px;
+    --ht-star-gap: 0px;
+}
+
+.ht-stars__row {
+    display: flex;
+    gap: var(--ht-star-gap);
+}
+
+.ht-stars__icon {
+    flex: none;
+    width: var(--ht-star-size);
+    height: var(--ht-star-size);
+    fill: var(--ht-rev-star-off);
+}
+
+.ht-stars__row--fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.ht-stars__row--fill .ht-stars__icon {
+    fill: var(--ht-rev-star);
+}
+
+/* ---------------------------------------------------------------------------
+ * Structura blocului
+ * ------------------------------------------------------------------------ */
+
+.ht-rev {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 60px;
+    scroll-margin-top: 120px;
+    color: var(--ht-rev-ink);
+}
+
+.ht-rev__aside {
+    display: flex;
+    flex: 0 0 306px;
+    flex-direction: column;
+    gap: 16px;
+    width: 306px;
+}
+
+.ht-rev__body {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Rezumatul
+ * ------------------------------------------------------------------------ */
+
+.ht-rev__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--ht-rev-soft);
+}
+
+.ht-rev__score {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ht-rev__score-value {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--ht-rev-ink);
+}
+
+.ht-rev__based {
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--ht-rev-dim);
+}
+
+.ht-rev__bars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-rev__bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ht-rev__bar-label {
+    display: inline-flex;
+    flex: 0 0 28px;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--ht-rev-ink);
+}
+
+.ht-rev__bar-label .ht-stars__icon {
+    width: 14px;
+    height: 14px;
+    fill: var(--ht-rev-star);
+}
+
+.ht-rev__bar {
+    position: relative;
+    flex: 1 1 200px;
+    height: 8px;
+    border-radius: 30px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.ht-rev__bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 30px;
+    background: var(--ht-rev-green);
+}
+
+.ht-rev__bar-count {
+    flex: 0 0 auto;
+    min-width: 9px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ht-rev-dim);
+    text-align: right;
+}
+
+.ht-rev__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 10px 24px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--ht-rev-soft);
+    color: var(--ht-rev-green);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-rev__cta:hover {
+    background: var(--ht-rev-green);
+    color: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+ * Numarul de recenzii si sortarea
+ * ------------------------------------------------------------------------ */
+
+.ht-rev__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.ht-rev__tabs {
+    display: flex;
+    align-items: flex-start;
+    gap: 36px;
+    border-bottom: 1px solid var(--ht-rev-dim);
+}
+
+.ht-rev__tab {
+    position: relative;
+    padding: 0 0 16px;
+    color: var(--ht-rev-ink);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+.ht-rev__tab::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    background: var(--ht-rev-green);
+}
+
+.ht-rev__sort {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ht-rev-green);
+    font-size: 16px;
+    line-height: normal;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.ht-rev__sort .ht-pp__icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Lista de recenzii
+ * ------------------------------------------------------------------------ */
+
+.ht-rev__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ht-rev__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-rev__item,
+.ht-rev__item > .children > .ht-rev__item {
+    list-style: none;
+}
+
+.ht-rev__item-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--ht-rev-soft);
+}
+
+.ht-rev__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ht-rev__content .star-rating {
+    --ht-star-size: 16px;
+    --ht-star-gap: 4px;
+}
+
+.ht-rev__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.ht-rev__author {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    color: var(--ht-rev-ink);
+}
+
+.ht-rev__date {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    color: var(--ht-rev-dim);
+}
+
+.ht-rev__replies {
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--ht-rev-green);
+}
+
+.ht-rev__badge {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #eef7eb;
+    color: var(--ht-rev-green);
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.ht-rev__pending {
+    color: var(--ht-rev-dim);
+    font-size: 13px;
+}
+
+.ht-rev__content .description,
+.ht-rev__content .description p {
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--ht-rev-ink);
+}
+
+.ht-rev__content .description > * + * {
+    margin-top: 8px;
+}
+
+.ht-rev__photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-rev__photo img {
+    display: block;
+    width: 120px;
+    height: 161px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+/* raspunsurile la o recenzie */
+.ht-rev__item .children {
+    margin: 12px 0 0 24px;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-rev__empty {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--ht-rev-soft);
+}
+
+.ht-rev__empty-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.ht-rev__empty-text {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ht-rev-dim);
+}
+
+.ht-rev__notice {
+    padding: 16px;
+    border-radius: 12px;
+    background: var(--ht-rev-soft);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ht-rev-dim);
+}
+
+/* ---------------------------------------------------------------------------
+ * Formularul
+ * ------------------------------------------------------------------------ */
+
+.ht-rev__respond {
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--ht-rev-soft);
+    scroll-margin-top: 120px;
+}
+
+.ht-rev__form-title {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.ht-rev__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ht-rev__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.ht-rev__label {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #212529;
+}
+
+.ht-rev__input,
+.ht-rev__textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--ht-rev-ink);
+    font-size: 16px;
+    line-height: 22px;
+    outline: none;
+    transition: border-color .2s ease;
+}
+
+.ht-rev__input:focus,
+.ht-rev__textarea:focus {
+    border-color: var(--ht-rev-green);
+}
+
+.ht-rev__textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.ht-rev__picker {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.ht-rev__star {
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.ht-rev__star .ht-stars__icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--ht-rev-star-off);
+    transition: fill .15s ease;
+}
+
+.ht-rev__picker:hover .ht-rev__star .ht-stars__icon,
+.ht-rev__star-input:checked ~ .ht-rev__star .ht-stars__icon {
+    fill: var(--ht-rev-star);
+}
+
+.ht-rev__star:hover ~ .ht-rev__star .ht-stars__icon,
+.ht-rev__picker:hover .ht-rev__star:hover .ht-stars__icon {
+    fill: var(--ht-rev-star);
+}
+
+.ht-rev__star-input:focus-visible + .ht-rev__star .ht-stars__icon {
+    outline: 2px solid var(--ht-rev-green);
+    outline-offset: 2px;
+}
+
+.ht-rev__actions {
+    margin: 0;
+}
+
+.ht-rev__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 10px 24px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--ht-rev-green);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.ht-rev__submit:hover {
+    background: var(--brand-dark);
+}
+
+.ht-rev .woocommerce-pagination ul {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane mai mici
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+    .ht-rev {
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 48px;
+    }
+
+    .ht-rev__aside {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 560px) {
+    .ht-rev__head {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .ht-rev__tabs {
+        gap: 20px;
+    }
+
+    .ht-rev__sort {
+        align-self: flex-end;
+        font-size: 14px;
+    }
+
+    .ht-rev__item-inner,
+    .ht-rev__summary,
+    .ht-rev__respond,
+    .ht-rev__empty {
+        padding: 16px;
+    }
+}

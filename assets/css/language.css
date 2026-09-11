@@ -1,0 +1,152 @@
+/*
+ * Comutatorul de limba: in randul de meniu, lipit la dreapta, si desfasurat in
+ * drawer-ul de pe mobil, unde randul de meniu e ascuns.
+ *
+ * Titlul sectiunii din drawer (.ht-drawer__section-title) si distantele lui
+ * sunt definite in header.css, impreuna cu sectiunea de orase.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Randul de meniu
+ * ------------------------------------------------------------------------ */
+
+.ht-lang {
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.ht-header .ht-lang__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: var(--ht-nav-h);
+    color: var(--ht-text);
+    font-size: 1.8rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    transition: opacity .2s ease;
+}
+
+.ht-header .ht-lang__toggle:hover {
+    opacity: .6;
+}
+
+.ht-lang__flag {
+    display: block;
+    flex: 0 0 auto;
+    width: 18px;
+    height: auto;
+    border-radius: 2px;
+}
+
+.ht-lang__list {
+    position: absolute;
+    right: 0;
+    top: calc(100% - 6px);
+    z-index: 5;
+    min-width: 100%;
+    margin: 0;
+    padding: 6px 0;
+    list-style: none;
+    background: var(--ht-bg);
+    border: 1px solid var(--ht-line);
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+}
+
+.ht-lang__list.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+.ht-header .ht-lang__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 9px 16px;
+    color: var(--ht-text);
+    font-size: 1.6rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-header .ht-lang__link:hover {
+    background: #f2f5f2;
+    color: var(--ht-green);
+}
+
+.ht-header .ht-lang__link.is-current {
+    color: var(--ht-green);
+    font-weight: 500;
+}
+
+/*
+ * Peste hero header-ul e transparent, deci textul trece pe alb impreuna cu
+ * meniul. Lista derulanta ramane alba: are fundal propriu.
+ */
+.ht-header--overlay .ht-lang__toggle {
+    color: #fff;
+}
+
+.ht-header--overlay.is-stuck .ht-lang__toggle,
+.ht-header--overlay.is-panel-open .ht-lang__toggle {
+    color: var(--ht-text);
+}
+
+/* ---------------------------------------------------------------------------
+ * Drawer
+ * ------------------------------------------------------------------------ */
+
+.ht-drawer__lang {
+    margin-top: 28px;
+}
+
+.ht-drawer__langs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-drawer .ht-drawer__lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 15px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.2;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.ht-drawer .ht-drawer__lang-btn:hover {
+    border-color: var(--text);
+    color: var(--text);
+}
+
+.ht-drawer .ht-drawer__lang-btn.is-active {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane mici
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 1280px) {
+    .ht-header .ht-lang__toggle {
+        font-size: 1.6rem;
+    }
+}

@@ -1,0 +1,647 @@
+/*
+ * Pagina de contact.
+ *
+ * Masuratorile vin din Figma (frame-ul "Contact", 1920x1987), luate pe un
+ * container de 1440px: cartonasul din stanga 704px, spatiu 56px, formularul
+ * umple restul. Latimile sunt scrise ca procent din container, ca sa tina
+ * aceleasi proportii si pe wrapper-ul temei (1520px).
+ */
+
+.ht-contact {
+    --ht-contact-ink: #1a1a1a;
+    --ht-contact-title: #191a24;
+    --ht-contact-body: #202020;
+    --ht-contact-green: #567c55;
+    --ht-contact-green-dark: #43613f;
+    --ht-contact-label: #789677;
+    --ht-contact-card: #f0f1ee;
+    --ht-contact-line: #fff;
+    --ht-contact-field: #f9f9f9;
+    --ht-contact-border: #d3d3d3;
+    --ht-contact-placeholder: #8f9396;
+    --ht-contact-error: #ff4949;
+
+    /*
+     * Cartonasul e desenat cu 80% opacitate peste fundalul paginii. Se pune pe
+     * tot blocul, ca in referinta; se scoate de aici, dintr-un singur loc.
+     */
+    --ht-contact-card-opacity: .8;
+
+    /* header-ul e lipit sus: 72px bara de sus + 48px meniul + linia */
+    --ht-contact-sticky: 145px;
+
+    padding: 32px 0 120px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Firimiturile
+ * ------------------------------------------------------------------------ */
+
+.ht-contact__crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    line-height: 27px;
+}
+
+.ht-contact__crumbs a,
+.ht-contact__crumb-sep {
+    color: var(--ht-contact-green);
+}
+
+.ht-contact__crumbs a:hover {
+    color: var(--brand-dark);
+}
+
+.ht-contact__crumb-current {
+    color: var(--ht-contact-title);
+}
+
+/* ---------------------------------------------------------------------------
+ * Titlul si textul de sub el
+ * ------------------------------------------------------------------------ */
+
+.ht-contact__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin-top: 32px;
+    text-align: center;
+}
+
+.ht-contact__title {
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 55px;
+    color: #000;
+}
+
+.ht-contact__intro {
+    max-width: 67.5%; /* 972 din 1440 */
+}
+
+.ht-contact__intro p {
+    font-size: 17px;
+    line-height: 22px;
+    color: var(--ht-contact-body);
+}
+
+.ht-contact__intro p + p {
+    margin-top: 12px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Cele doua coloane
+ * ------------------------------------------------------------------------ */
+
+.ht-contact__body {
+    display: flex;
+    align-items: flex-start;
+    gap: 3.889%; /* 56 din 1440 */
+    margin-top: 48px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Cartonasul cu datele de contact
+ * ------------------------------------------------------------------------ */
+
+.ht-contact__card {
+    flex: 0 0 48.889%; /* 704 din 1440 */
+    max-width: 48.889%;
+}
+
+.ht-contact__photo {
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+}
+
+.ht-contact__photo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 704 / 260;
+    object-fit: cover;
+}
+
+.ht-contact__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 40px;
+    border-radius: 0 0 16px 16px;
+    background: var(--ht-contact-card);
+    opacity: var(--ht-contact-card-opacity);
+}
+
+.ht-contact__card-title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--ht-contact-ink);
+}
+
+.ht-contact__methods {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-size: inherit;
+}
+
+/*
+ * Liniile despartitoare din referinta sunt trase intre randuri, la 18px de
+ * fiecare: gap-ul da distanta de deasupra, padding-ul pe cea de dedesubt.
+ */
+.ht-contact__method + .ht-contact__method {
+    padding-top: 18px;
+    border-top: 1px solid var(--ht-contact-line);
+}
+
+.ht-contact__method {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.ht-contact__method--stack {
+    align-items: flex-start;
+}
+
+.ht-contact__method-icon {
+    display: flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--ht-contact-green);
+    border-radius: 200px;
+    background: var(--ht-contact-green);
+    color: #fff;
+}
+
+.ht-contact__method-glyph {
+    display: flex;
+}
+
+.ht-contact__method-glyph svg {
+    display: block;
+}
+
+.ht-contact__method-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.ht-contact__method-label {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 17px;
+    color: var(--ht-contact-label);
+}
+
+.ht-contact__method-value {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    color: var(--ht-contact-ink);
+}
+
+a.ht-contact__method-value:hover {
+    color: var(--ht-contact-green);
+}
+
+.ht-contact__method-line {
+    display: block;
+}
+
+/* ultimul rand sta la 46px de linia de deasupra blocului cu retelele sociale */
+.ht-contact__social {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 46px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ht-contact-line);
+}
+
+/* textul vine pe paragrafe, fie din design, fie scris in editorul ACF */
+.ht-contact__social-text,
+.ht-contact__social-text p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    color: var(--ht-contact-ink);
+}
+
+.ht-contact__social-text p + p {
+    margin-top: 12px;
+}
+
+.ht-contact__social-text a,
+.ht-contact__social-link {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* in design, Instagram e mai gros decat Facebook; din editor se ingroasa cu <strong> */
+.ht-contact__social-text a strong,
+.ht-contact__social-link--bold {
+    font-weight: 700;
+}
+
+.ht-contact__social-text a:hover,
+.ht-contact__social-link:hover {
+    color: var(--ht-contact-green);
+}
+
+/* ---------------------------------------------------------------------------
+ * Formularul
+ * ------------------------------------------------------------------------ */
+
+.ht-contact__form-col {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 28px;
+    min-width: 0;
+    position: sticky;
+    top: calc(var(--ht-contact-sticky) + 24px);
+}
+
+.ht-contact__form-title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--ht-contact-ink);
+}
+
+.ht-contact__notice {
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+.ht-contact__notice--ok {
+    border: 1px solid var(--ht-contact-green);
+    background: #eef7eb;
+    color: var(--ht-contact-green);
+}
+
+.ht-contact__notice--error {
+    border: 1px solid var(--ht-contact-error);
+    background: #ffe0e1;
+    color: var(--ht-contact-error);
+}
+
+.ht-contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.ht-contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+}
+
+.ht-contact__label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: var(--ht-contact-title);
+}
+
+/*
+ * Casuta are 50px in referinta, cu textul la 14px de margine. Conturul de 1px
+ * intra in inaltime, deci padding-ul ramane 6px pe verticala si 13px lateral.
+ */
+.ht-contact__input {
+    width: 100%;
+    padding: 6px 13px;
+    border: 1px solid var(--ht-contact-border);
+    border-radius: 8px;
+    background: var(--ht-contact-field);
+    color: var(--ht-contact-title);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 36px;
+    outline: none;
+    transition: border-color .2s ease;
+}
+
+.ht-contact__input::placeholder {
+    color: var(--ht-contact-placeholder);
+    opacity: 1;
+}
+
+.ht-contact__input:focus {
+    border-color: var(--ht-contact-green);
+}
+
+.ht-contact__input--area {
+    height: 154px;
+    resize: vertical;
+}
+
+.ht-contact__field--error .ht-contact__input {
+    border-color: var(--ht-contact-error);
+}
+
+.ht-contact__error {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ht-contact-error);
+}
+
+/* capcana pentru roboti: ramane in pagina, dar nu se vede */
+.ht-contact__trap {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.ht-contact__submit {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ht-contact__consent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin: 0;
+}
+
+.ht-contact__checkbox {
+    flex: 0 0 13px;
+    width: 13px;
+    height: 13px;
+    margin: 6px 0 0;
+    border: 1px solid var(--ht-contact-border);
+    border-radius: 2px;
+    accent-color: var(--ht-contact-green);
+    cursor: pointer;
+}
+
+.ht-contact__consent-text {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: var(--ht-contact-title);
+    cursor: pointer;
+}
+
+.ht-contact__consent-link {
+    text-decoration: underline;
+}
+
+.ht-contact__consent-link:hover {
+    color: var(--ht-contact-green);
+}
+
+.ht-contact__consent--error .ht-contact__checkbox {
+    border-color: var(--ht-contact-error);
+}
+
+.ht-contact__consent .ht-contact__error {
+    flex: 1 0 100%;
+}
+
+/* butonul sta intr-un invelis, ca rotita CF7 sa aiba de ce se agata */
+.ht-contact__submit-btn {
+    display: block;
+    position: relative;
+}
+
+.ht-contact__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    padding: 10px 24px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--ht-contact-green);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.ht-contact__button:hover {
+    background: var(--ht-contact-green-dark);
+}
+
+.ht-contact__button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+ * Contact Form 7
+ *
+ * Pluginul isi imbraca fiecare camp in <span>-uri proprii si isi pune mesajele
+ * la coada formularului. Aici sunt aduse la desenul de mai sus.
+ * ------------------------------------------------------------------------ */
+
+.ht-contact .wpcf7 {
+    width: 100%;
+}
+
+.ht-contact .wpcf7-form-control-wrap {
+    display: block;
+}
+
+.ht-contact .wpcf7-not-valid-tip {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ht-contact-error);
+}
+
+.ht-contact .wpcf7-form-control.wpcf7-not-valid {
+    border-color: var(--ht-contact-error);
+}
+
+/* mesajul de raspuns e randat ultimul, dar in desen sta deasupra campurilor */
+.ht-contact .wpcf7-form .wpcf7-response-output {
+    order: -1;
+    margin: 0;
+    padding: 14px 18px;
+    border-width: 1px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+.ht-contact .wpcf7-form.sent .wpcf7-response-output {
+    border-color: var(--ht-contact-green);
+    background: #eef7eb;
+    color: var(--ht-contact-green);
+}
+
+.ht-contact .wpcf7-form.invalid .wpcf7-response-output,
+.ht-contact .wpcf7-form.unaccepted .wpcf7-response-output,
+.ht-contact .wpcf7-form.payment-required .wpcf7-response-output,
+.ht-contact .wpcf7-form.spam .wpcf7-response-output,
+.ht-contact .wpcf7-form.aborted .wpcf7-response-output,
+.ht-contact .wpcf7-form.failed .wpcf7-response-output {
+    border-color: var(--ht-contact-error);
+    background: #ffe0e1;
+    color: var(--ht-contact-error);
+}
+
+/* bifa: pluginul o inveleste in span + label, deci flex-ul coboara pe label */
+.ht-contact__consent > .wpcf7-form-control-wrap {
+    flex: 1 1 100%;
+    min-width: 0;
+}
+
+.ht-contact__consent .wpcf7-acceptance {
+    display: block;
+}
+
+.ht-contact__consent .wpcf7-list-item {
+    display: block;
+    margin: 0;
+}
+
+.ht-contact__consent .wpcf7-list-item > label {
+    display: flex;
+    align-items: flex-start;
+    gap: 3px;
+    cursor: pointer;
+}
+
+.ht-contact__consent .wpcf7-list-item-label {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: var(--ht-contact-title);
+}
+
+/* pluginul lipeste cate un spatiu de o parte si de alta a textului */
+.ht-contact__consent .wpcf7-list-item-label::before,
+.ht-contact__consent .wpcf7-list-item-label::after {
+    content: none;
+}
+
+/* rotita de asteptare sta peste buton, nu sub el */
+.ht-contact .wpcf7-spinner {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    margin: 0;
+    transform: translateY(-50%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane mici
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 1200px) {
+    .ht-contact__title {
+        font-size: 40px;
+        line-height: 48px;
+    }
+
+    .ht-contact__intro {
+        max-width: 80%;
+    }
+
+    .ht-contact__card-body {
+        padding: 32px;
+    }
+}
+
+@media (max-width: 992px) {
+    .ht-contact {
+        padding: 24px 0 80px;
+    }
+
+    .ht-contact__body {
+        flex-direction: column;
+        gap: 40px;
+        margin-top: 40px;
+    }
+
+    .ht-contact__card,
+    .ht-contact__form-col {
+        flex: 1 1 auto;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .ht-contact__form-col {
+        position: static;
+    }
+
+    .ht-contact__intro {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .ht-contact {
+        padding: 20px 0 56px;
+    }
+
+    .ht-contact__head {
+        margin-top: 24px;
+        gap: 12px;
+    }
+
+    .ht-contact__title {
+        font-size: 32px;
+        line-height: 38px;
+    }
+
+    .ht-contact__card-body {
+        padding: 24px 20px;
+        gap: 22px;
+    }
+
+    .ht-contact__card-title,
+    .ht-contact__form-title {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .ht-contact__method {
+        align-items: flex-start;
+    }
+
+    .ht-contact__social {
+        margin-top: 32px;
+    }
+
+    .ht-contact__input {
+        line-height: 28px;
+    }
+
+    .ht-contact__input--area {
+        height: 132px;
+    }
+}

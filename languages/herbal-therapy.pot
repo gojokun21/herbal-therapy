@@ -1,0 +1,1785 @@
+# Copyright (C) Wavenity
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Herbal Therapy 1.0.0\n"
+"Report-Msgid-Bugs-To: https://www.wavenity.com\n"
+"POT-Creation-Date: 2026-09-11 10:07+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: bin/make-pot.php\n"
+"X-Domain: herbal-therapy\n"
+
+#: 404.php:14
+#: inc/template-tags.php:168
+msgid "Pagina nu a fost găsită"
+msgstr ""
+
+#: 404.php:15
+msgid "Pagina căutată nu există sau a fost mutată. Încearcă o căutare sau întoarce-te la prima pagină."
+msgstr ""
+
+#: 404.php:21
+msgid "Înapoi la prima pagină"
+msgstr ""
+
+#: header.php:102
+#: inc/setup.php:48
+msgid "Meniu principal"
+msgstr ""
+
+#: header.php:120
+#: inc/minicart.php:526
+#: inc/single-product.php:1433
+msgid "Închide"
+msgstr ""
+
+#: header.php:136
+msgid "Orașul tău"
+msgstr ""
+
+#: header.php:34
+#: header.php:117
+msgid "Meniu"
+msgstr ""
+
+#: header.php:66
+msgid "Acțiuni rapide"
+msgstr ""
+
+#: header.php:72
+#: searchform.php:15
+msgid "Caută pe site"
+msgstr ""
+
+#: header.php:78
+#: inc/account.php:230
+#: inc/favorites.php:649
+#: woocommerce/myaccount/navigation.php:36
+msgid "Favorite"
+msgstr ""
+
+#: header.php:85
+#: inc/account.php:193
+#: inc/cart.php:175
+#: woocommerce/checkout/thankyou.php:40
+msgid "Contul meu"
+msgstr ""
+
+#: header.php:93
+msgid "Coș"
+msgstr ""
+
+#: inc/about.php:245
+#: inc/b2b.php:609
+#: inc/blog-archive.php:185
+#: inc/contact.php:656
+msgid "Firimituri"
+msgstr ""
+
+#: inc/about.php:246
+#: inc/b2b.php:610
+#: inc/blog-archive.php:186
+#: inc/cart.php:174
+#: inc/contact.php:657
+#: inc/single-product.php:1378
+msgid "Acasă"
+msgstr ""
+
+#: inc/about.php:515
+#: inc/home-about.php:105
+msgid "Despre noi"
+msgstr ""
+
+#: inc/account.php:209
+msgid "Comenzile mele"
+msgstr ""
+
+#. translators: %s: numarul de comenzi.
+#: inc/account.php:212
+#, php-format
+msgid "%s comandă plasată"
+msgid_plural "%s comenzi plasate"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/account.php:213
+msgid "Încă nu ai plasat nicio comandă"
+msgstr ""
+
+#: inc/account.php:218
+msgid "Adrese"
+msgstr ""
+
+#: inc/account.php:219
+msgid "Adresele de livrare și de facturare"
+msgstr ""
+
+#: inc/account.php:224
+msgid "Detaliile contului"
+msgstr ""
+
+#: inc/account.php:225
+msgid "Datele personale și parola"
+msgstr ""
+
+#: inc/account.php:231
+msgid "Produsele pe care le-ai salvat"
+msgstr ""
+
+#: inc/admin.php:108
+#: inc/admin.php:109
+msgid "Setări generale"
+msgstr ""
+
+#: inc/b2b.php:242
+msgid "Nume companie"
+msgstr ""
+
+#: inc/b2b.php:243
+msgid "Introduceți denumirea companiei"
+msgstr ""
+
+#: inc/b2b.php:250
+msgid "Domeniul de activitate"
+msgstr ""
+
+#: inc/b2b.php:251
+msgid "Alege domeniul de activitate"
+msgstr ""
+
+#: inc/b2b.php:256
+msgid "Farmacie"
+msgstr ""
+
+#: inc/b2b.php:257
+msgid "Magazin naturist"
+msgstr ""
+
+#: inc/b2b.php:258
+msgid "Magazin online"
+msgstr ""
+
+#: inc/b2b.php:259
+msgid "Distribuitor"
+msgstr ""
+
+#: inc/b2b.php:260
+msgid "Clinică sau cabinet medical"
+msgstr ""
+
+#: inc/b2b.php:261
+msgid "Salon sau centru SPA"
+msgstr ""
+
+#: inc/b2b.php:262
+#: inc/b2b.php:285
+#: inc/b2b.php:315
+msgid "Altele"
+msgstr ""
+
+#: inc/b2b.php:266
+#: inc/contact.php:382
+msgid "Nume și prenume"
+msgstr ""
+
+#: inc/b2b.php:267
+msgid "Persoana de contact"
+msgstr ""
+
+#: inc/b2b.php:274
+msgid "Funcția în companie"
+msgstr ""
+
+#: inc/b2b.php:275
+msgid "Alege funcția în companie"
+msgstr ""
+
+#: inc/b2b.php:280
+msgid "Administrator"
+msgstr ""
+
+#: inc/b2b.php:281
+msgid "Director"
+msgstr ""
+
+#: inc/b2b.php:282
+msgid "Manager achiziții"
+msgstr ""
+
+#: inc/b2b.php:283
+msgid "Farmacist"
+msgstr ""
+
+#: inc/b2b.php:284
+msgid "Reprezentant vânzări"
+msgstr ""
+
+#: inc/b2b.php:289
+#: inc/contact.php:396
+msgid "Telefon"
+msgstr ""
+
+#: inc/b2b.php:290
+msgid "Introduceți număr de telefon"
+msgstr ""
+
+#: inc/b2b.php:297
+#: inc/contact.php:389
+msgid "Email"
+msgstr ""
+
+#: inc/b2b.php:298
+msgid "Introduceți email"
+msgstr ""
+
+#: inc/b2b.php:305
+msgid "Tipul de partener"
+msgstr ""
+
+#: inc/b2b.php:306
+msgid "Alege tipul de partener"
+msgstr ""
+
+#: inc/b2b.php:311
+msgid "Revânzare"
+msgstr ""
+
+#: inc/b2b.php:312
+msgid "Distribuție"
+msgstr ""
+
+#: inc/b2b.php:313
+msgid "Marcă proprie"
+msgstr ""
+
+#: inc/b2b.php:314
+msgid "Colaborare pe termen lung"
+msgstr ""
+
+#: inc/b2b.php:319
+msgid "Comentarii"
+msgstr ""
+
+#: inc/b2b.php:320
+msgid "Spune-ne mai multe despre compania ta sau despre tipul de colaborare dorit."
+msgstr ""
+
+#: inc/b2b.php:481
+#: inc/contact.php:527
+msgid "Sesiunea a expirat. Încearcă din nou."
+msgstr ""
+
+#: inc/b2b.php:520
+msgid "Completează acest câmp."
+msgstr ""
+
+#: inc/b2b.php:526
+#: inc/contact.php:560
+msgid "Emailul nu pare valid."
+msgstr ""
+
+#. translators: %s: numele site-ului.
+#: inc/b2b.php:540
+#, php-format
+msgid "[%s] Solicitare nouă de colaborare B2B"
+msgstr ""
+
+#: inc/b2b.php:564
+msgid "Solicitarea nu a putut fi trimisă. Încearcă mai târziu sau scrie-ne pe email."
+msgstr ""
+
+#: inc/b2b.php:729
+msgid "Mulțumim! Am primit solicitarea și revenim cu un răspuns cât de repede putem."
+msgstr ""
+
+#: inc/b2b.php:747
+#: inc/contact.php:861
+msgid "Lasă câmpul gol"
+msgstr ""
+
+#: inc/b2b.php:765
+msgid "Trimite solicitarea"
+msgstr ""
+
+#: inc/b2b.php:782
+msgid "B2B"
+msgstr ""
+
+#: inc/blog-archive.php:217
+#: inc/blog-archive.php:221
+msgid "Toate temele"
+msgstr ""
+
+#: inc/blog-archive.php:248
+msgid "Arată articolele"
+msgstr ""
+
+#: inc/blog-archive.php:322
+msgid "Paginare articole"
+msgstr ""
+
+#: inc/blog-archive.php:361
+msgid "Blog"
+msgstr ""
+
+#: inc/blog-archive.php:400
+msgid "Nu am găsit articole pentru temele alese."
+msgstr ""
+
+#: inc/blog.php:195
+#: templates/home-template.php:58
+msgid "Noutăți"
+msgstr ""
+
+#: inc/blog.php:197
+msgid "Vezi mai multe articole"
+msgstr ""
+
+#: inc/blog.php:235
+#: inc/categories.php:379
+#: inc/home-reviews.php:192
+#: inc/minicart.php:489
+#: inc/navigation.php:51
+#: inc/products.php:472
+#: inc/single-product.php:868
+#: inc/top-sales.php:251
+msgid "Înapoi"
+msgstr ""
+
+#: inc/blog.php:239
+#: inc/categories.php:383
+#: inc/home-reviews.php:196
+#: inc/minicart.php:493
+#: inc/navigation.php:52
+#: inc/products.php:476
+#: inc/single-product.php:872
+#: inc/top-sales.php:269
+msgid "Înainte"
+msgstr ""
+
+#: inc/blog.php:256
+msgid "Noutăți din blog"
+msgstr ""
+
+#: inc/blog.php:258
+msgid "Mergi la blog"
+msgstr ""
+
+#: inc/blog.php:346
+msgid "Citește mai multe articole"
+msgstr ""
+
+#: inc/blog.php:348
+msgid "Toate articolele"
+msgstr ""
+
+#. translators: %s: numarul de produse din cos.
+#. translators: %s: numarul de produse din categorie.
+#: inc/cart.php:161
+#: inc/categories.php:334
+#, php-format
+msgid "%s produs"
+msgid_plural "%s produse"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/cart.php:176
+#: templates/cart.php:20
+msgid "Produse în coșul tău"
+msgstr ""
+
+#: inc/cart.php:181
+msgid "Navigare"
+msgstr ""
+
+#: inc/cart.php:238
+#: inc/minicart.php:298
+msgid "1 buc."
+msgstr ""
+
+#: inc/cart.php:244
+#: inc/minicart.php:304
+#: inc/single-product.php:793
+msgid "Scade cantitatea"
+msgstr ""
+
+#: inc/cart.php:250
+#: inc/minicart.php:310
+#: inc/single-product.php:811
+msgid "Cantitate"
+msgstr ""
+
+#: inc/cart.php:254
+#: inc/minicart.php:314
+#: inc/single-product.php:816
+msgid "Crește cantitatea"
+msgstr ""
+
+#: inc/cart.php:268
+#: inc/minicart.php:291
+msgid "Șterge din coș"
+msgstr ""
+
+#: inc/cart.php:319
+msgid "Total"
+msgstr ""
+
+#: inc/cart.php:334
+#: inc/products.php:112
+msgid "Reducere"
+msgstr ""
+
+#: inc/cart.php:341
+#: inc/single-product.php:1128
+msgid "TVA inclus"
+msgstr ""
+
+#: inc/cart.php:347
+#: inc/checkout.php:659
+#: inc/checkout.php:660
+msgid "Cod promoțional"
+msgstr ""
+
+#: inc/cart.php:350
+#: inc/checkout.php:663
+msgid "Aplică"
+msgstr ""
+
+#: inc/cart.php:360
+#: inc/minicart.php:362
+msgid "Anulează"
+msgstr ""
+
+#: inc/cart.php:370
+msgid "Finalizează comanda"
+msgstr ""
+
+#: inc/cart.php:383
+#: inc/minicart.php:227
+#: templates/checkout.php:37
+msgid "Coșul tău este gol"
+msgstr ""
+
+#: inc/cart.php:385
+#: inc/minicart.php:228
+#: templates/checkout.php:39
+msgid "Alege produsele care îți plac și revino aici ca să finalizezi comanda."
+msgstr ""
+
+#: inc/cart.php:388
+#: inc/minicart.php:230
+#: templates/checkout.php:42
+#: woocommerce/checkout/cart-errors.php:30
+msgid "Către catalog"
+msgstr ""
+
+#: inc/catalog.php:161
+msgid "Catalog"
+msgstr ""
+
+#: inc/catalog.php:233
+msgid "Vezi toate produsele din această categorie."
+msgstr ""
+
+#: inc/catalog.php:243
+msgid "Vezi toate produsele"
+msgstr ""
+
+#: inc/categories.php:356
+#: inc/categories.php:426
+#: templates/home-template.php:27
+msgid "Categorii de produse"
+msgstr ""
+
+#: inc/categories.php:359
+#: inc/categories.php:435
+msgid "Vezi toate categoriile"
+msgstr ""
+
+#: inc/checkout.php:324
+#, php-format
+msgid "%s (livrare)"
+msgstr ""
+
+#: inc/checkout.php:330
+#, php-format
+msgid "Te rugăm să completezi câmpul %s."
+msgstr ""
+
+#: inc/checkout.php:334
+#, php-format
+msgid "%s nu pare un număr de telefon valid."
+msgstr ""
+
+#: inc/checkout.php:338
+#, php-format
+msgid "%s nu pare o adresă de email validă."
+msgstr ""
+
+#: inc/checkout.php:469
+msgid "Bloc, scară, interfon, ora la care vrei livrarea..."
+msgstr ""
+
+#: inc/checkout.php:514
+msgid "Plasează comanda"
+msgstr ""
+
+#: inc/checkout.php:683
+msgid "Mulțumim pentru comandă"
+msgstr ""
+
+#: inc/checkout.php:687
+msgid "Plata comenzii"
+msgstr ""
+
+#: inc/checkout.php:690
+#: woocommerce/checkout/form-checkout.php:35
+msgid "Finalizare comandă"
+msgstr ""
+
+#: inc/checkout.php:97
+#: inc/minicart.php:665
+msgid "Introdu un cod promoțional."
+msgstr ""
+
+#: inc/checkout.php:98
+msgid "Nu am putut aplica codul. Încearcă din nou."
+msgstr ""
+
+#: inc/contact.php:283
+msgid "politicii de confidențialitate"
+msgstr ""
+
+#: inc/contact.php:383
+#: inc/reviews.php:349
+msgid "Numele tău"
+msgstr ""
+
+#: inc/contact.php:390
+#: woocommerce/myaccount/form-login.php:123
+msgid "exemplu@email.com"
+msgstr ""
+
+#: inc/contact.php:397
+msgid "07xx xxx xxx"
+msgstr ""
+
+#: inc/contact.php:403
+msgid "Mesaj"
+msgstr ""
+
+#: inc/contact.php:404
+msgid "Scrie mesajul tău aici..."
+msgstr ""
+
+#: inc/contact.php:554
+msgid "Spune-ne cum te cheamă."
+msgstr ""
+
+#: inc/contact.php:558
+msgid "Avem nevoie de un email ca să îți răspundem."
+msgstr ""
+
+#: inc/contact.php:564
+msgid "Scrie-ne câteva rânduri."
+msgstr ""
+
+#: inc/contact.php:568
+msgid "Bifează acordul pentru prelucrarea datelor."
+msgstr ""
+
+#. translators: %s: numele site-ului.
+#: inc/contact.php:581
+#, php-format
+msgid "[%s] Mesaj nou din formularul de contact"
+msgstr ""
+
+#. translators: %s: numele expeditorului.
+#: inc/contact.php:587
+#, php-format
+msgid "Nume: %s"
+msgstr ""
+
+#. translators: %s: adresa de e-mail a expeditorului.
+#: inc/contact.php:589
+#, php-format
+msgid "Email: %s"
+msgstr ""
+
+#. translators: %s: numarul de telefon al expeditorului.
+#: inc/contact.php:591
+#, php-format
+msgid "Telefon: %s"
+msgstr ""
+
+#: inc/contact.php:593
+msgid "Mesaj:"
+msgstr ""
+
+#: inc/contact.php:611
+msgid "Mesajul nu a putut fi trimis. Încearcă mai târziu sau scrie-ne pe email."
+msgstr ""
+
+#. translators: %s: legatura catre politica de confidentialitate.
+#: inc/contact.php:837
+#, php-format
+msgid "Sunt de acord cu prelucrarea datelor conform %s."
+msgstr ""
+
+#: inc/contact.php:843
+msgid "Mulțumim! Mesajul a plecat spre noi și îți răspundem cât de repede putem."
+msgstr ""
+
+#: inc/contact.php:888
+msgid "Trimite mesajul"
+msgstr ""
+
+#: inc/contact.php:905
+msgid "Contact"
+msgstr ""
+
+#: inc/favorites.php:552
+msgid "Lipsește produsul."
+msgstr ""
+
+#: inc/favorites.php:570
+msgid "Produsul nu mai este disponibil."
+msgstr ""
+
+#: inc/favorites.php:719
+msgid "Adaugă la favorite"
+msgstr ""
+
+#: inc/favorites.php:720
+msgid "Șterge din favorite"
+msgstr ""
+
+#. translators: 1: anul curent, 2: numele site-ului.
+#: inc/footer.php:278
+#, php-format
+msgid "&copy; %1$s %2$s &mdash; Toate drepturile rezervate"
+msgstr ""
+
+#: inc/footer.php:96
+msgid "Legal"
+msgstr ""
+
+#: inc/hero-slider.php:42
+msgid "Descoperă produsele"
+msgstr ""
+
+#: inc/hero-slider.php:72
+msgid "Publicitate"
+msgstr ""
+
+#. translators: %d: pozitia slide-ului in carusel.
+#: inc/hero-slider.php:91
+#, php-format
+msgid "Slide %d"
+msgstr ""
+
+#: inc/home-about.php:111
+msgid "Fabrica Farmaceutică din Chișinău, Republica Moldova"
+msgstr ""
+
+#: inc/home-about.php:115
+msgid "Herbal Therapy este un brand care vine în ajutorul tău, ca tu să ai acces la nenumăratele beneficii ale naturii."
+msgstr ""
+
+#: inc/home-benefits.php:165
+msgid "Puterea naturii, concentrată în fiecare produs"
+msgstr ""
+
+#: inc/home-benefits.php:65
+msgid "Formule Unice"
+msgstr ""
+
+#: inc/home-benefits.php:66
+msgid "Produsele noastre conțin <strong>extracte personalizate</strong>, dezvoltate special <strong>pentru a aborda nevoile tale specifice</strong>."
+msgstr ""
+
+#: inc/home-benefits.php:73
+msgid "Eficiență Maximă"
+msgstr ""
+
+#: inc/home-benefits.php:74
+msgid "Realizarea internă a extractelor ne permite să <strong>maximizăm concentrația compușilor activi</strong>, oferind <strong>produse mai eficiente</strong> și <strong>rezultate mai rapide</strong>."
+msgstr ""
+
+#: inc/home-benefits.php:81
+msgid "Calitate Garantată"
+msgstr ""
+
+#: inc/home-benefits.php:82
+msgid "Ne monitorizăm direct procesul de producție, asigurându-ne că <strong>plantele sunt cultivate organic</strong>, <strong>fără pesticide sau chimicale</strong> dăunătoare."
+msgstr ""
+
+#: inc/home-benefits.php:89
+msgid "Grijă pentru Mediu"
+msgstr ""
+
+#: inc/home-benefits.php:90
+msgid "Prin producția internă a extractelor, adoptăm practici ecologice ce reduc impactul asupra mediului și <strong>susțin un viitor sănătos pentru tine și cei dragi.</strong>"
+msgstr ""
+
+#: inc/home-reviews.php:170
+#: inc/home-reviews.php:226
+msgid "Ce spun clienții"
+msgstr ""
+
+#: inc/home-reviews.php:95
+msgid "Client"
+msgstr ""
+
+#: inc/language.php:127
+msgid "Limba site-ului:"
+msgstr ""
+
+#: inc/language.php:162
+msgid "Limba"
+msgstr ""
+
+#: inc/minicart.php:166
+#: inc/minicart.php:175
+#: woocommerce/checkout/form-shipping.php:33
+msgid "Livrare"
+msgstr ""
+
+#: inc/minicart.php:190
+msgid "Gratuit"
+msgstr ""
+
+#: inc/minicart.php:347
+msgid "Ai un cod promoțional?"
+msgstr ""
+
+#: inc/minicart.php:351
+msgid "Activează"
+msgstr ""
+
+#: inc/minicart.php:383
+#: woocommerce/checkout/review-order.php:61
+msgid "Valoarea produselor"
+msgstr ""
+
+#: inc/minicart.php:402
+#: woocommerce/checkout/review-order.php:114
+msgid "De plată"
+msgstr ""
+
+#. translators: %s: totalul de plata.
+#: inc/minicart.php:427
+#, php-format
+msgid "Finalizează comanda - %s"
+msgstr ""
+
+#: inc/minicart.php:431
+msgid "Mergi la coș"
+msgstr ""
+
+#: inc/minicart.php:472
+msgid "Cele mai vândute"
+msgstr ""
+
+#: inc/minicart.php:521
+msgid "Coșul tău"
+msgstr ""
+
+#: inc/minicart.php:640
+msgid "Produsul nu mai este în coș."
+msgstr ""
+
+#: inc/minicart.php:646
+#: inc/minicart.php:660
+msgid "Produsul a fost șters din coș."
+msgstr ""
+
+#: inc/minicart.php:673
+msgid "Codul promoțional a fost activat."
+msgstr ""
+
+#: inc/minicart.php:684
+msgid "Codul promoțional a fost anulat."
+msgstr ""
+
+#: inc/minicart.php:728
+msgid "Nu am putut actualiza coșul. Încearcă din nou."
+msgstr ""
+
+#: inc/navigation.php:27
+msgid "Setează meniul principal"
+msgstr ""
+
+#. translators: %d: procentul reducerii.
+#: inc/products.php:112
+#: inc/single-product.php:1104
+#, php-format
+msgid "-%d%%"
+msgstr ""
+
+#: inc/products.php:117
+#: inc/woocommerce.php:310
+msgid "Recomandat"
+msgstr ""
+
+#: inc/products.php:28
+msgid "lei"
+msgstr ""
+
+#: inc/products.php:330
+#: inc/single-product.php:1063
+msgid "Adaugă în coș"
+msgstr ""
+
+#: inc/products.php:398
+#: inc/single-product.php:579
+msgid "Nota medie"
+msgstr ""
+
+#: inc/products.php:403
+#: woocommerce/single-product-reviews.php:32
+msgid "Recenzii"
+msgstr ""
+
+#: inc/products.php:413
+#: inc/single-product.php:1061
+msgid "În coș"
+msgstr ""
+
+#: inc/products.php:437
+#: inc/products.php:508
+#: templates/home-template.php:36
+msgid "Oferte speciale"
+msgstr ""
+
+#: inc/products.php:439
+#: inc/products.php:510
+msgid "Vezi toate"
+msgstr ""
+
+#: inc/reviews.php:283
+msgid "Perfect"
+msgstr ""
+
+#: inc/reviews.php:284
+msgid "Bun"
+msgstr ""
+
+#: inc/reviews.php:285
+msgid "Acceptabil"
+msgstr ""
+
+#: inc/reviews.php:286
+msgid "Slab"
+msgstr ""
+
+#: inc/reviews.php:287
+msgid "Foarte slab"
+msgstr ""
+
+#. translators: 1: nota aleasa, 2: denumirea notei.
+#: inc/reviews.php:303
+#, php-format
+msgid "%1$d din 5 - %2$s"
+msgstr ""
+
+#: inc/reviews.php:315
+msgid "Evaluarea ta"
+msgstr ""
+
+#: inc/reviews.php:333
+#: inc/single-product.php:748
+#: woocommerce/single-product-reviews.php:68
+#: woocommerce/single-product-reviews.php:135
+msgid "Scrie o recenzie"
+msgstr ""
+
+#: inc/reviews.php:339
+msgid "Trimite recenzia"
+msgstr ""
+
+#: inc/reviews.php:357
+#: woocommerce/myaccount/form-login.php:122
+msgid "Adresa de email"
+msgstr ""
+
+#. translators: 1: eticheta de deschidere a legaturii, 2: cea de inchidere.
+#: inc/reviews.php:372
+#, php-format
+msgid "Trebuie să fii %1$sautentificat%2$s ca să lași o recenzie."
+msgstr ""
+
+#: inc/reviews.php:385
+msgid "Recenzia ta"
+msgstr ""
+
+#: inc/reviews.php:386
+msgid "Spune-ne cum ți s-a părut produsul: textura, mirosul, rezultatul după câteva utilizări."
+msgstr ""
+
+#. translators: %s: nota, cu o zecimala.
+#: inc/reviews.php:79
+#, php-format
+msgid "Nota %s din 5"
+msgstr ""
+
+#: inc/search.php:703
+msgid "Căutări recente"
+msgstr ""
+
+#: inc/search.php:706
+msgid "Șterge istoricul"
+msgstr ""
+
+#: inc/search.php:711
+msgid "Categorii potrivite"
+msgstr ""
+
+#: inc/search.php:713
+msgid "Din blog"
+msgstr ""
+
+#: inc/search.php:721
+msgid "Produse găsite"
+msgstr ""
+
+#. translators: %d: numarul total de produse gasite.
+#: inc/search.php:726
+#, php-format
+msgid "%d produs"
+msgid_plural "%d produse"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/search.php:739
+msgid "Vezi toate rezultatele"
+msgstr ""
+
+#: inc/search.php:746
+msgid "Niciun produs pentru această căutare"
+msgstr ""
+
+#: inc/search.php:747
+msgid "Încearcă un cuvânt mai scurt sau alege o categorie."
+msgstr ""
+
+#: inc/search.php:782
+msgid "Caută produse"
+msgstr ""
+
+#: inc/search.php:786
+msgid "Caută un produs, o categorie sau un cod"
+msgstr ""
+
+#: inc/search.php:791
+msgid "Golește câmpul"
+msgstr ""
+
+#: inc/search.php:795
+#: searchform.php:27
+msgid "Caută"
+msgstr ""
+
+#: inc/search.php:800
+msgid "Închide căutarea"
+msgstr ""
+
+#: inc/setup.php:49
+msgid "Meniu footer"
+msgstr ""
+
+#: inc/setup.php:50
+msgid "Meniu de sus"
+msgstr ""
+
+#: inc/setup.php:75
+msgid "Bara laterală"
+msgstr ""
+
+#: inc/setup.php:77
+msgid "Widget-uri afișate în bara laterală."
+msgstr ""
+
+#: inc/setup.php:85
+msgid "Footer"
+msgstr ""
+
+#: inc/setup.php:87
+msgid "Widget-uri afișate în subsolul paginii."
+msgstr ""
+
+#: inc/shipping-progress.php:140
+msgid "Ai livrare gratuită!"
+msgstr ""
+
+#. translators: %s: suma care mai lipseste pana la livrarea gratuita.
+#: inc/shipping-progress.php:145
+#, php-format
+msgid "Mai adaugă produse de %s și ai livrare gratuită!"
+msgstr ""
+
+#: inc/shop-filters.php:1001
+#: inc/shop-filters.php:1013
+msgid "Preț maxim"
+msgstr ""
+
+#: inc/shop-filters.php:1031
+msgid "Disponibilitate"
+msgstr ""
+
+#: inc/shop-filters.php:1044
+msgid "Aplică filtrele"
+msgstr ""
+
+#: inc/shop-filters.php:1069
+msgid "Șterge filtrul"
+msgstr ""
+
+#: inc/shop-filters.php:212
+msgid "Sub 200"
+msgstr ""
+
+#: inc/shop-filters.php:213
+msgid "200 - 500"
+msgstr ""
+
+#: inc/shop-filters.php:214
+msgid "500 - 1 000"
+msgstr ""
+
+#: inc/shop-filters.php:215
+msgid "1 000 - 2 000"
+msgstr ""
+
+#: inc/shop-filters.php:227
+msgid "În Stoc"
+msgstr ""
+
+#: inc/shop-filters.php:228
+#: inc/single-product.php:1094
+msgid "Stoc epuizat"
+msgstr ""
+
+#: inc/shop-filters.php:229
+msgid "Nou"
+msgstr ""
+
+#: inc/shop-filters.php:906
+msgid "Resetare"
+msgstr ""
+
+#: inc/shop-filters.php:906
+msgid "Șterge tot"
+msgstr ""
+
+#: inc/shop-filters.php:943
+msgid "Filtre"
+msgstr ""
+
+#: inc/shop-filters.php:954
+msgid "Tip produs"
+msgstr ""
+
+#: inc/shop-filters.php:957
+#: inc/shop-filters.php:961
+msgid "Căutare după categorii"
+msgstr ""
+
+#: inc/shop-filters.php:975
+msgid "Nicio categorie găsită."
+msgstr ""
+
+#: inc/shop-filters.php:981
+msgid "Preț"
+msgstr ""
+
+#: inc/shop-filters.php:994
+#: inc/shop-filters.php:1007
+msgid "Preț minim"
+msgstr ""
+
+#. translators: 1: numarul de capsule al variantei propuse, 2: al celei curente.
+#: inc/single-product.php:1016
+#, php-format
+msgid "%1$s capsule în loc de %2$s"
+msgstr ""
+
+#. translators: 1: numarul de tablete al variantei propuse, 2: al celei curente.
+#: inc/single-product.php:1018
+#, php-format
+msgid "%1$s tablete în loc de %2$s"
+msgstr ""
+
+#. translators: %s: pretul unei bucati.
+#: inc/single-product.php:1036
+#, php-format
+msgid "%s / buc."
+msgstr ""
+
+#. translators: %d: procentul economisit la pretul pe bucata.
+#: inc/single-product.php:1049
+#, php-format
+msgid "Economisești %d%% pe bucată"
+msgstr ""
+
+#: inc/single-product.php:1067
+msgid "Vezi produsul"
+msgstr ""
+
+#: inc/single-product.php:1094
+msgid "În stoc"
+msgstr ""
+
+#: inc/single-product.php:1135
+msgid "Plătești în siguranță cu"
+msgstr ""
+
+#: inc/single-product.php:1244
+msgid "Ingrediente"
+msgstr ""
+
+#: inc/single-product.php:1297
+msgid "Produse asemănătoare"
+msgstr ""
+
+#: inc/single-product.php:1436
+msgid "Poți închide această fereastră cu tasta ESC"
+msgstr ""
+
+#: inc/single-product.php:1437
+msgid "A apărut o problemă. Încearcă din nou mai târziu."
+msgstr ""
+
+#: inc/single-product.php:1438
+msgid "Imaginea nu a fost găsită"
+msgstr ""
+
+#: inc/single-product.php:1439
+msgid "Mărește sau micșorează"
+msgstr ""
+
+#: inc/single-product.php:1440
+msgid "Arată sau ascunde miniaturile"
+msgstr ""
+
+#: inc/single-product.php:1441
+msgid "Pornește sau oprește prezentarea"
+msgstr ""
+
+#: inc/single-product.php:1442
+msgid "Comută pe tot ecranul"
+msgstr ""
+
+#: inc/single-product.php:1443
+msgid "Descarcă"
+msgstr ""
+
+#. translators: %s: intervalul estimat de livrare, ex. "17–21 august".
+#: inc/single-product.php:199
+#, php-format
+msgid "Comandă acum, livrare estimată între %s"
+msgstr ""
+
+#: inc/single-product.php:205
+msgid "Plată la livrare sau online, securizat cu cardul"
+msgstr ""
+
+#: inc/single-product.php:209
+msgid "Livrare gratuită la comenzi de peste 350 MDL"
+msgstr ""
+
+#: inc/single-product.php:237
+msgid "Descriere"
+msgstr ""
+
+#: inc/single-product.php:238
+msgid "Mod de Utilizare"
+msgstr ""
+
+#: inc/single-product.php:239
+msgid "Atenționări și Mențiuni"
+msgstr ""
+
+#. translators: 1: numele produsului, 2: pozitia imaginii in galerie.
+#: inc/single-product.php:347
+#, php-format
+msgid "%1$s - imaginea %2$d"
+msgstr ""
+
+#: inc/single-product.php:521
+#: inc/single-product.php:1435
+msgid "Imaginea anterioară"
+msgstr ""
+
+#: inc/single-product.php:525
+#: inc/single-product.php:1434
+msgid "Imaginea următoare"
+msgstr ""
+
+#. translators: %s: numarul de recenzii.
+#: inc/single-product.php:588
+#, php-format
+msgid "%s recenzie"
+msgid_plural "%s recenzii"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: codul produsului (SKU).
+#: inc/single-product.php:600
+#, php-format
+msgid "Cod produs: %s"
+msgstr ""
+
+#: inc/single-product.php:611
+msgid "Beneficii:"
+msgstr ""
+
+#: inc/single-product.php:620
+msgid "Descriere detaliată"
+msgstr ""
+
+#: inc/single-product.php:690
+msgid "Ce conține pachetul:"
+msgstr ""
+
+#: inc/single-product.php:729
+msgid "Cantitate:"
+msgstr ""
+
+#: inc/single-product.php:862
+msgid "Oamenii cumpără acest produs împreună cu"
+msgstr ""
+
+#: inc/single-product.php:992
+msgid "Alege varianta mai avantajoasă"
+msgstr ""
+
+#: inc/template-tags.php:121
+msgid "de"
+msgstr ""
+
+#. translators: %s: termenul cautat.
+#: inc/template-tags.php:164
+#, php-format
+msgid "Rezultate pentru: %s"
+msgstr ""
+
+#: inc/toast.php:127
+msgid "Adăugat în coș"
+msgstr ""
+
+#: inc/toast.php:144
+msgid "Vezi coșul"
+msgstr ""
+
+#: inc/toast.php:147
+msgid "Finalizează"
+msgstr ""
+
+#: inc/toast.php:154
+msgid "Închide notificarea"
+msgstr ""
+
+#: inc/toast.php:315
+msgid "Notificări coș"
+msgstr ""
+
+#: inc/top-sales.php:196
+#: inc/top-sales.php:295
+msgid "Top vânzări"
+msgstr ""
+
+#: inc/whatsapp.php:140
+msgid "Bună ziua! Aș dori mai multe informații despre produsele Herbal Therapy."
+msgstr ""
+
+#. translators: 1: numele produsului, 2: adresa paginii produsului.
+#: inc/whatsapp.php:145
+#, php-format
+msgid "Bună ziua! Aș dori mai multe informații despre produsul „%1$s”: %2$s"
+msgstr ""
+
+#: inc/whatsapp.php:192
+msgid "Scrie-ne pe WhatsApp"
+msgstr ""
+
+#: search.php:111
+msgid "Nu am găsit nimic pentru această căutare"
+msgstr ""
+
+#: search.php:114
+msgid "Verifică scrierea, încearcă un cuvânt mai scurt sau pornește de la o categorie."
+msgstr ""
+
+#: search.php:118
+msgid "Scrie ce cauți"
+msgstr ""
+
+#: search.php:121
+msgid "Poți căuta după denumirea produsului, categorie sau codul de pe ambalaj."
+msgstr ""
+
+#: search.php:129
+msgid "Categorii populare"
+msgstr ""
+
+#: search.php:149
+msgid "Poate te interesează"
+msgstr ""
+
+#: search.php:37
+msgid "Rezultate pentru"
+msgstr ""
+
+#: search.php:41
+msgid "Caută în magazin"
+msgstr ""
+
+#: search.php:48
+msgid "Tipul rezultatelor"
+msgstr ""
+
+#: search.php:52
+msgid "Produse"
+msgstr ""
+
+#: search.php:59
+msgid "Articole"
+msgstr ""
+
+#: searchform.php:24
+msgid "Caută un produs sau o categorie"
+msgstr ""
+
+#: single.php:21
+msgid "Articolul anterior"
+msgstr ""
+
+#: single.php:22
+msgid "Articolul următor"
+msgstr ""
+
+#. translators: Numele temei.
+#: style.css
+msgid "Herbal Therapy"
+msgstr ""
+
+#. translators: Descrierea temei.
+#: style.css
+msgid "Tema pentru magazinul Herbal Therapy."
+msgstr ""
+
+#. translators: Autorul temei.
+#: style.css
+msgid "Wavenity"
+msgstr ""
+
+#. translators: Etichetele temei, despartite prin virgula.
+#: style.css
+msgid "custom-menu, custom-logo, featured-images, translation-ready, e-commerce"
+msgstr ""
+
+#. translators: Adresa temei.
+#: style.css
+msgid "https://www.herbaltherapy.md"
+msgstr ""
+
+#. translators: Adresa autorului.
+#: style.css
+msgid "https://www.wavenity.com"
+msgstr ""
+
+#: template-parts/content-none.php:11
+msgid "Nu am găsit nimic pentru această căutare. Încearcă alți termeni."
+msgstr ""
+
+#: template-parts/content-none.php:14
+msgid "Nu există conținut de afișat deocamdată."
+msgstr ""
+
+#: template-parts/content-page.php:30
+msgid "Editează"
+msgstr ""
+
+#: template-parts/content.php:26
+msgid "Citește mai mult"
+msgstr ""
+
+#: templates/account.php:48
+msgid "Autentifică-te ca să vezi comenzile, adresele și produsele salvate."
+msgstr ""
+
+#: templates/favorites.php:31
+msgid "Golește lista"
+msgstr ""
+
+#: templates/favorites.php:60
+msgid "Nu ai niciun produs salvat."
+msgstr ""
+
+#: templates/favorites.php:64
+msgid "Apasă inima de pe un produs ca să îl găsești mai târziu aici."
+msgstr ""
+
+#: templates/favorites.php:68
+#: templates/reduceri.php:130
+msgid "Vezi produsele"
+msgstr ""
+
+#: templates/reduceri.php:106
+msgid "Paginare reduceri"
+msgstr ""
+
+#: templates/reduceri.php:122
+msgid "Momentan nu avem produse la reducere."
+msgstr ""
+
+#: templates/reduceri.php:126
+msgid "Revino în curând sau vezi restul produselor din magazin."
+msgstr ""
+
+#. translators: %s: numarul de produse la reducere.
+#: templates/reduceri.php:60
+#, php-format
+msgid "%s produs la reducere"
+msgid_plural "%s produse la reducere"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/cart/cart-shipping.php:101
+msgid "Completează adresa ca să vezi opțiunile de livrare."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:107
+msgid "Nu există opțiuni de livrare pentru adresa introdusă. Verifică datele sau scrie-ne."
+msgstr ""
+
+#. translators: %s: adresa de livrare.
+#: woocommerce/cart/cart-shipping.php:114
+#, php-format
+msgid "Nu am găsit opțiuni de livrare pentru %s."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:120
+msgid "Încearcă altă adresă"
+msgstr ""
+
+#. translators: %s: adresa de livrare.
+#: woocommerce/cart/cart-shipping.php:77
+#, php-format
+msgid "Livrare către %s."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:80
+msgid "Schimbă adresa"
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:84
+msgid "Opțiunile de livrare se calculează la finalizarea comenzii."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:96
+msgid "Costul livrării se calculează la finalizarea comenzii."
+msgstr ""
+
+#: woocommerce/checkout/cart-errors.php:21
+msgid "Coșul are nevoie de o verificare"
+msgstr ""
+
+#: woocommerce/checkout/cart-errors.php:24
+msgid "Unele produse nu mai pot fi comandate așa cum sunt în coș. Deschide coșul, ajustează-le și revino la finalizare."
+msgstr ""
+
+#: woocommerce/checkout/form-billing.php:27
+msgid "Date de facturare și livrare"
+msgstr ""
+
+#: woocommerce/checkout/form-billing.php:28
+msgid "Date de facturare"
+msgstr ""
+
+#: woocommerce/checkout/form-billing.php:60
+msgid "Vreau să îmi creez un cont"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:26
+msgid "Trebuie să fii autentificat ca să finalizezi comanda."
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:69
+msgid "Modalitate de plată"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:85
+msgid "Comanda ta"
+msgstr ""
+
+#: woocommerce/checkout/form-shipping.php:34
+msgid "Informații suplimentare"
+msgstr ""
+
+#: woocommerce/checkout/form-shipping.php:51
+msgid "Livrează la o altă adresă"
+msgstr ""
+
+#: woocommerce/checkout/payment.php:32
+msgid "Modalități de plată"
+msgstr ""
+
+#: woocommerce/checkout/payment.php:43
+msgid "Momentan nu există nicio modalitate de plată disponibilă. Scrie-ne și găsim o soluție."
+msgstr ""
+
+#: woocommerce/checkout/payment.php:44
+msgid "Completează datele de mai sus ca să vezi modalitățile de plată."
+msgstr ""
+
+#. translators: 1: eticheta butonului.
+#: woocommerce/checkout/payment.php:58
+#, php-format
+msgid "Browserul tău nu rulează JavaScript. Apasă %s înainte de a plasa comanda, altfel totalul afișat poate fi greșit."
+msgstr ""
+
+#: woocommerce/checkout/payment.php:59
+#: woocommerce/checkout/payment.php:64
+#: woocommerce/checkout/payment.php:65
+msgid "Actualizează totalurile"
+msgstr ""
+
+#: woocommerce/checkout/review-order.php:71
+msgid "anulează"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:113
+msgid "Comanda ta a fost înregistrată."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:30
+msgid "Plata nu a putut fi procesată. Încearcă din nou sau alege altă modalitate de plată."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:35
+msgid "Reia plata"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:55
+msgid "Comanda ta a fost înregistrată. Te sunăm pentru confirmare."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:64
+msgid "Numărul comenzii:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:69
+msgid "Data:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:75
+msgid "Email:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:81
+msgid "Total:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:87
+msgid "Plata:"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:96
+msgid "Înapoi la catalog"
+msgstr ""
+
+#. translators: %s: numele clientului.
+#: woocommerce/myaccount/dashboard.php:25
+#, php-format
+msgid "Bună, %s!"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:32
+msgid "De aici îți urmărești comenzile, îți ții adresele la zi și îți schimbi datele contului."
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:105
+msgid "Creează-ți un cont ca să comanzi mai repede și să îți vezi istoricul comenzilor."
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:115
+msgid "Nume de utilizator"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:116
+msgid "Alege un nume de utilizator"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:130
+msgid "Alege o parolă"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:135
+msgid "Vei primi pe email un link pentru setarea parolei."
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:143
+msgid "Creează cont"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:151
+msgid "Ai deja cont?"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:43
+msgid "Autentificare sau cont nou"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:45
+#: woocommerce/myaccount/form-login.php:84
+#: woocommerce/myaccount/form-login.php:152
+msgid "Autentificare"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:48
+#: woocommerce/myaccount/form-login.php:94
+msgid "Înregistrare"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:60
+msgid "Nume utilizator sau adresă email"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:60
+#: woocommerce/myaccount/form-login.php:65
+#: woocommerce/myaccount/form-login.php:115
+#: woocommerce/myaccount/form-login.php:122
+#: woocommerce/myaccount/form-login.php:129
+#: woocommerce/myaccount/form-lost-password.php:30
+#: woocommerce/myaccount/form-reset-password.php:30
+#: woocommerce/myaccount/form-reset-password.php:35
+msgid "Obligatoriu"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:61
+msgid "Introduceți datele dvs."
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:65
+#: woocommerce/myaccount/form-login.php:129
+msgid "Parola"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:66
+msgid "Introduceți parola"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:74
+msgid "Ține-mă minte"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:78
+msgid "Ai uitat parola?"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:93
+msgid "Nu ești înregistrat?"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:26
+msgid "Scrie numele de utilizator sau adresa de email. Îți trimitem pe email un link cu care îți setezi o parolă nouă."
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:30
+msgid "Nume de utilizator sau email"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:38
+msgid "Trimite link-ul"
+msgstr ""
+
+#: woocommerce/myaccount/form-lost-password.php:41
+msgid "Înapoi la autentificare"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:26
+msgid "Alege o parolă nouă pentru contul tău."
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:30
+msgid "Parolă nouă"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:35
+msgid "Repetă parola nouă"
+msgstr ""
+
+#: woocommerce/myaccount/form-reset-password.php:46
+msgid "Salvează parola"
+msgstr ""
+
+#: woocommerce/myaccount/navigation.php:52
+msgid "Meniul contului"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:119
+msgid "Produsul nu are încă recenzii"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:121
+msgid "Ai încercat produsul? Spune-le celorlalți cum ți s-a părut."
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:137
+#, php-format
+msgid "Răspunde lui %s"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:144
+msgid "Recenzii pot lăsa doar clienții autentificați care au cumpărat acest produs."
+msgstr ""
+
+#. translators: %s: numarul de recenzii.
+#: woocommerce/single-product-reviews.php:45
+#, php-format
+msgid "Bazat pe %s recenzie"
+msgid_plural "Bazat pe %s recenzii"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: numarul de recenzii.
+#: woocommerce/single-product-reviews.php:80
+#, php-format
+msgid "%s Recenzie"
+msgid_plural "%s Recenzii"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/single-product-reviews.php:88
+#: woocommerce/single-product-reviews.php:90
+msgid "După dată"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:89
+msgid "După notă"
+msgstr ""
+
+#: woocommerce/single-product/review-meta.php:23
+msgid "Recenzia ta așteaptă aprobarea"
+msgstr ""
+
+#. translators: %s: numarul de raspunsuri.
+#: woocommerce/single-product/review-meta.php:42
+#, php-format
+msgid "%s comentariu"
+msgid_plural "%s comentarii"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/single-product/review-meta.php:51
+msgid "Cumpărător verificat"
+msgstr ""

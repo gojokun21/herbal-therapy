@@ -1,0 +1,135 @@
+/* ------------------------------------------------------------------
+ * Blocul "Despre noi" de la finalul primei pagini.
+ *
+ * Masuratorile vin din Figma, luate pe containerul de 1440px: placa are 32px
+ * padding si 32px intre coloane, coloana de text 621px, fotografia umple restul
+ * si are 465px inaltime. Latimile sunt scrise ca procent din container, ca sa
+ * tina aceleasi proportii pe wrapper-ul temei (1520px).
+ * ---------------------------------------------------------------- */
+
+.ht-home-about {
+    --ht-home-about-bg: #f2f3f0;
+    --ht-home-about-green: #567c55;
+    --ht-home-about-green-hover: #4a6c49;
+
+    padding: 56px 0;
+}
+
+.ht-home-about__box {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 32px;
+    border-radius: 18px;
+    background: var(--ht-home-about-bg);
+}
+
+.ht-home-about__text {
+    display: flex;
+    /* 621 din 1376 (containerul fara padding) */
+    width: 45.13%;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.ht-home-about__title {
+    font-size: var(--ht-title-hero);
+    font-weight: 500;
+    line-height: 1.146;
+    color: #000;
+}
+
+.ht-home-about__lead {
+    /* 517 din 621 */
+    max-width: 83.25%;
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.294;
+    color: var(--text);
+}
+
+.ht-home-about__btn {
+    display: inline-flex;
+    width: 345px;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    border-radius: 8px;
+    background: var(--ht-home-about-green);
+    color: #fff;
+    font-size: 1.9rem;
+    font-weight: 600;
+    line-height: 1.158;
+    transition: background .2s ease;
+}
+
+.ht-home-about__btn:hover {
+    background: var(--ht-home-about-green-hover);
+    color: #fff;
+}
+
+.ht-home-about__media {
+    overflow: hidden;
+    min-width: 0;
+    height: 465px;
+    flex: 1 1 auto;
+    border-radius: 18px;
+}
+
+.ht-home-about__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 1200px) {
+    .ht-home-about__text {
+        width: 50%;
+        gap: 24px;
+    }
+
+    .ht-home-about__lead {
+        font-size: 1.5rem;
+    }
+
+    .ht-home-about__media {
+        height: 380px;
+    }
+}
+
+@media (max-width: 900px) {
+    .ht-home-about {
+        padding: 32px 0;
+    }
+
+    .ht-home-about__box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .ht-home-about__text {
+        width: 100%;
+    }
+
+    .ht-home-about__lead {
+        max-width: none;
+    }
+
+    .ht-home-about__btn {
+        width: 100%;
+        font-size: 1.7rem;
+    }
+
+    .ht-home-about__media {
+        height: auto;
+        aspect-ratio: 723 / 465;
+        border-radius: 14px;
+    }
+}

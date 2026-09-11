@@ -1,0 +1,175 @@
+{
+    "key": "group_ht_b2b",
+    "title": "Pagina B2B",
+    "fields": [
+        {
+            "key": "field_ht_b2b_tab_head",
+            "label": "Cap de pagina",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_b2b_title",
+            "label": "Titlul afisat",
+            "name": "ht_b2b_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Titlul mare din pagina, de exemplu \"Vanzari B2B\". Firimiturile si meniul folosesc mai departe titlul paginii. Gol inseamna titlul paginii.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_b2b_intro",
+            "label": "Text sub titlu",
+            "name": "ht_b2b_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Textul de sub titlu. Un rand gol intre paragrafe le desparte, ca in design.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 8,
+            "placeholder": "",
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_ht_b2b_image",
+            "label": "Fotografia din dreapta",
+            "name": "ht_b2b_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Sta in dreapta textului si ramane pe loc cat timp se deruleaza formularul. Ideal 590x472, pe fundal transparent (PNG sau WebP). Goala inseamna pagina fara fotografie.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_b2b_tab_form",
+            "label": "Formular",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_ht_b2b_form_title",
+            "label": "Titlul de deasupra formularului",
+            "name": "ht_b2b_form_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "De exemplu \"Formular de colaborare B2B\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_b2b_form",
+            "label": "Formularul Contact Form 7",
+            "name": "ht_b2b_form",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Formularul afisat sub titlu. Fara niciunul, se afiseaza formularul propriu al temei.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "wpcf7_contact_form"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "bidirectional_target": [],
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/b2b.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Continutul paginii B2B: titlul mare, textul de sub el, fotografia din dreapta si formularul de colaborare.",
+    "show_in_rest": 0,
+    "modified": 1787800000
+}

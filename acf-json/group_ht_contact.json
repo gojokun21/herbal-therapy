@@ -1,0 +1,374 @@
+{
+    "key": "group_ht_contact",
+    "title": "Pagina de contact",
+    "fields": [
+        {
+            "key": "field_ht_contact_intro",
+            "label": "Text sub titlu",
+            "name": "ht_contact_intro",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Textul centrat de sub titlul paginii.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_ht_contact_image",
+            "label": "Fotografia din cartonas",
+            "name": "ht_contact_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Sta in capul cartonasului din stanga. Ideal 704x260. Goala inseamna cartonas fara fotografie.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_contact_card_title",
+            "label": "Titlul cartonasului",
+            "name": "ht_contact_card_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Titlul cartonasului din stanga.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_contact_methods",
+            "label": "Modalitati de contact",
+            "name": "ht_contact_methods",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Randurile cu bulina verde din cartonas.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_ht_contact_method_label",
+            "button_label": "Adauga modalitate",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_ht_contact_method_icon",
+                    "label": "Iconita",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "location": "Locatie",
+                        "phone": "Telefon",
+                        "mail": "Email",
+                        "clock": "Ceas (program)",
+                        "facebook": "Facebook",
+                        "instagram": "Instagram",
+                        "telegram": "Telegram",
+                        "tiktok": "TikTok",
+                        "youtube": "YouTube"
+                    },
+                    "default_value": "location",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_custom": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_ht_contact_methods"
+                },
+                {
+                    "key": "field_ht_contact_method_label",
+                    "label": "Eticheta",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Textul mic, verde, de deasupra.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "35",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Prin telefon",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_contact_methods"
+                },
+                {
+                    "key": "field_ht_contact_method_href",
+                    "label": "Legatura",
+                    "name": "href",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Optionala: tel:+37378884061, mailto:info@..., https://... Cu legatura, textul intra tot pe un rand.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_contact_methods"
+                },
+                {
+                    "key": "field_ht_contact_method_lines",
+                    "label": "Text",
+                    "name": "lines",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Un rand pe linie. Programul din design are doua randuri.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_ht_contact_methods"
+                }
+            ]
+        },
+        {
+            "key": "field_ht_contact_social_label",
+            "label": "Eticheta blocului cu retelele sociale",
+            "name": "ht_contact_social_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Textul mic, verde, de deasupra blocului cu retelele sociale.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_contact_social_text",
+            "label": "Text despre retelele sociale",
+            "name": "ht_contact_social_text",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Legaturile catre Facebook si Instagram se pun de aici, cu butonul de link.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_ht_contact_socials",
+            "label": "Conturile de retele sociale",
+            "name": "ht_contact_socials",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Conturile oficiale ale companiei. Se afiseaza in subsolul fiecarei pagini; randurile fara adresa sunt ignorate.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Adauga un cont",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_ht_contact_social_icon",
+                    "label": "Reteaua",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "facebook": "Facebook",
+                        "instagram": "Instagram",
+                        "telegram": "Telegram",
+                        "tiktok": "TikTok",
+                        "youtube": "YouTube"
+                    },
+                    "default_value": "facebook",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_custom": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_ht_contact_socials"
+                },
+                {
+                    "key": "field_ht_contact_social_url",
+                    "label": "Adresa contului",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "https://www.facebook.com/...",
+                    "parent_repeater": "field_ht_contact_socials"
+                }
+            ]
+        },
+        {
+            "key": "field_ht_contact_form_title",
+            "label": "Titlul de deasupra formularului",
+            "name": "ht_contact_form_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Titlul de deasupra formularului.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_contact_form",
+            "label": "Formularul Contact Form 7",
+            "name": "ht_contact_form",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Formularul afisat in coloana din dreapta. Fara niciunul, se afiseaza formularul propriu al temei.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "wpcf7_contact_form"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "bidirectional_target": [],
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/contact.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Datele afisate pe pagina de contact: textul de sus, cartonasul din stanga si formularul din dreapta.",
+    "show_in_rest": 0,
+    "modified": 1788490000
+}

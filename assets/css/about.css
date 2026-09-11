@@ -1,0 +1,697 @@
+/*
+ * Pagina "Despre noi".
+ *
+ * Masuratorile vin din Figma (frame-ul "Despre noi", 1920x6584), luate pe un
+ * container de 1440px. Latimile si distantele orizontale sunt scrise ca procent
+ * din container, ca sa tina aceleasi proportii pe wrapper-ul temei (1520px);
+ * tipografia si distantele verticale raman in pixeli, ca in referinta.
+ *
+ * Sectiunile sunt despartite peste tot de 120px - de aici --ht-about-gap.
+ */
+
+.ht-about {
+    --ht-about-green: #465e28;
+    --ht-about-ink: #202020;
+    --ht-about-title: #191a24;
+    --ht-about-beige: #faf9f5;
+    --ht-about-mint: #e5ede2;
+    --ht-about-line: #f0f1ee;
+    --ht-about-crumb: #567c55;
+    --ht-about-icon: #195c3d;
+    --ht-about-arrow: #8a8a8a;
+
+    --ht-about-gap: 120px;
+
+    position: relative;
+    padding: 32px 0 var(--ht-about-gap);
+
+    /* frunzele decorative ies din grila; nu au voie sa lateasca pagina */
+    overflow: hidden;
+}
+
+/* sablonul isi pune singur distantele, deci reset-ul din style.css incurca */
+.site-main--about {
+    padding: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Firimiturile
+ * ------------------------------------------------------------------------ */
+
+.ht-about__crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    line-height: 27px;
+}
+
+.ht-about__crumbs a,
+.ht-about__crumb-sep {
+    color: var(--ht-about-crumb);
+}
+
+.ht-about__crumbs a:hover {
+    color: var(--brand-dark);
+}
+
+.ht-about__crumb-current {
+    color: var(--ht-about-title);
+}
+
+/* ---------------------------------------------------------------------------
+ * Elementele comune sectiunilor
+ * ------------------------------------------------------------------------ */
+
+.ht-about__section {
+    margin-top: var(--ht-about-gap);
+}
+
+.ht-about__title {
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 55px;
+    color: var(--ht-about-green);
+}
+
+.ht-about__title--center {
+    text-align: center;
+}
+
+.ht-about__body p {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 22px;
+    color: var(--ht-about-ink);
+}
+
+/* in referinta paragrafele sunt despartite de un rand liber de 22px */
+.ht-about__body p + p {
+    margin-top: 22px;
+}
+
+.ht-about__title + .ht-about__body {
+    margin-top: 18px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Capul paginii
+ * ------------------------------------------------------------------------ */
+
+.ht-about__hero-stage {
+    position: relative;
+    margin-top: 32px;
+    padding-top: 3.75%; /* 72 din 1920 */
+    aspect-ratio: 1920 / 654;
+    min-height: 560px;
+}
+
+.ht-about__hero-bg {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 100%;
+    height: 76.911%; /* 503 din 654 */
+    object-fit: cover;
+    object-position: center bottom;
+}
+
+/*
+ * Gama de produse sta pe iarba, aliniata la baza capului de pagina. Latimea si
+ * marginea din stanga sunt procente din latimea ecranului, ca in Figma.
+ */
+.ht-about__hero-products {
+    position: absolute;
+    left: 38.479%; /* 738.8 din 1920 */
+    bottom: 0;
+    z-index: 1;
+    width: 20.901%; /* 401.3 din 1920 */
+    height: auto;
+}
+
+.ht-about__hero-head {
+    position: relative;
+    z-index: 2;
+    width: 624px;
+    max-width: calc(100% - 80px);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ht-about__hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 55px;
+    color: var(--ht-about-green);
+}
+
+.ht-about__hero-intro {
+    margin-top: 18px;
+}
+
+.ht-about__hero-intro p {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 22px;
+    color: var(--ht-about-ink);
+}
+
+/* ---------------------------------------------------------------------------
+ * "Cu grija pentru corpul dvs si mediu"
+ * ------------------------------------------------------------------------ */
+
+.ht-about__care {
+    position: relative;
+}
+
+.ht-about__care-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 5.208%; /* 75 din 1440 */
+}
+
+.ht-about__care-media {
+    flex: 0 0 44.306%; /* 638 din 1440 */
+    max-width: 44.306%;
+}
+
+.ht-about__care-media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 638 / 484;
+    object-fit: cover;
+    border-radius: 37px;
+}
+
+.ht-about__care-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-top: 4.722%; /* 68 din 1440 */
+}
+
+.ht-about__care .ht-about__title {
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------
+ * Frunzele decorative
+ *
+ * Plutesc in jurul sectiunii de mai sus, exact ca in referinta. Fisierele sunt
+ * exportate cu fundal alb, deci se amesteca prin multiply peste pagina.
+ * ------------------------------------------------------------------------ */
+
+.ht-about__leaves {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.ht-about__leaf {
+    position: absolute;
+    display: block;
+    height: auto;
+    mix-blend-mode: multiply;
+}
+
+.ht-about__leaf--1 {
+    left: 88.385%;
+    top: 0;
+    width: 3.802%;
+}
+
+.ht-about__leaf--2 {
+    left: 10.938%;
+    top: 15px;
+    width: 6.927%;
+}
+
+.ht-about__leaf--3 {
+    left: 3.073%;
+    top: 336px;
+    width: 6.927%;
+}
+
+.ht-about__leaf--4 {
+    left: 95.729%;
+    top: 377px;
+    width: 3.073%;
+}
+
+.ht-about__leaf--5 {
+    left: 41.458%;
+    top: 411px;
+    width: 6.927%;
+}
+
+/* ---------------------------------------------------------------------------
+ * "Despre cosmeticile noastre"
+ * ------------------------------------------------------------------------ */
+
+.ht-about__cosmetics {
+    position: relative;
+}
+
+/* banda bej porneste din marginea ecranului, nu din grila */
+.ht-about__cosmetics-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 65.26%; /* 1253 din 1920 */
+    border-radius: 16px;
+    background: var(--ht-about-beige);
+}
+
+.ht-about__cosmetics-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10.417%; /* 150 din 1440 */
+    padding-top: 70px;
+    padding-bottom: 71px;
+}
+
+.ht-about__cosmetics-text {
+    flex: 0 0 48.472%; /* 698 din 1440 */
+    max-width: 48.472%;
+}
+
+.ht-about__cosmetics-media {
+    flex: 0 0 41.111%; /* 592 din 1440 */
+    max-width: 41.111%;
+}
+
+.ht-about__cosmetics-media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 592 / 474;
+    object-fit: contain;
+}
+
+/* ---------------------------------------------------------------------------
+ * "Misiunea noastra"
+ * ------------------------------------------------------------------------ */
+
+.ht-about__mission-box {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    aspect-ratio: 1440 / 595;
+    min-height: 595px;
+    border-radius: 16px;
+    background: var(--ht-about-beige);
+    overflow: hidden;
+}
+
+.ht-about__mission-media {
+    position: relative;
+    flex: 0 0 50%; /* 720 din 1440 */
+}
+
+.ht-about__mission-img {
+    position: absolute;
+    left: 22.083%; /* 159 din 720 */
+    top: 15.462%; /* 92 din 595 */
+    width: 54.583%; /* 393 din 720 */
+    height: 71.092%; /* 423 din 595 */
+    object-fit: contain;
+}
+
+/*
+ * Umbrele de sub eprubete. In Figma sunt patru bare estompate, desenate sub
+ * fotografie; se vad prin transparenta ei.
+ */
+.ht-about__mission-shadow {
+    position: absolute;
+    width: 4.306%; /* 31 din 720 */
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .53);
+    filter: blur(2px);
+}
+
+.ht-about__mission-shadow:nth-of-type(1) {
+    left: 27.5%;
+    top: 79.328%;
+}
+
+.ht-about__mission-shadow:nth-of-type(2) {
+    left: 41.528%;
+    top: 79.664%;
+}
+
+.ht-about__mission-shadow:nth-of-type(3) {
+    left: 53.889%;
+    top: 80%;
+}
+
+.ht-about__mission-shadow:nth-of-type(4) {
+    left: 67.361%;
+    top: 80.504%;
+}
+
+.ht-about__mission-panel {
+    flex: 0 0 40%; /* 576 din 1440 */
+    /* 159 / 53 / 52 din 1440 - procentele de padding se raporteaza la latime */
+    padding: 11.042% 3.681% 0 3.611%;
+    background: var(--ht-about-mint);
+}
+
+.ht-about__mission-panel .ht-about__title + .ht-about__body {
+    margin-top: 23px;
+}
+
+.ht-about__body--green p {
+    font-weight: 600;
+    color: var(--ht-about-green);
+}
+
+/* ---------------------------------------------------------------------------
+ * Siguranta / Eficacitate / Calitate
+ * ------------------------------------------------------------------------ */
+
+.ht-about__values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.729%; /* ~10.5 din 1440 */
+}
+
+.ht-about__value {
+    position: relative;
+    min-height: 511px;
+    /* 35 stanga si 25 dreapta din 473 - latimea cartonasului */
+    padding: 225px 5.285% 40px 7.399%;
+    border-radius: 16px;
+    background: var(--ht-about-beige);
+}
+
+.ht-about__value-icon {
+    position: absolute;
+    display: block;
+    height: auto;
+}
+
+.ht-about__value--1 .ht-about__value-icon {
+    left: 0;
+    top: 2px;
+    width: 44.397%; /* 210 din 473 */
+    border-radius: 16px;
+}
+
+.ht-about__value--2 .ht-about__value-icon {
+    left: 0;
+    top: 2px;
+    width: 41.015%; /* 194 din 473 */
+}
+
+.ht-about__value--3 .ht-about__value-icon {
+    left: 4.017%;
+    top: 26px;
+    width: 37.209%; /* 176 din 473 */
+}
+
+.ht-about__value-title {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 55px;
+    color: var(--ht-about-green);
+}
+
+.ht-about__value-title + .ht-about__body {
+    margin-top: 13px;
+}
+
+/* ---------------------------------------------------------------------------
+ * "Viziunea brandului nostru"
+ * ------------------------------------------------------------------------ */
+
+.ht-about__vision-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: 9.583%; /* 138 din 1440 */
+}
+
+.ht-about__vision-text {
+    flex: 0 0 51.181%; /* 737 din 1440 */
+    max-width: 51.181%;
+    padding-top: 2.431%; /* 35 din 1440 */
+}
+
+.ht-about__vision-media {
+    flex: 0 0 39.236%; /* 565 din 1440 */
+    max-width: 39.236%;
+}
+
+.ht-about__vision-media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 565 / 555;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* al doilea bloc de text e retras si are fotografia mica in stanga lui */
+.ht-about__vision-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 14.654%; /* 108 din 737 */
+    margin-top: 25px;
+    padding-left: 1.9%; /* 14 din 737 */
+}
+
+.ht-about__vision-thumb {
+    position: relative;
+    flex: 0 0 16.554%; /* 122 din 737 */
+    margin-top: 32px;
+    aspect-ratio: 122 / 175;
+}
+
+/* cartonasul bej care iese de sub fotografie, in stanga jos */
+.ht-about__vision-thumb::before {
+    content: "";
+    position: absolute;
+    left: -11.475%;
+    top: 30.286%;
+    width: 89.344%;
+    height: 74.286%;
+    border-radius: 8px;
+    background: var(--ht-about-beige);
+}
+
+.ht-about__vision-thumb img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.ht-about__vision-note-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * "Fabrica si Depozit"
+ * ------------------------------------------------------------------------ */
+
+.ht-about__factory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.852%; /* 26.67 din 1440 */
+    margin-top: 32px;
+}
+
+.ht-about__factory-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 340 / 460;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane mai mici
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 1400px) {
+    .ht-about {
+        --ht-about-gap: 96px;
+    }
+
+    .ht-about__title,
+    .ht-about__hero-title {
+        font-size: 40px;
+        line-height: 48px;
+    }
+
+    .ht-about__value {
+        min-height: 0;
+        padding-top: 200px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .ht-about {
+        --ht-about-gap: 72px;
+    }
+
+    .ht-about__hero-stage {
+        aspect-ratio: auto;
+        min-height: 0;
+        padding-top: 0;
+        padding-bottom: 46.5%; /* loc pentru iarba si produse */
+    }
+
+    .ht-about__hero-head {
+        width: 100%;
+        max-width: 640px;
+    }
+
+    .ht-about__hero-bg {
+        height: auto;
+    }
+
+    .ht-about__hero-products {
+        width: 30%;
+        left: 35%;
+    }
+
+    /* cele doua coloane trec una sub alta */
+    .ht-about__care-inner,
+    .ht-about__cosmetics-inner,
+    .ht-about__vision-grid {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .ht-about__care-media,
+    .ht-about__care-text,
+    .ht-about__cosmetics-text,
+    .ht-about__cosmetics-media,
+    .ht-about__vision-text,
+    .ht-about__vision-media {
+        flex: 0 0 auto;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .ht-about__care-text,
+    .ht-about__vision-text {
+        padding-top: 0;
+    }
+
+    .ht-about__cosmetics-panel {
+        width: 100%;
+    }
+
+    .ht-about__cosmetics-inner {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .ht-about__mission-box {
+        aspect-ratio: auto;
+        min-height: 0;
+        flex-direction: column-reverse;
+    }
+
+    .ht-about__mission-media {
+        flex: 0 0 auto;
+        width: 100%;
+        aspect-ratio: 720 / 500;
+    }
+
+    .ht-about__mission-panel {
+        flex: 0 0 auto;
+        width: 100%;
+        padding: 40px;
+    }
+
+    .ht-about__values-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .ht-about__value {
+        padding: 180px 32px 32px;
+    }
+
+    .ht-about__vision-thumb {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .ht-about {
+        --ht-about-gap: 56px;
+
+        padding-bottom: 56px;
+    }
+
+    .ht-about__title,
+    .ht-about__hero-title {
+        font-size: 30px;
+        line-height: 38px;
+    }
+
+    .ht-about__hero-stage {
+        padding-bottom: 62%;
+    }
+
+    .ht-about__hero-products {
+        width: 42%;
+        left: 29%;
+    }
+
+    .ht-about__leaves {
+        display: none;
+    }
+
+    .ht-about__care-media img {
+        border-radius: 20px;
+    }
+
+    .ht-about__factory-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .ht-about__mission-panel {
+        padding: 28px 20px;
+    }
+
+    .ht-about__value {
+        padding: 140px 20px 28px;
+    }
+
+    .ht-about__value--1 .ht-about__value-icon,
+    .ht-about__value--2 .ht-about__value-icon,
+    .ht-about__value--3 .ht-about__value-icon {
+        top: 8px;
+        left: 8px;
+        width: 120px;
+    }
+
+    .ht-about__value-title {
+        line-height: 36px;
+    }
+
+    /* al doilea bloc de text ramane sub fotografia mica */
+    .ht-about__vision-note {
+        flex-direction: column;
+        gap: 20px;
+        padding-left: 0;
+    }
+
+    .ht-about__vision-thumb {
+        flex: 0 0 auto;
+        width: 122px;
+    }
+}

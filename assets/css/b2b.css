@@ -1,0 +1,502 @@
+/*
+ * Pagina B2B.
+ *
+ * Masuratorile vin din Figma (frame-ul "B2B", 1920x2101), luate pe un container
+ * de 1440px: coloana din stanga - text si formular - 768px, spatiu 80px,
+ * fotografia din dreapta 590x472. Latimile sunt scrise ca procent din
+ * container, ca sa tina aceleasi proportii si pe wrapper-ul temei (1520px).
+ */
+
+.ht-b2b {
+    --ht-b2b-title: #191a24;
+    --ht-b2b-body: #202020;
+    --ht-b2b-green: #567c55;
+    --ht-b2b-green-dark: #43613f;
+    --ht-b2b-field: #f9f9f9;
+    --ht-b2b-border: #d3d3d3;
+    --ht-b2b-placeholder: #8f9396;
+    --ht-b2b-error: #ff4949;
+
+    /* header-ul e lipit sus: 72px bara de sus + 48px meniul + linia */
+    --ht-b2b-sticky: 145px;
+
+    padding: 32px 0 120px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Firimiturile
+ * ------------------------------------------------------------------------ */
+
+.ht-b2b__crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    line-height: 27px;
+}
+
+.ht-b2b__crumbs a,
+.ht-b2b__crumb-sep {
+    color: var(--ht-b2b-green);
+}
+
+.ht-b2b__crumbs a:hover {
+    color: var(--brand-dark);
+}
+
+.ht-b2b__crumb-current {
+    color: var(--ht-b2b-title);
+}
+
+/* ---------------------------------------------------------------------------
+ * Cele doua coloane
+ * ------------------------------------------------------------------------ */
+
+.ht-b2b__body {
+    display: flex;
+    align-items: flex-start;
+    gap: 5.556%; /* 80 din 1440 */
+    margin-top: 32px;
+}
+
+.ht-b2b__main {
+    display: flex;
+    flex: 0 0 53.333%; /* 768 din 1440 */
+    flex-direction: column;
+    gap: 40px;
+    max-width: 53.333%;
+}
+
+/* fotografia ramane in dreptul formularului cat timp acesta se deruleaza */
+.ht-b2b__media {
+    flex: 0 0 40.972%; /* 590 din 1440 */
+    max-width: 40.972%;
+    position: sticky;
+    top: calc(var(--ht-b2b-sticky) + 24px);
+}
+
+.ht-b2b__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 590 / 472;
+    object-fit: contain;
+}
+
+/* ---------------------------------------------------------------------------
+ * Titlul si textul de sub el
+ * ------------------------------------------------------------------------ */
+
+.ht-b2b__head {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.ht-b2b__title {
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 55px;
+    color: #000;
+}
+
+.ht-b2b__intro p {
+    font-size: 17px;
+    line-height: 22px;
+    color: var(--ht-b2b-body);
+}
+
+/* in referinta, intre paragrafe ramane un rand gol */
+.ht-b2b__intro p + p {
+    margin-top: 22px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Formularul
+ * ------------------------------------------------------------------------ */
+
+.ht-b2b__form-col {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    min-width: 0;
+}
+
+.ht-b2b__form-title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 38px;
+    color: #000;
+}
+
+.ht-b2b__notice {
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+.ht-b2b__notice--ok {
+    border: 1px solid var(--ht-b2b-green);
+    background: #eef7eb;
+    color: var(--ht-b2b-green);
+}
+
+.ht-b2b__notice--error {
+    border: 1px solid var(--ht-b2b-error);
+    background: #ffe0e1;
+    color: var(--ht-b2b-error);
+}
+
+.ht-b2b__form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* randul cu doua campuri alaturate */
+.ht-b2b__row {
+    display: flex;
+    gap: 18px;
+}
+
+.ht-b2b__row > .ht-b2b__field {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.ht-b2b__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+}
+
+.ht-b2b__label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: var(--ht-b2b-title);
+}
+
+/*
+ * Casuta are 50px in referinta, cu textul la 14px de margine. Conturul de 1px
+ * intra in inaltime, deci padding-ul ramane 6px pe verticala si 13px lateral.
+ */
+.ht-b2b__input {
+    width: 100%;
+    padding: 6px 13px;
+    border: 1px solid var(--ht-b2b-border);
+    border-radius: 8px;
+    background: var(--ht-b2b-field);
+    color: var(--ht-b2b-title);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 36px;
+    outline: none;
+    transition: border-color .2s ease;
+}
+
+.ht-b2b__input::placeholder {
+    color: var(--ht-b2b-placeholder);
+    opacity: 1;
+}
+
+.ht-b2b__input:focus {
+    border-color: var(--ht-b2b-green);
+}
+
+/* casuta de comentarii: 100px de text intre marginile de 6px */
+.ht-b2b__input--area {
+    height: 114px;
+    resize: vertical;
+}
+
+/*
+ * Lista isi pierde sageata proprie si o primeste pe cea din design, la 14px de
+ * marginea din dreapta. Textul se fereste de ea cu inca 14px.
+ */
+.ht-b2b__input--select {
+    appearance: none;
+    padding-right: 42px;
+    background-image: url("../img/b2b/select-arrow.svg");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 14px 14px;
+    cursor: pointer;
+}
+
+/*
+ * Cat timp nu s-a ales nimic, textul e cenusiu ca un placeholder. Clasa vine
+ * din formularul temei; :has() prinde si listele facute in Contact Form 7, unde
+ * nu avem unde pune clasa.
+ */
+.ht-b2b__input--empty,
+.ht-b2b__input--select:has(option[value=""]:checked) {
+    color: var(--ht-b2b-placeholder);
+}
+
+.ht-b2b__input--select option {
+    color: var(--ht-b2b-title);
+}
+
+.ht-b2b__field--error .ht-b2b__input {
+    border-color: var(--ht-b2b-error);
+}
+
+.ht-b2b__error {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ht-b2b-error);
+}
+
+/* capcana pentru roboti: ramane in pagina, dar nu se vede */
+.ht-b2b__trap {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* butonul sta intr-un invelis, ca rotita CF7 sa aiba de ce se agata */
+.ht-b2b__submit {
+    display: block;
+    position: relative;
+}
+
+.ht-b2b__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    padding: 10px 24px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--ht-b2b-green);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.ht-b2b__button:hover {
+    background: var(--ht-b2b-green-dark);
+}
+
+.ht-b2b__button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+ * Contact Form 7
+ *
+ * Pluginul isi imbraca fiecare camp in <span>-uri proprii si isi pune mesajele
+ * la coada formularului. Aici sunt aduse la desenul de mai sus.
+ * ------------------------------------------------------------------------ */
+
+.ht-b2b .wpcf7 {
+    width: 100%;
+}
+
+.ht-b2b .wpcf7-form-control-wrap {
+    display: block;
+}
+
+.ht-b2b .wpcf7-not-valid-tip {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ht-b2b-error);
+}
+
+.ht-b2b .wpcf7-form-control.wpcf7-not-valid {
+    border-color: var(--ht-b2b-error);
+}
+
+/* mesajul de raspuns e randat ultimul, dar in desen sta deasupra campurilor */
+.ht-b2b .wpcf7-form .wpcf7-response-output {
+    order: -1;
+    margin: 0;
+    padding: 14px 18px;
+    border-width: 1px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+.ht-b2b .wpcf7-form.sent .wpcf7-response-output {
+    border-color: var(--ht-b2b-green);
+    background: #eef7eb;
+    color: var(--ht-b2b-green);
+}
+
+.ht-b2b .wpcf7-form.invalid .wpcf7-response-output,
+.ht-b2b .wpcf7-form.unaccepted .wpcf7-response-output,
+.ht-b2b .wpcf7-form.payment-required .wpcf7-response-output,
+.ht-b2b .wpcf7-form.spam .wpcf7-response-output,
+.ht-b2b .wpcf7-form.aborted .wpcf7-response-output,
+.ht-b2b .wpcf7-form.failed .wpcf7-response-output {
+    border-color: var(--ht-b2b-error);
+    background: #ffe0e1;
+    color: var(--ht-b2b-error);
+}
+
+/* bifa, cand se adauga una in formularul din plugin */
+.ht-b2b .wpcf7-acceptance {
+    display: block;
+}
+
+.ht-b2b .wpcf7-list-item {
+    display: block;
+    margin: 0;
+}
+
+.ht-b2b .wpcf7-list-item > label {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.ht-b2b .wpcf7-list-item input[type="checkbox"] {
+    flex: 0 0 13px;
+    width: 13px;
+    height: 13px;
+    margin: 6px 0 0;
+    border: 1px solid var(--ht-b2b-border);
+    border-radius: 2px;
+    accent-color: var(--ht-b2b-green);
+    cursor: pointer;
+}
+
+/*
+ * Legatura catre politica de confidentialitate vine din ht_contact_privacy_link()
+ * - aceeasi functie serveste si pagina de contact -, deci poarta clasa de acolo.
+ * Cat timp pagina de politica nu e setata in WordPress, iese un <span> fara href.
+ */
+.ht-b2b .ht-contact__consent-link {
+    text-decoration: underline;
+}
+
+.ht-b2b a.ht-contact__consent-link:hover {
+    color: var(--ht-b2b-green);
+}
+
+.ht-b2b .wpcf7-list-item-label {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: var(--ht-b2b-title);
+}
+
+/* pluginul lipeste cate un spatiu de o parte si de alta a textului */
+.ht-b2b .wpcf7-list-item-label::before,
+.ht-b2b .wpcf7-list-item-label::after {
+    content: none;
+}
+
+/* rotita de asteptare sta peste buton, nu sub el */
+.ht-b2b .wpcf7-spinner {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    margin: 0;
+    transform: translateY(-50%);
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane mici
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 1200px) {
+    .ht-b2b__title {
+        font-size: 40px;
+        line-height: 48px;
+    }
+
+    .ht-b2b__form-title {
+        font-size: 28px;
+        line-height: 34px;
+    }
+}
+
+@media (max-width: 992px) {
+    .ht-b2b {
+        padding: 24px 0 80px;
+    }
+
+    .ht-b2b__body {
+        flex-direction: column;
+        gap: 32px;
+        margin-top: 24px;
+    }
+
+    .ht-b2b__main,
+    .ht-b2b__media {
+        flex: 1 1 auto;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    /* fotografia urca deasupra textului; jos, dupa formular, nu si-ar avea locul */
+    .ht-b2b__media {
+        order: -1;
+        position: static;
+        max-width: 590px;
+        margin: 0 auto;
+    }
+
+    .ht-b2b__main {
+        gap: 32px;
+    }
+
+    .ht-b2b__form-col {
+        gap: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .ht-b2b {
+        padding: 20px 0 56px;
+    }
+
+    .ht-b2b__title {
+        font-size: 32px;
+        line-height: 38px;
+    }
+
+    .ht-b2b__form-title {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    /* cele doua campuri de pe un rand nu mai incap alaturi */
+    .ht-b2b__row {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .ht-b2b__input {
+        line-height: 28px;
+    }
+
+    .ht-b2b__input--area {
+        height: 132px;
+    }
+}

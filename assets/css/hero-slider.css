@@ -1,0 +1,254 @@
+.ht-hero {
+    --ht-hero-ratio: 1440 / 656;
+    --ht-hero-overlay: .45;
+
+    position: relative;
+    width: 100%;
+    background: #f2f2f2;
+}
+
+.ht-hero__swiper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.ht-hero__slide {
+    width: 100%;
+}
+
+.ht-hero__slide-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.ht-hero__slide-inner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, calc(var(--ht-hero-overlay) * .75)) 0%,
+        rgba(0, 0, 0, var(--ht-hero-overlay)) 55%,
+        rgba(0, 0, 0, calc(var(--ht-hero-overlay) * 1.15)) 100%
+    );
+}
+
+.ht-hero__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--ht-hero-ratio);
+    object-fit: cover;
+}
+
+.ht-hero__content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    /* clicurile trec spre slide; doar butonul le primeste */
+    pointer-events: none;
+}
+
+.ht-hero__content-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, .25);
+}
+
+.ht-hero__title {
+    max-width: 80rem;
+    font-size: 8rem;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.ht-hero__text {
+    max-width: 60rem;
+    font-size: 1.8rem;
+    line-height: 1.5;
+}
+
+.ht-hero__btn {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5.2rem;
+    margin-top: .8rem;
+    padding: 0 3.2rem;
+    border-radius: var(--radius);
+    background: var(--brand);
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-shadow: none;
+    transition: background .2s ease;
+}
+
+.ht-hero__btn:hover {
+    background: var(--brand-dark);
+    color: #fff;
+}
+
+.ht-hero__ad {
+    position: absolute;
+    z-index: 2;
+    right: 16px;
+    bottom: 16px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, .7);
+    color: #202020;
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: .02em;
+}
+
+.ht-hero__arrow {
+    width: 44px;
+    height: 44px;
+    margin-top: -22px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .85);
+    color: #202020;
+    opacity: 0;
+    transition: opacity .25s ease, background .2s ease;
+}
+
+.ht-hero__arrow::after {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.ht-hero:hover .ht-hero__arrow {
+    opacity: 1;
+}
+
+.ht-hero__arrow:hover {
+    background: #fff;
+}
+
+.ht-hero__arrow.swiper-button-disabled {
+    opacity: 0;
+}
+
+.ht-hero__arrow--prev {
+    left: 24px;
+}
+
+.ht-hero__arrow--next {
+    right: 24px;
+}
+
+.ht-hero__pagination.swiper-pagination-bullets {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    bottom: 20px;
+}
+
+.ht-hero__pagination .swiper-pagination-bullet {
+    position: relative;
+    width: 34px;
+    height: 3px;
+    margin: 0 !important;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, .45);
+    opacity: 1;
+    overflow: hidden;
+    transition: background .2s ease;
+}
+
+.ht-hero__pagination .swiper-pagination-bullet:hover {
+    background: rgba(255, 255, 255, .7);
+}
+
+.ht-hero__pagination .swiper-pagination-bullet::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 0;
+    border-radius: inherit;
+    background: var(--ht-card-cta);
+}
+
+.ht-hero__pagination .swiper-pagination-bullet-active::after {
+    animation: ht-hero-progress var(--slide-duration, 9000ms) linear forwards;
+}
+
+.ht-hero__swiper.is-paused .swiper-pagination-bullet-active::after {
+    animation-play-state: paused;
+}
+
+@keyframes ht-hero-progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ht-hero__pagination .swiper-pagination-bullet-active::after {
+        animation: none;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .ht-hero__title {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .ht-hero__img {
+        aspect-ratio: auto;
+        height: 400px;
+    }
+
+    .ht-hero__arrow {
+        display: none;
+    }
+
+    .ht-hero__pagination.swiper-pagination-bullets {
+        bottom: 14px;
+        gap: 6px;
+    }
+
+    .ht-hero__pagination .swiper-pagination-bullet {
+        width: 24px;
+    }
+
+    .ht-hero__content-inner {
+        gap: 1.2rem;
+    }
+
+    .ht-hero__title {
+        font-size: 2.8rem;
+    }
+
+    .ht-hero__text {
+        font-size: 1.5rem;
+    }
+
+    .ht-hero__btn {
+        min-height: 4.4rem;
+        margin-top: .4rem;
+        padding: 0 2.4rem;
+        font-size: 1.5rem;
+    }
+}

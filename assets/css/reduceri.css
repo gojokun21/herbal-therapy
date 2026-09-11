@@ -1,0 +1,176 @@
+/* ---------------------------------------------------------------------------
+ * Pagina de reduceri (templates/reduceri.php)
+ *
+ * Aceeasi grila de carduri ca la favorite / listarea de magazin; cardul in
+ * sine vine din products.css (ht-products), incarcat ca dependinta.
+ * ------------------------------------------------------------------------ */
+
+.ht-reduceri {
+    padding: 32px 0 64px;
+}
+
+.ht-reduceri__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-bottom: 24px;
+}
+
+.ht-reduceri__title {
+    margin: 0;
+    font-size: var(--ht-title-page);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.ht-reduceri__count {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.4rem;
+}
+
+.ht-reduceri__intro {
+    max-width: 720px;
+    margin-bottom: 24px;
+    color: var(--muted);
+}
+
+/* ---------------------------------------------------------------------------
+ * Grila de produse
+ * ------------------------------------------------------------------------ */
+
+.ht-reduceri__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@media (min-width: 768px) {
+    .ht-reduceri__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .ht-reduceri__grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.ht-reduceri__item {
+    min-width: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Paginarea
+ * ------------------------------------------------------------------------ */
+
+.ht-reduceri__pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.ht-reduceri__pager .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: inherit;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.ht-reduceri__pager .page-numbers.current,
+.ht-reduceri__pager a.page-numbers:hover,
+.ht-reduceri__pager a.page-numbers:focus-visible {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.ht-reduceri__pager .page-numbers.dots {
+    border: 0;
+    min-width: auto;
+    padding: 0 4px;
+}
+
+.ht-reduceri__pager-icon {
+    display: inline-flex;
+}
+
+.ht-reduceri__pager-icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.ht-reduceri__pager-icon--prev {
+    transform: rotate(180deg);
+}
+
+/* ---------------------------------------------------------------------------
+ * Fara reduceri active
+ * ------------------------------------------------------------------------ */
+
+.ht-reduceri__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 16px 64px;
+    text-align: center;
+}
+
+.ht-reduceri__empty-icon svg {
+    width: 56px;
+    height: 56px;
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1.5;
+}
+
+.ht-reduceri__empty-text {
+    margin: 20px 0 4px;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.ht-reduceri__empty-hint {
+    margin: 0 0 24px;
+    max-width: 380px;
+    color: var(--muted);
+}
+
+.ht-reduceri__empty-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 32px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s ease;
+}
+
+.ht-reduceri__empty-link:hover,
+.ht-reduceri__empty-link:focus-visible {
+    background: var(--accent-hover);
+    color: #fff;
+}

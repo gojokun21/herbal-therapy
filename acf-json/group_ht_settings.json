@@ -1,0 +1,74 @@
+{
+    "key": "group_ht_settings",
+    "title": "Setări generale",
+    "fields": [
+        {
+            "key": "field_ht_whatsapp_number",
+            "label": "Număr WhatsApp",
+            "name": "ht_whatsapp_number",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Numărul pentru butonul plutitor de WhatsApp, cu prefixul de țară (ex. +373 78 88 40 61). Gol = se folosește numărul de telefon din pagina de contact.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "+373 ...",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_terms_page",
+            "label": "Pagina „Termenii și condițiile”",
+            "name": "ht_terms_page",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Apare în coloana „Legal” din subsol, lângă politica de confidențialitate (aceea se alege din Setări → Confidențialitate). Goală = pagina de termeni din WooCommerce, dacă e setată.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "bidirectional_target": [],
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "common-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Setări comune întregului site, din meniul „Setări generale”.",
+    "show_in_rest": 0,
+    "modified": 1788500000
+}

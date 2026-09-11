@@ -1,0 +1,1182 @@
+.ht-account {
+    --ht-account-aside: 288px;
+    --ht-account-soft: #f6f6f6;
+    --ht-account-radius: 14px;
+
+    padding: 32px 0 80px;
+}
+
+.ht-account > .ht-wrapper {
+    max-width: 1360px;
+}
+
+.ht-account__head {
+    margin-bottom: 28px;
+}
+
+.ht-account__title {
+    font-size: var(--ht-title-page);
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+.ht-account__lead {
+    max-width: 520px;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 1.6rem;
+}
+
+.ht-account--narrow .ht-account__head {
+    max-width: 520px;
+    margin: 0 auto 28px;
+    text-align: center;
+}
+
+.ht-account--narrow .ht-account__lead {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ht-account__layout {
+    display: grid;
+    grid-template-columns: var(--ht-account-aside) minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+}
+
+.ht-account__aside {
+    position: sticky;
+    top: 88px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--ht-account-radius);
+    background: var(--surface);
+}
+
+.ht-account__content {
+    min-width: 0;
+    padding: 32px;
+    border: 1px solid var(--line);
+    border-radius: var(--ht-account-radius);
+    background: var(--surface);
+}
+
+.ht-account__user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 12px 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+.ht-account__avatar {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: var(--gold);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.ht-account__identity {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.ht-account__name {
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.ht-account__email,
+.ht-account__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ht-account__email {
+    color: var(--muted);
+    font-size: 1.3rem;
+}
+
+.ht-account__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: inherit;
+}
+
+.ht-account__menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 1.5rem;
+    line-height: 1.2;
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-account__menu-link:hover {
+    background: var(--gold-soft);
+    color: var(--text);
+}
+
+.ht-account__menu-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    color: var(--muted);
+    transition: color .2s ease;
+}
+
+.ht-account__menu-link:hover .ht-account__menu-icon {
+    color: var(--accent);
+}
+
+.ht-account__menu-item.is-active > .ht-account__menu-link {
+    background: var(--brand);
+    color: #fff;
+}
+
+.ht-account__menu-item.is-active .ht-account__menu-icon {
+    color: var(--gold);
+}
+
+.ht-account__menu-item--logout {
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+}
+
+.ht-account__menu-item--logout > .ht-account__menu-link {
+    color: var(--muted);
+}
+
+.ht-account__menu-item--logout > .ht-account__menu-link:hover {
+    background: #fdecea;
+    color: #c0392b;
+}
+
+.ht-account__menu-item--logout > .ht-account__menu-link:hover .ht-account__menu-icon {
+    color: #c0392b;
+}
+
+.ht-account__welcome {
+    margin-bottom: 28px;
+}
+
+.ht-account__hello {
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+.ht-account__hello strong {
+    font-weight: 600;
+}
+
+.ht-account__hint {
+    max-width: 620px;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 1.6rem;
+}
+
+.ht-account__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: inherit;
+}
+
+.ht-account__card-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 100%;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color .2s ease, background .2s ease;
+}
+
+.ht-account__card-link:hover {
+    border-color: var(--brand);
+    background: var(--gold-soft);
+    color: var(--text);
+}
+
+.ht-account__card-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ht-account-soft);
+    color: var(--brand);
+    transition: background .2s ease;
+}
+
+.ht-account__card-link:hover .ht-account__card-icon {
+    background: var(--surface);
+}
+
+.ht-account__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.ht-account__card-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.ht-account__card-text {
+    color: var(--muted);
+    font-size: 1.4rem;
+    line-height: 1.35;
+}
+
+.ht-account__card-arrow {
+    display: inline-flex;
+    flex: 0 0 auto;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform .2s ease, color .2s ease;
+}
+
+.ht-account__card-link:hover .ht-account__card-arrow {
+    transform: translateX(3px);
+    color: var(--brand);
+}
+
+.ht-account__auth {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+/* Layout dupa macheta Figma (122:2378): imagine rotunjita in stanga,
+   formular fara card in dreapta, cu accentul verde al butoanelor de produs. */
+.ht-account__auth--media {
+    --ht-auth-accent: var(--ht-card-cta);
+
+    max-width: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+    align-items: stretch;
+}
+
+.ht-account__auth-media {
+    position: relative;
+    height: 528px; /* inaltime fixa, ca in Figma - nu creste cu formularul */
+    align-self: center;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.ht-account__auth-media img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ht-account__panel {
+    padding: 32px;
+    border: 1px solid var(--line);
+    border-radius: var(--ht-account-radius);
+    background: var(--surface);
+}
+
+.ht-account__auth--media .ht-account__panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    width: min(500px, 100%);
+    margin: 0 auto;
+    padding: 24px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+/*
+ * Ambele panouri (login si inregistrare) stau in aceeasi celula de grid:
+ * inaltimea coloanei e mereu cea a panoului mai inalt, asa ca la comutarea
+ * taburilor nu se misca nimic in pagina. Panoul inactiv ramane in layout,
+ * dar invizibil si scos din focus/citire (visibility: hidden).
+ */
+.ht-account__auth--media .ht-account__tab-panel {
+    grid-row: 3;
+    grid-column: 1;
+}
+
+.ht-account__auth--media .ht-account__tab-panel[hidden] {
+    /* !important: bate regula globala „[hidden] { display: none !important }" */
+    display: block !important;
+}
+
+/* si copiii, ca sa nu reapara elemente cu „visibility: visible" propriu
+   (ex. asteriscul .required din WooCommerce) */
+.ht-account__auth--media .ht-account__tab-panel[hidden],
+.ht-account__auth--media .ht-account__tab-panel[hidden] * {
+    visibility: hidden !important;
+}
+
+.ht-account__auth-title {
+    margin-bottom: 28px;
+    font-size: var(--ht-title-hero);
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+/* Taburile Autentificare / Inregistrare, in limbajul machetei:
+   banda gri ca inputurile, tabul activ verde ca butoanele. */
+.ht-account__tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    margin-bottom: 24px;
+    padding: 4px;
+    border: 1px solid #d3d3d3;
+    border-radius: 12px;
+    background: #f9f9f9;
+}
+
+.ht-account__tab {
+    min-height: 40px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-account__tab:hover {
+    color: var(--text);
+}
+
+.ht-account__tab.is-active {
+    background: var(--ht-auth-accent);
+    color: #fff;
+}
+
+.ht-account__tab-panel[hidden] {
+    display: none;
+}
+
+.ht-account .ht-account__auth label {
+    color: var(--ht-card-title);
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.ht-account .ht-account__auth input[type="text"],
+.ht-account .ht-account__auth input[type="email"],
+.ht-account .ht-account__auth input[type="password"] {
+    height: 52px;
+    padding: 0 14px;
+    border-color: #d3d3d3;
+    border-radius: 8px;
+    background: #f9f9f9;
+    font-size: 1.6rem;
+    line-height: 50px;
+}
+
+.ht-account .ht-account__auth input:focus {
+    border-color: var(--ht-auth-accent);
+}
+
+.ht-account .ht-account__auth input::placeholder {
+    color: #8f9396;
+}
+
+.ht-account .ht-account__auth input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--ht-auth-accent);
+}
+
+.ht-account .ht-account__auth .ht-form__check {
+    font-size: 1.6rem;
+    gap: 6px;
+}
+
+.ht-account .ht-account__auth .ht-form__link {
+    color: var(--ht-auth-accent);
+    font-size: 1.6rem;
+    text-decoration: none;
+}
+
+.ht-account .ht-account__auth .ht-form__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ht-account .ht-account__auth button[type="submit"] {
+    min-height: 44px;
+    border-color: var(--ht-auth-accent);
+    border-radius: 12px;
+    background: var(--ht-auth-accent);
+    font-size: 1.4rem;
+}
+
+.ht-account .ht-account__auth button[type="submit"]:hover {
+    border-color: var(--brand);
+    background: var(--brand);
+}
+
+.ht-account__auth-switch {
+    margin-top: 12px;
+    color: var(--ht-card-title);
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.ht-account__auth-switch-link {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ht-auth-accent);
+    font: inherit;
+    cursor: pointer;
+}
+
+.ht-account__auth-switch-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ht-account__panel-title {
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.ht-account__panel-text {
+    margin-bottom: 20px;
+    color: var(--muted);
+    font-size: 1.5rem;
+}
+
+.ht-account .ht-form,
+.ht-account .woocommerce-EditAccountForm,
+.ht-account form.edit-account,
+.ht-account .woocommerce-address-fields__field-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+}
+
+.ht-account .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0 0 18px;
+    font-size: inherit;
+}
+
+.ht-account .form-row-wide,
+.ht-account .form-row--wide,
+.ht-account .woocommerce-form-row--wide,
+.ht-account .ht-form__row,
+.ht-account .ht-form__actions,
+.ht-account .ht-form__note,
+.ht-account .ht-account__panel-text,
+.ht-account fieldset,
+.ht-account .woocommerce-privacy-policy-text,
+.ht-account .woocommerce-password-hint,
+.ht-account .woocommerce-password-strength {
+    grid-column: 1 / -1;
+}
+
+.ht-account .clear {
+    display: none;
+}
+
+.ht-account .col-1,
+.ht-account .col-2,
+.ht-account .u-column1,
+.ht-account .u-column2 {
+    flex: none;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ht-account label {
+    color: var(--muted);
+    font-size: 1.4rem;
+    line-height: 1.3;
+}
+
+.ht-account .required {
+    color: var(--brand);
+    text-decoration: none;
+}
+
+.ht-account .screen-reader-text {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.ht-account input[type="text"],
+.ht-account input[type="email"],
+.ht-account input[type="tel"],
+.ht-account input[type="password"],
+.ht-account input[type="number"],
+.ht-account input[type="search"],
+.ht-account textarea,
+.ht-account select,
+.ht-account .select2-container .select2-selection--single {
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1.6rem;
+    line-height: 48px;
+    transition: border-color .2s ease;
+}
+
+.ht-account textarea {
+    height: auto;
+    min-height: 110px;
+    padding: 14px 16px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.ht-account select {
+    padding-right: 44px;
+    background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='m1 1.5 5 5 5-5' stroke='%23202020' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 18px center;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.ht-account input:focus,
+.ht-account textarea:focus,
+.ht-account select:focus {
+    border-color: var(--brand);
+    outline: none;
+}
+
+.ht-account input[type="text"]::placeholder,
+.ht-account input[type="email"]::placeholder,
+.ht-account input[type="tel"]::placeholder,
+.ht-account textarea::placeholder {
+    color: #b5b5b5;
+}
+
+.ht-account .select2-container .select2-selection--single .select2-selection__rendered {
+    padding: 0;
+    line-height: 48px;
+}
+
+.ht-account .select2-container .select2-selection--single .select2-selection__arrow {
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+}
+
+.ht-account .password-input {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.ht-account .password-input input {
+    padding-right: 52px;
+}
+
+.ht-account .show-password-input {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 50%;
+    background: transparent no-repeat center / 20px 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none' stroke='%236f6f6f' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.7 10S4.7 4.2 10 4.2 18.3 10 18.3 10 15.3 15.8 10 15.8 1.7 10 1.7 10Z'/%3E%3Ccircle cx='10' cy='10' r='2.5'/%3E%3C/svg%3E");
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+.ht-account .show-password-input:hover {
+    background-color: var(--ht-account-soft);
+}
+
+.ht-account .show-password-input.display-password {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none' stroke='%23274f32' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.7 10S4.7 4.2 10 4.2 18.3 10 18.3 10 15.3 15.8 10 15.8 1.7 10 1.7 10Z'/%3E%3Ccircle cx='10' cy='10' r='2.5'/%3E%3Cpath d='m3.3 16.7 13.4-13.4'/%3E%3C/svg%3E");
+}
+
+.ht-form__row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.ht-form__row--between {
+    justify-content: space-between;
+}
+
+.ht-form__check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.ht-account input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--brand);
+    cursor: pointer;
+}
+
+.ht-form__link {
+    color: var(--muted);
+    font-size: 1.4rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ht-form__link:hover {
+    color: var(--accent);
+}
+
+.ht-form__note {
+    margin-bottom: 18px;
+    color: var(--muted);
+    font-size: 1.4rem;
+}
+
+.ht-account .ht-form__actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin: 4px 0 0;
+}
+
+.ht-account .button,
+.ht-account .woocommerce-Button,
+.ht-account .woocommerce-button,
+.ht-account .woocommerce-Address-title .edit,
+.ht-account button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 32px;
+    border: 1px solid var(--brand);
+    border-radius: 999px;
+    background: var(--brand);
+    color: #fff;
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.ht-account .button:hover,
+.ht-account .woocommerce-Button:hover,
+.ht-account .woocommerce-button:hover,
+.ht-account button[type="submit"]:hover {
+    background: var(--brand-dark);
+    border-color: var(--brand-dark);
+    color: #fff;
+}
+
+.ht-account__auth .woocommerce-form-login__submit,
+.ht-account__auth .woocommerce-form-register__submit {
+    width: 100%;
+}
+
+.ht-account .woocommerce-orders-table__cell-order-actions .button,
+.ht-account .woocommerce-Address-title .edit,
+.ht-account .woocommerce-pagination .button {
+    min-height: 40px;
+    padding: 0 20px;
+    background: transparent;
+    border-color: var(--line);
+    color: var(--text);
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.ht-account .woocommerce-orders-table__cell-order-actions .button:hover,
+.ht-account .woocommerce-Address-title .edit:hover,
+.ht-account .woocommerce-pagination .button:hover {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+}
+
+.ht-account .woocommerce-password-strength,
+.ht-account .woocommerce-password-hint {
+    margin: -8px 0 18px;
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+.ht-account .woocommerce-password-strength {
+    font-weight: 600;
+}
+
+.ht-account .woocommerce-password-strength.short,
+.ht-account .woocommerce-password-strength.bad {
+    color: #c0392b;
+}
+
+.ht-account .woocommerce-password-strength.good {
+    color: #b8860b;
+}
+
+.ht-account .woocommerce-password-strength.strong {
+    color: var(--brand);
+}
+
+.ht-account .woocommerce-password-hint {
+    color: var(--muted);
+}
+
+.ht-account fieldset {
+    margin: 8px 0 24px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.ht-account fieldset legend {
+    width: auto;
+    padding: 0 8px;
+    margin-left: -8px;
+    float: none;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.ht-account #account_display_name_description em,
+.ht-account .woocommerce-EditAccountForm span em {
+    color: var(--muted);
+    font-size: 1.3rem;
+    font-style: normal;
+}
+
+.ht-account .woocommerce-Addresses {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.ht-account .woocommerce-Address {
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+}
+
+.ht-account .woocommerce-MyAccount-content > .woocommerce-Address {
+    max-width: 520px;
+    margin-top: 20px;
+}
+
+.ht-account .woocommerce-Address-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.ht-account .woocommerce-Address-title h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.ht-account .woocommerce-Address address {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.5rem;
+    font-style: normal;
+    line-height: 1.7;
+}
+
+:is(.ht-account, .ht-checkout) table.shop_table,
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table,
+:is(.ht-account, .ht-checkout) .woocommerce-table {
+    width: 100%;
+    margin: 20px 0 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    font-size: 1.5rem;
+}
+
+:is(.ht-account, .ht-checkout) table.shop_table th,
+:is(.ht-account, .ht-checkout) table.shop_table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: middle;
+}
+
+:is(.ht-account, .ht-checkout) table.shop_table thead th {
+    background: var(--ht-account-soft);
+    color: var(--muted);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+:is(.ht-account, .ht-checkout) table.shop_table tbody tr:last-child th,
+:is(.ht-account, .ht-checkout) table.shop_table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+:is(.ht-account, .ht-checkout) table.shop_table tbody th {
+    font-weight: 600;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__cell-order-number a {
+    color: var(--brand);
+    font-weight: 600;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__cell-order-date {
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__cell-order-actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__cell-order-actions .button + .button {
+    margin-left: 8px;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__cell-order-status {
+    white-space: nowrap;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__cell-order-status::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    vertical-align: 1px;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__row--status-processing .woocommerce-orders-table__cell-order-status::before,
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__row--status-completed .woocommerce-orders-table__cell-order-status::before {
+    background: var(--brand);
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__row--status-pending .woocommerce-orders-table__cell-order-status::before,
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__row--status-on-hold .woocommerce-orders-table__cell-order-status::before {
+    background: #d4a017;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__row--status-cancelled .woocommerce-orders-table__cell-order-status::before,
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__row--status-failed .woocommerce-orders-table__cell-order-status::before,
+:is(.ht-account, .ht-checkout) .woocommerce-orders-table__row--status-refunded .woocommerce-orders-table__cell-order-status::before {
+    background: #c0392b;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-order-details__title,
+:is(.ht-account, .ht-checkout) .woocommerce-column__title,
+:is(.ht-account, .ht-checkout) .woocommerce-customer-details h2 {
+    margin: 32px 0 0;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-customer-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-customer-details address {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 1.5rem;
+    font-style: normal;
+    line-height: 1.7;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-order-overview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-order-overview li {
+    flex: 1 1 180px;
+    padding: 16px 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--muted);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+:is(.ht-account, .ht-checkout) .woocommerce-order-overview li strong {
+    display: block;
+    margin-top: 6px;
+    color: var(--text);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.ht-account__content h2,
+.ht-account__content h3 {
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.ht-account__content > p {
+    color: var(--muted);
+    font-size: 1.6rem;
+}
+
+.ht-account__content > p + p {
+    margin-top: 12px;
+}
+
+.ht-account__content a:not(.button):not(.ht-account__card-link):not(.edit) {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+@media (max-width: 991px) {
+    .ht-account__layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ht-account__aside {
+        position: static;
+        padding: 16px 16px 8px;
+    }
+
+    .ht-account__menu {
+        flex-direction: row;
+        gap: 8px;
+        margin: 0 -16px;
+        padding: 0 16px 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .ht-account__menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .ht-account__menu-item {
+        flex: 0 0 auto;
+    }
+
+    .ht-account__menu-link {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        white-space: nowrap;
+    }
+
+    .ht-account__menu-item.is-active > .ht-account__menu-link {
+        border-color: var(--brand);
+    }
+
+    .ht-account__menu-item--logout {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+
+    .ht-account__auth--media {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 520px;
+    }
+
+    .ht-account__auth-media {
+        display: none;
+    }
+
+    :is(.ht-account, .ht-checkout) .woocommerce-customer-details {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .ht-account {
+        padding: 24px 0 56px;
+    }
+
+    .ht-account__content,
+    .ht-account__panel {
+        padding: 20px;
+    }
+
+    .ht-account__auth--media .ht-account__panel {
+        padding: 8px 0;
+    }
+
+    .ht-account__cards,
+    .ht-account .woocommerce-Addresses {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ht-account .ht-form,
+    .ht-account .woocommerce-EditAccountForm,
+    .ht-account form.edit-account,
+    .ht-account .woocommerce-address-fields__field-wrapper {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ht-account fieldset {
+        padding: 20px 16px;
+    }
+
+    .ht-account .ht-form__actions,
+    .ht-account .ht-form__actions .button {
+        width: 100%;
+    }
+
+    .ht-account table.shop_table_responsive thead {
+        display: none;
+    }
+
+    .ht-account table.shop_table_responsive,
+    .ht-account table.shop_table_responsive tbody,
+    .ht-account table.shop_table_responsive tr,
+    .ht-account table.shop_table_responsive th,
+    .ht-account table.shop_table_responsive td {
+        display: block;
+        width: auto;
+    }
+
+    .ht-account table.shop_table_responsive {
+        border: 0;
+        overflow: visible;
+    }
+
+    .ht-account table.shop_table_responsive tr {
+        margin-bottom: 12px;
+        padding: 8px 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+    }
+
+    .ht-account table.shop_table_responsive th,
+    .ht-account table.shop_table_responsive td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+        text-align: right;
+    }
+
+    .ht-account table.shop_table_responsive tr > :last-child {
+        border-bottom: 0;
+    }
+
+    .ht-account table.shop_table_responsive td::before,
+    .ht-account table.shop_table_responsive th::before {
+        content: attr(data-title) ":";
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 1.3rem;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+    }
+
+    .ht-account .woocommerce-orders-table__cell-order-actions {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+}

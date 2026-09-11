@@ -1,0 +1,752 @@
+.ht-header,
+.ht-header * {
+    box-sizing: border-box;
+}
+
+.ht-header {
+    --ht-text: #202020;
+    --ht-muted: #6f6f6f;
+    --ht-line: #ebebeb;
+    --ht-bg: #fff;
+    --ht-accent: var(--gold, #f9e29d);
+    --ht-accent-ink: var(--text, #202020);
+    /* verdele din Figma: butonul de catalog si bulina cosului */
+    --ht-green: #567c55;
+    --ht-green-dark: #46693f;
+    --ht-top-h: 72px;
+    --ht-nav-h: 48px;
+
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: var(--ht-bg);
+    color: var(--ht-text);
+    font-size: 14px;
+    line-height: 1.3;
+    border-bottom: 1px solid var(--ht-line);
+    transition: box-shadow .25s ease;
+}
+
+.ht-header.is-stuck {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .06);
+}
+
+.ht-wrapper {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.ht-header a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* drawer-ul e randat in afara <header>, deci are nevoie de acelasi reset */
+.ht-header button,
+.ht-drawer button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.ht-visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.ht-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.ht-icon svg {
+    display: block;
+}
+
+.ht-header__top {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+    min-height: var(--ht-top-h);
+}
+
+/*
+ * Coloana din stanga a barii de sus. Grila are trei coloane (stanga, logo,
+ * iconite), deci burger-ul si butonul de catalog stau impreuna aici.
+ */
+.ht-header__left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-self: start;
+    min-width: 0;
+}
+
+.ht-header__logo {
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+}
+
+.ht-header__logo img {
+    display: block;
+    max-height: 60px;
+    width: auto;
+}
+
+.ht-header__logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.ht-icons {
+    justify-self: end;
+}
+
+.ht-icons__list {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-icons__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    transition: opacity .2s ease;
+}
+
+/* iconitele barii de sus sunt desenate pe 24x24, spre deosebire de restul temei */
+.ht-icons__link .ht-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.ht-icons__link:hover {
+    opacity: .6;
+}
+
+.ht-icons__count:empty {
+    display: none;
+}
+
+.ht-icons__count {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--ht-green);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 16px;
+    text-align: center;
+}
+
+.ht-header__nav {
+    border-top: 1px solid var(--ht-line);
+}
+
+/* meniul la stanga, comutatorul de limba la dreapta */
+.ht-header__nav > .ht-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.ht-menu {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    min-height: var(--ht-nav-h);
+}
+
+.ht-menu__item {
+    position: static;
+    display: flex;
+    align-items: center;
+    height: var(--ht-nav-h);
+}
+
+.ht-menu__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    font-size: 1.8rem;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.ht-menu__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform .25s ease;
+}
+
+.ht-menu__item:hover > .ht-menu__link::after,
+.ht-menu__item.is-open > .ht-menu__link::after,
+.ht-menu__item.current-menu-item > .ht-menu__link::after,
+.ht-menu__item.current-menu-ancestor > .ht-menu__link::after {
+    transform: scaleX(1);
+}
+
+.ht-mega {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: var(--ht-bg);
+    border-top: 1px solid var(--ht-line);
+    box-shadow: 0 18px 30px rgba(0, 0, 0, .08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+    pointer-events: none;
+}
+
+.ht-menu__item:hover > .ht-mega,
+.ht-menu__item.is-open > .ht-mega {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.ht-mega__inner {
+    display: flex;
+    padding-top: 24px;
+    padding-bottom: 32px;
+    min-height: 320px;
+}
+
+.ht-mega__list {
+    flex: 0 0 240px;
+    margin: 0;
+    padding: 0 24px 0 0;
+    list-style: none;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.ht-mega__list--root {
+    border-right: 1px solid var(--ht-line);
+}
+
+.ht-mega__item {
+    position: relative;
+}
+
+.ht-mega__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--ht-text);
+    cursor: pointer;
+    transition: opacity .2s ease;
+}
+
+.ht-mega__link:hover {
+    opacity: .55;
+}
+
+.ht-mega__arrow {
+    color: var(--ht-muted);
+}
+
+.ht-mega__sub {
+    position: absolute;
+    left: 100%;
+    top: -8px;
+    min-width: 260px;
+    padding-left: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .18s ease, visibility .18s ease;
+}
+
+.ht-mega__item:hover > .ht-mega__sub,
+.ht-mega__item.is-open > .ht-mega__sub {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ht-mega__sub .ht-mega__list {
+    flex: none;
+    padding-right: 0;
+    max-height: 55vh;
+}
+
+.ht-mega__list--cards {
+    display: flex;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    gap: 24px;
+    overflow: visible;
+}
+
+.ht-header__nav .ht-menu > .ht-menu__item > .ht-menu__link .ht-mega__arrow {
+    display: none;
+}
+
+.ht-mega__card {
+    display: block;
+    width: 132px;
+    text-align: left;
+}
+
+.ht-mega__card-img {
+    display: block;
+    width: 132px;
+    height: 132px;
+    object-fit: cover;
+    background: #f6f6f6;
+    border-radius: 4px;
+    transition: transform .3s ease;
+}
+
+.ht-mega__card:hover .ht-mega__card-img {
+    transform: scale(1.03);
+}
+
+.ht-mega__card-title {
+    margin: 10px 0 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+/* panoul de cautare este in assets/css/search.css */
+
+.ht-burger {
+    display: none;
+}
+
+.ht-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .35);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, visibility .25s ease;
+    z-index: 950;
+}
+
+.ht-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ht-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(88vw, 380px);
+    background: #fff;
+    z-index: 960;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+}
+
+.ht-drawer.is-open {
+    transform: translateX(0);
+}
+
+.ht-drawer__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.ht-drawer__title {
+    font-size: 14px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+/* drawer-ul e in afara .ht-header, deci nu mosteneste variabilele --ht-*;
+   foloseste paleta din :root */
+.ht-drawer .ht-drawer__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    margin-right: -10px;
+    border-radius: 50%;
+    color: var(--text);
+    transition: background .2s ease;
+}
+
+.ht-drawer .ht-drawer__close:hover {
+    background: #f6f6f6;
+}
+
+.ht-drawer__close .ht-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.ht-drawer__body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 8px 20px 32px;
+}
+
+/* fara linie proprie: ultimul element din meniu are deja una dedesubt */
+.ht-drawer__city {
+    margin-top: 28px;
+}
+
+/* titlu de sectiune in drawer: orasul, limba */
+.ht-drawer__city-title,
+.ht-drawer__section-title {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.ht-drawer__city-current {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+.ht-drawer__city-current .ht-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.ht-drawer__cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-drawer .ht-drawer__city-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 15px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.2;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.ht-drawer .ht-drawer__city-btn .ht-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.ht-drawer .ht-drawer__city-btn:hover {
+    border-color: var(--text);
+}
+
+.ht-drawer .ht-drawer__city-btn.is-active {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+}
+
+.ht-drawer .ht-menu,
+.ht-drawer .ht-mega__list {
+    display: block;
+    flex: none;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    border: 0;
+}
+
+.ht-drawer .ht-menu__item {
+    display: block;
+    height: auto;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.ht-drawer .ht-menu__link,
+.ht-drawer .ht-mega__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    padding: 14px 0;
+    font-size: 15px;
+}
+
+.ht-drawer .ht-mega__link {
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.ht-drawer .ht-menu__link::after {
+    display: none;
+}
+
+.ht-drawer .ht-mega,
+.ht-drawer .ht-mega__sub {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+    min-width: 0;
+    pointer-events: auto;
+    display: none;
+}
+
+.ht-drawer .ht-mega__inner {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    max-width: none;
+}
+
+.ht-drawer .ht-menu__item.is-open > .ht-mega,
+.ht-drawer .ht-mega__item.is-open > .ht-mega__sub {
+    display: block;
+}
+
+.ht-drawer .ht-mega__item .ht-mega__list {
+    padding-left: 14px;
+}
+
+.ht-drawer .ht-mega__list--cards {
+    display: flex;
+    gap: 14px;
+    padding: 6px 0 12px;
+}
+
+.ht-drawer .ht-mega__card,
+.ht-drawer .ht-mega__card-img {
+    width: 96px;
+}
+
+.ht-drawer .ht-mega__card-img {
+    height: 96px;
+}
+
+.ht-drawer .ht-mega__arrow {
+    transition: transform .2s ease;
+}
+
+.ht-drawer .ht-menu__item.is-open > .ht-menu__link .ht-mega__arrow,
+.ht-drawer .ht-mega__item.is-open > .ht-mega__link .ht-mega__arrow {
+    transform: rotate(90deg);
+}
+
+body.ht-no-scroll {
+    overflow: hidden;
+}
+
+@media (max-width: 1280px) {
+    .ht-wrapper {
+        padding: 0 24px;
+    }
+
+    .ht-menu {
+        gap: 22px;
+    }
+
+    .ht-mega__list {
+        flex-basis: 220px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .ht-header {
+        --ht-top-h: 60px;
+    }
+
+    .ht-header__nav {
+        display: none;
+    }
+
+    .ht-burger {
+        display: inline-flex;
+    }
+
+    .ht-icons__list {
+        gap: 16px;
+    }
+
+    .ht-header__logo img {
+        max-height: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ht-wrapper {
+        padding: 0 16px;
+    }
+
+    .ht-header__logo-text {
+        font-size: 18px;
+    }
+}
+
+.ht-header--overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: transparent;
+    border-bottom-color: transparent;
+    color: #fff;
+}
+
+.ht-header--overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, .38), rgba(0, 0, 0, 0));
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+.ht-header--overlay .ht-header__nav {
+    border-top-color: rgba(255, 255, 255, .3);
+}
+
+.ht-header--overlay .ht-menu__link,
+.ht-header--overlay .ht-icons__link {
+    color: #fff;
+}
+
+.ht-header__logo-img--overlay {
+    display: none;
+}
+
+.ht-header--overlay:not(.is-stuck):not(.is-panel-open) .ht-header__logo--dual .ht-header__logo-img {
+    display: none;
+}
+
+.ht-header--overlay:not(.is-stuck):not(.is-panel-open) .ht-header__logo-img--overlay {
+    display: block;
+}
+
+.ht-header--overlay.is-stuck,
+.ht-header--overlay.is-panel-open {
+    background: var(--ht-bg);
+    border-bottom-color: var(--ht-line);
+    color: var(--ht-text);
+}
+
+.ht-header--overlay.is-stuck::before,
+.ht-header--overlay.is-panel-open::before {
+    opacity: 0;
+}
+
+.ht-header--overlay.is-stuck .ht-header__nav,
+.ht-header--overlay.is-panel-open .ht-header__nav {
+    border-top-color: var(--ht-line);
+}
+
+.ht-header--overlay.is-stuck .ht-menu__link,
+.ht-header--overlay.is-stuck .ht-icons__link,
+.ht-header--overlay.is-panel-open .ht-menu__link,
+.ht-header--overlay.is-panel-open .ht-icons__link {
+    color: var(--ht-text);
+}
+
+.ht-header--overlay:not(.is-stuck):not(.is-panel-open) .ht-menu__link[style] {
+    color: #fff !important;
+}
+
+/*
+ * Pe mobil header-ul nu mai pluteste peste hero: ramane alb, in fluxul
+ * normal al paginii (fara sticky/fixed), iar caruselul vine imediat sub el.
+ */
+@media (max-width: 1024px) {
+    /* defileaza cu pagina; relative pastreaza ancora panourilor din header */
+    .ht-header {
+        position: relative;
+        top: auto;
+    }
+
+    .ht-header--overlay {
+        position: relative;
+        background: var(--ht-bg);
+        border-bottom-color: var(--ht-line);
+        color: var(--ht-text);
+    }
+
+    .ht-header--overlay::before {
+        display: none;
+    }
+
+    .ht-header--overlay .ht-icons__link {
+        color: var(--ht-text);
+    }
+
+    /* logo-ul normal in loc de varianta alba de overlay */
+    .ht-header--overlay:not(.is-stuck):not(.is-panel-open) .ht-header__logo--dual .ht-header__logo-img {
+        display: block;
+    }
+
+    .ht-header--overlay:not(.is-stuck):not(.is-panel-open) .ht-header__logo-img--overlay {
+        display: none;
+    }
+}

@@ -1,0 +1,274 @@
+/* ------------------------------------------------------------------
+ * Sectiunea "Categorii de produse".
+ *
+ * Masuratorile vin din Figma, luate pe o placa de 345x345 (patru placi cu
+ * 20px intre ele, pe containerul de 1440px). Valorile sunt fixe, in rem
+ * (1rem = 10px): pe toate pragurile caruselului placa ramane intre ~260px
+ * si ~350px, deci aceleasi masuri tin peste tot. Doar sub 30rem (480px),
+ * unde placa scade sub 260px, eticheta coboara - vezi @media de la final.
+ * ---------------------------------------------------------------- */
+
+.ht-cats {
+    padding: 56px 0;
+}
+
+.ht-cats__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.ht-cats__title {
+    font-size: var(--ht-title-section);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ht-card-ink);
+}
+
+.ht-cats__nav {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 8px;
+}
+
+.ht-cats__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ht-card-ink);
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, color .2s ease, opacity .2s ease;
+}
+
+.ht-cats__arrow:hover {
+    background: var(--ht-card-ink);
+    border-color: var(--ht-card-ink);
+    color: #fff;
+}
+
+.ht-cats__arrow--prev .ht-icon {
+    transform: rotate(180deg);
+}
+
+.ht-cats__arrow.swiper-button-disabled {
+    opacity: .35;
+    pointer-events: none;
+}
+
+.ht-cats__swiper {
+    overflow: hidden;
+}
+
+.ht-cats__slide {
+    height: auto;
+}
+
+.ht-cats__pagination {
+    position: static;
+    display: none;
+    margin-top: 20px;
+    --swiper-pagination-color: var(--ht-card-cta);
+    --swiper-pagination-bullet-inactive-color: var(--ht-card-cta);
+    --swiper-pagination-bullet-inactive-opacity: .25;
+}
+
+/* ------------------------------------------------------------------
+ * Placa
+ * ---------------------------------------------------------------- */
+
+.ht-cat {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border-radius: 1.8rem;
+    background: var(--ht-cat-bg, var(--ht-card-bg));
+    color: var(--ht-card-ink);
+}
+
+.ht-cat:hover {
+    color: var(--ht-card-ink);
+}
+
+.ht-cat__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+.ht-cat:hover .ht-cat__img {
+    transform: scale(1.04);
+}
+
+/* eticheta translucida de jos: 323x58 la 11px de margini, 12px de baza */
+.ht-cat__pill {
+    position: absolute;
+    right: 1.1rem;
+    bottom: 1.2rem;
+    left: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    min-height: 5.8rem;
+    padding: .7rem 1.4rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, .6);
+    backdrop-filter: blur(2px);
+}
+
+.ht-cat__icon {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 3.1rem;
+    height: 3.1rem;
+    border-radius: .8rem;
+    /* verdele temei la toate placile, indiferent de paleta fundalului */
+    background: var(--ht-card-cta);
+    color: #fff;
+}
+
+/* ------------------------------------------------------------------
+ * Butonul "Vezi toate categoriile" de sub carusel (acelasi desen ca butonul
+ * din sectiunea "Despre noi": 345px, verdele temei, 8px radius)
+ * ---------------------------------------------------------------- */
+
+.ht-cats__foot {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.ht-cats__more {
+    display: inline-flex;
+    width: 345px;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    border-radius: 8px;
+    background: var(--ht-card-cta);
+    color: #fff;
+    font-size: 1.9rem;
+    font-weight: 600;
+    line-height: 1.158;
+    transition: background .2s ease;
+}
+
+.ht-cats__more:hover,
+.ht-cats__more:focus-visible {
+    background: var(--ht-card-cta-hover);
+    color: #fff;
+}
+
+.ht-cat__icon-glyph {
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.ht-cat__icon-glyph svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.ht-cat__text {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.ht-cat__name {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1.2;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.ht-cat__count {
+    overflow: hidden;
+    font-size: 1.2rem;
+    line-height: 1.25;
+    color: rgba(0, 0, 0, .45);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .ht-cats {
+        padding: 32px 0;
+    }
+
+    .ht-cats__head {
+        margin-bottom: 20px;
+    }
+
+    .ht-cats__nav {
+        display: none;
+    }
+
+    .ht-cats__pagination {
+        display: block;
+    }
+
+    .ht-cats__foot {
+        margin-top: 24px;
+    }
+
+    .ht-cats__more {
+        width: 100%;
+        font-size: 1.7rem;
+    }
+}
+
+/* placa scade sub 260px pe telefoanele mici, deci eticheta ei coboara si ea */
+@media (max-width: 30rem) {
+    .ht-cat {
+        border-radius: 1.2rem;
+    }
+
+    .ht-cat__pill {
+        right: .8rem;
+        bottom: .9rem;
+        left: .8rem;
+        gap: .6rem;
+        min-height: 4.6rem;
+        padding: .6rem 1rem;
+        border-radius: .8rem;
+    }
+
+    .ht-cat__icon {
+        width: 2.6rem;
+        height: 2.6rem;
+        border-radius: .6rem;
+    }
+
+    .ht-cat__icon-glyph {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .ht-cat__name {
+        font-size: 1.2rem;
+    }
+
+    .ht-cat__count {
+        font-size: 1.1rem;
+    }
+}

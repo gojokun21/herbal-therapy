@@ -1,0 +1,18 @@
+{
+    "name": "herbal/herbal-therapy",
+    "description": "Tema Herbal Therapy - teste unitare pentru filtrele catalogului.",
+    "type": "wordpress-theme",
+    "license": "proprietary",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

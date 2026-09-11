@@ -1,0 +1,362 @@
+/* ---------------------------------------------------------------------------
+ * Notificarile de cos
+ *
+ * Stiva sta sub antet (z-index 900) si peste continut, dar sub cosul rapid
+ * (z-index 990): cand panoul e deschis, notificarea nu mai are ce anunta.
+ * ------------------------------------------------------------------------ */
+
+.ht-toast {
+    --ht-t-ink: #202020;
+    --ht-t-mute: #6f6f6f;
+    --ht-t-line: #e8e8e8;
+    --ht-t-soft: #f6f6f6;
+    --ht-t-brand: var(--brand, #274f32);
+    --ht-t-brand-ink: #fff;
+    --ht-t-ok-bg: #eef7eb;
+    --ht-t-ok-ink: #3f7a44;
+
+    --ht-t-width: 380px;
+    --ht-t-life: 6000ms;
+
+    position: fixed;
+    /* sub antetul lipit: 72px randul de sus + 48px meniul + 20px aer */
+    top: 140px;
+    right: 20px;
+    z-index: 985;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(var(--ht-t-width), calc(100vw - 40px));
+    /* stiva nu prinde clicuri intre cartonase */
+    pointer-events: none;
+}
+
+.ht-toast:empty {
+    display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Cartonasul
+ * ------------------------------------------------------------------------ */
+
+.ht-toast__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 72px 1fr 24px;
+    gap: 14px;
+    align-items: start;
+    overflow: hidden;
+    padding: 16px;
+    border: 1px solid var(--ht-t-line);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(32, 32, 32, .12), 0 2px 6px rgba(32, 32, 32, .06);
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--ht-t-ink);
+    pointer-events: auto;
+
+    /* starea de intrare; clasa .is-open o aduce la locul ei */
+    opacity: 0;
+    transform: translate3d(24px, -6px, 0) scale(.97);
+    transition: opacity .28s ease, transform .38s cubic-bezier(.22, 1, .36, 1);
+}
+
+.ht-toast__item.is-open {
+    opacity: 1;
+    transform: none;
+}
+
+.ht-toast__item.is-closing {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0) scale(.97);
+}
+
+/* produsul adaugat din nou: acelasi cartonas, continut improspatat */
+.ht-toast__item.is-bumped {
+    animation: ht-toast-bump .4s cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes ht-toast-bump {
+    0%   { transform: none; }
+    35%  { transform: scale(1.025); }
+    100% { transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Imaginea
+ * ------------------------------------------------------------------------ */
+
+.ht-toast__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--ht-t-soft);
+}
+
+.ht-toast__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+/* ---------------------------------------------------------------------------
+ * Textul
+ * ------------------------------------------------------------------------ */
+
+.ht-toast__main {
+    min-width: 0;
+}
+
+.ht-toast__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    padding: 3px 10px 3px 6px;
+    border-radius: 999px;
+    background: var(--ht-t-ok-bg);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: var(--ht-t-ok-ink);
+}
+
+.ht-toast__check {
+    display: inline-flex;
+}
+
+.ht-toast__check svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.2;
+}
+
+.ht-toast__title {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ht-t-ink);
+}
+
+.ht-toast__title a {
+    color: inherit;
+}
+
+.ht-toast__title a:hover {
+    color: var(--ht-t-brand);
+}
+
+.ht-toast__meta {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--ht-t-mute);
+}
+
+.ht-toast__meta .amount,
+.ht-toast__meta bdi {
+    color: var(--ht-t-ink);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ht-toast__meta del {
+    font-weight: 400;
+    color: var(--ht-t-mute);
+}
+
+/* ---------------------------------------------------------------------------
+ * Butoanele
+ * ------------------------------------------------------------------------ */
+
+.ht-toast__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.ht-toast__btn {
+    display: inline-flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.ht-toast__btn--ghost {
+    border-color: var(--ht-t-line);
+    background: #fff;
+    color: var(--ht-t-ink);
+}
+
+.ht-toast__btn--ghost:hover {
+    border-color: var(--ht-t-brand);
+    color: var(--ht-t-brand);
+}
+
+.ht-toast__btn--solid {
+    background: var(--ht-t-brand);
+    color: var(--ht-t-brand-ink);
+}
+
+.ht-toast__btn--solid:hover {
+    background: var(--brand-dark, #1b3a24);
+    color: var(--ht-t-brand-ink);
+}
+
+/* ---------------------------------------------------------------------------
+ * Inchiderea si bara de timp
+ * ------------------------------------------------------------------------ */
+
+.ht-toast__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ht-t-mute);
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-toast__close:hover {
+    background: var(--ht-t-soft);
+    color: var(--ht-t-ink);
+}
+
+.ht-toast__close-icon svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2;
+}
+
+.ht-toast__bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform-origin: left center;
+    background: var(--ht-t-brand);
+    opacity: .35;
+    transform: scaleX(0);
+}
+
+.ht-toast__item.is-open .ht-toast__bar {
+    animation: ht-toast-bar var(--ht-t-life) linear forwards;
+}
+
+/* numaratoarea sta pe loc cat timp cursorul e pe cartonas */
+.ht-toast__item.is-held .ht-toast__bar {
+    animation-play-state: paused;
+}
+
+@keyframes ht-toast-bar {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0); }
+}
+
+/* slotul prin care vin fragmentele nu are ce arata */
+.ht-toast__slot {
+    display: none !important;
+}
+
+/*
+ * Linkul pe care WooCommerce il lipeste langa buton dupa adaugare ("Vezi
+ * coșul"). Ramanea nestilizat sub butoanele temei; acum e in notificare.
+ */
+.added_to_cart.wc-forward {
+    display: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane medii: meniul dispare din antet, deci notificarea urca si ea
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 1024px) {
+    .ht-toast {
+        /* antetul ramane doar cu randul de sus, scurtat la 60px */
+        top: 80px;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane mici: cartonasul urca de jos, pe toata latimea
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+    .ht-toast {
+        top: auto;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        left: 12px;
+        flex-direction: column-reverse;
+        width: auto;
+    }
+
+    .ht-toast__item {
+        grid-template-columns: 64px 1fr 24px;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 14px;
+        transform: translate3d(0, 24px, 0) scale(.97);
+    }
+
+    .ht-toast__item.is-closing {
+        transform: translate3d(0, 16px, 0) scale(.97);
+    }
+
+    .ht-toast__media {
+        width: 64px;
+        height: 64px;
+    }
+
+    .ht-toast__title {
+        font-size: 14px;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+ * Fara animatii, cand asa cere sistemul
+ * ------------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+    .ht-toast__item,
+    .ht-toast__item.is-closing {
+        transform: none;
+        transition-duration: .01ms;
+    }
+
+    .ht-toast__item.is-bumped {
+        animation: none;
+    }
+
+    .ht-toast__item.is-open .ht-toast__bar {
+        animation: none;
+        transform: scaleX(1);
+    }
+}

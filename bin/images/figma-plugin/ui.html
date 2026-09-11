@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<style>
+  body { font: 12px/1.5 Inter, system-ui, sans-serif; margin: 0; padding: 16px; color: #1e1e1e; }
+  h1 { font-size: 14px; margin: 0 0 12px; }
+  label { display: block; font-weight: 600; margin: 12px 0 4px; }
+  input[type=file] { width: 100%; }
+  .hint { color: #666; font-size: 11px; }
+  button { margin-top: 14px; padding: 8px 14px; border: 0; border-radius: 6px; background: #567c55; color: #fff; font-weight: 600; cursor: pointer; }
+  button[disabled] { background: #bbb; cursor: default; }
+  #log { margin-top: 12px; height: 200px; overflow: auto; background: #f4f4f4; border-radius: 6px; padding: 8px; font-family: ui-monospace, monospace; font-size: 11px; white-space: pre-wrap; }
+  #save { display: none; margin-top: 10px; }
+</style>
+</head>
+<body>
+  <h1>Imagini produse din manifest</h1>
+
+  <label>1. figma_manifest.json</label>
+  <input id="manifest" type="file" accept=".json,application/json">
+
+  <label>2. Fundalurile (PNG)</label>
+  <input id="images" type="file" accept="image/png" multiple>
+  <p class="hint">Selectează toate fișierele din <code>bin/images/data/backgrounds/</code>. Se construiesc doar produsele care au și text în manifest și PNG aici.</p>
+
+  <button id="build" disabled>Construiește cadrele</button>
+  <a id="save" download="figma_nodes.json">Descarcă figma_nodes.json (pentru upload_to_wp.php)</a>
+
+  <div id="log"></div>
+
+<script>
+  var manifestInput = document.getElementById('manifest');
+  var imagesInput = document.getElementById('images');
+  var buildBtn = document.getElementById('build');
+  var saveLink = document.getElementById('save');
+  var logEl = document.getElementById('log');
+
+  var manifest = null;
+  var images = {};
+  var nodes = {};
+  var queue = [];
+
+  function log(line) {
+    logEl.textContent += line + '\n';
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function refresh() {
+    buildBtn.disabled = !(manifest && Object.keys(images).length);
+  }
+
+  manifestInput.addEventListener('change', function () {
+    var f = manifestInput.files[0];
+    if (!f) return;
+    f.text().then(function (txt) {
+      manifest = JSON.parse(txt);
+      log('manifest: ' + manifest.items.length + ' produse');
+      refresh();
+    });
+  });
+
+  imagesInput.addEventListener('change', function () {
+    images = {};
+    var files = Array.prototype.slice.call(imagesInput.files);
+    Promise.all(files.map(function (f) {
+      return f.arrayBuffer().then(function (buf) { images[f.name] = new Uint8Array(buf); });
+    })).then(function () {
+      log('fundaluri: ' + files.length + ' fișiere');
+      refresh();
+    });
+  });
+
+  buildBtn.addEventListener('click', function () {
+    buildBtn.disabled = true;
+    saveLink.style.display = 'none';
+    nodes = {};
+    queue = manifest.items.filter(function (it) {
+      if (!images[it.image]) { log('- ' + it.slug + ': lipsește ' + it.image + ', sar'); return false; }
+      return true;
+    });
+    log('de construit: ' + queue.length);
+    parent.postMessage({ pluginMessage: { type: 'start' } }, '*');
+  });
+
+  function sendNext() {
+    var it = queue.shift();
+    if (!it) {
+      parent.postMessage({ pluginMessage: { type: 'finish' } }, '*');
+      var blob = new Blob([JSON.stringify(nodes, null, 2)], { type: 'application/json' });
+      saveLink.href = URL.createObjectURL(blob);
+      saveLink.style.display = 'inline-block';
+      log('gata: ' + Object.keys(nodes).length + ' produse. Salvează figma_nodes.json în bin/images/data/.');
+      buildBtn.disabled = false;
+      return;
+    }
+    var item = Object.assign({}, it, { image: images[it.image] });
+    parent.postMessage({ pluginMessage: { type: 'build-item', item: item } }, '*');
+  }
+
+  window.onmessage = function (event) {
+    var msg = event.data.pluginMessage;
+    if (!msg) return;
+    if (msg.type === 'ready') { sendNext(); }
+    if (msg.type === 'item-done') {
+      nodes[msg.slug] = { ro: msg.ro, ru: msg.ru };
+      log('+ ' + msg.slug + '  ro=' + msg.ro + '  ru=' + msg.ru);
+      sendNext();
+    }
+    if (msg.type === 'item-failed') {
+      log('! ' + msg.slug + ': ' + msg.error);
+      sendNext();
+    }
+  };
+</script>
+</body>
+</html>

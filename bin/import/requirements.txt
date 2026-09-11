@@ -1,0 +1,7 @@
+openpyxl>=3.1
+rapidfuzz>=3.9
+scipy>=1.11
+requests>=2.31
+python-dotenv>=1.0
+beautifulsoup4>=4.12
+lxml>=5.0

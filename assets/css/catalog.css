@@ -1,0 +1,325 @@
+/*
+ * Catalogul din header: butonul verde din bara de sus si panoul care coboara
+ * sub header. Foloseste aceleasi variabile ca restul header-ului (--ht-*) si
+ * acelasi tipar ca panoul de cautare: panou lipit de header + fundal intunecat
+ * peste restul paginii.
+ *
+ * Selectorii sunt prefixati cu .ht-header pentru ca regula generala
+ * ".ht-header a { color: inherit }" are prioritate mai mare decat o singura clasa.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Butonul
+ * ------------------------------------------------------------------------ */
+
+.ht-header .ht-catalog__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 50px;
+    padding: 0 26px;
+    border-radius: 8px;
+    background: var(--ht-green);
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    transition: background .2s ease;
+}
+
+.ht-header .ht-catalog__btn:hover,
+.ht-header .ht-catalog__btn[aria-expanded="true"] {
+    background: var(--ht-green-dark);
+    color: #fff;
+}
+
+.ht-catalog__btn-icon svg {
+    display: block;
+}
+
+/* ---------------------------------------------------------------------------
+ * Panoul
+ * ------------------------------------------------------------------------ */
+
+.ht-catalog {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.ht-catalog.is-open {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.ht-catalog__panel {
+    position: relative;
+    z-index: 2;
+    max-height: calc(100vh - var(--ht-top-h) - var(--ht-nav-h));
+    background: var(--ht-bg);
+    border-top: 1px solid var(--ht-line);
+    box-shadow: 0 24px 40px rgba(0, 0, 0, .1);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateY(-12px);
+    opacity: 0;
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+.ht-catalog.is-open .ht-catalog__panel {
+    transform: none;
+    opacity: 1;
+}
+
+/* acopera pagina de sub header, la fel ca la cautare */
+.ht-catalog__backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 100vh;
+    z-index: 1;
+    background: rgba(0, 0, 0, .35);
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+.ht-catalog.is-open .ht-catalog__backdrop {
+    opacity: 1;
+}
+
+.ht-catalog__inner {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) 1fr;
+    column-gap: 40px;
+    row-gap: 0;
+    padding-top: 28px;
+    padding-bottom: 32px;
+}
+
+/* fara subcategorii nu are ce sta in coloana din dreapta */
+.ht-catalog__inner--flat {
+    grid-template-columns: 1fr;
+}
+
+/* ---------------------------------------------------------------------------
+ * Coloana categoriilor principale
+ * ------------------------------------------------------------------------ */
+
+.ht-catalog__roots {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-header .ht-catalog__root-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    color: var(--ht-text);
+    font-size: 1.6rem;
+    line-height: 1.3;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.ht-header .ht-catalog__root-link:hover,
+.ht-catalog__root.is-active > .ht-catalog__root-link {
+    background: #f2f5f2;
+    color: var(--ht-green);
+}
+
+.ht-catalog__thumb {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.ht-catalog__root-name {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ht-catalog__arrow {
+    color: var(--ht-muted);
+}
+
+.ht-catalog__arrow svg {
+    width: 14px;
+    height: 14px;
+}
+
+.ht-catalog__count {
+    flex: 0 0 auto;
+    color: var(--ht-muted);
+    font-size: 1.3rem;
+}
+
+/*
+ * Varianta plata: categoriile devin placi. 'auto-fit' in loc de 'auto-fill' ca
+ * randul sa nu ramana cu coloane goale in dreapta cand magazinul are putine
+ * categorii, iar plafonul de 320px le opreste sa se intinda peste masura.
+ */
+.ht-catalog__inner--flat .ht-catalog__roots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 320px));
+    justify-content: start;
+    gap: 12px;
+}
+
+.ht-header .ht-catalog__inner--flat .ht-catalog__root-link {
+    height: 100%;
+    padding: 16px 18px;
+    border: 1px solid var(--ht-line);
+}
+
+.ht-header .ht-catalog__inner--flat .ht-catalog__root-link:hover {
+    background: #fff;
+    border-color: var(--ht-green);
+}
+
+/* ---------------------------------------------------------------------------
+ * Subcategoriile
+ * ------------------------------------------------------------------------ */
+
+.ht-catalog__pane {
+    display: none;
+}
+
+.ht-catalog__pane.is-active {
+    display: block;
+}
+
+.ht-header .ht-catalog__pane-title {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: var(--ht-text);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.ht-header .ht-catalog__pane-title:hover {
+    color: var(--ht-green);
+}
+
+.ht-catalog__subs {
+    columns: 3;
+    column-gap: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-catalog__subs li {
+    break-inside: avoid;
+}
+
+.ht-header .ht-catalog__sub {
+    display: block;
+    padding: 7px 0;
+    color: var(--ht-text);
+    font-size: 1.5rem;
+    line-height: 1.3;
+}
+
+.ht-header .ht-catalog__sub:hover {
+    color: var(--ht-green);
+}
+
+.ht-catalog__empty {
+    margin: 0;
+    color: var(--ht-muted);
+    font-size: 1.5rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * Link-ul catre magazin
+ * ------------------------------------------------------------------------ */
+
+.ht-header .ht-catalog__all {
+    grid-column: 1 / -1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+    color: var(--ht-green);
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.ht-header .ht-catalog__all:hover {
+    color: var(--ht-green-dark);
+}
+
+.ht-catalog__all .ht-icon svg {
+    width: 18px;
+    height: 18px;
+    transition: transform .2s ease;
+}
+
+.ht-header .ht-catalog__all:hover .ht-icon svg {
+    transform: translateX(3px);
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane mici
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 1280px) {
+    .ht-catalog__subs {
+        columns: 2;
+    }
+}
+
+@media (max-width: 1024px) {
+    .ht-header .ht-catalog__btn {
+        height: 40px;
+        padding: 0 16px;
+        font-size: 1.5rem;
+    }
+
+    /*
+     * Sub 1025px panoul devine o singura lista: subcategoriile se vad pe pagina
+     * de categorie, iar aici ar cere un al doilea nivel de navigare.
+     */
+    .ht-catalog__panel {
+        max-height: calc(100vh - var(--ht-top-h));
+    }
+
+    .ht-catalog__inner,
+    .ht-catalog__inner--flat .ht-catalog__roots {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .ht-catalog__panes {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    /* pe telefon ramane doar iconita, altfel bara de sus nu incape */
+    .ht-header .ht-catalog__btn {
+        padding: 0 12px;
+    }
+
+    .ht-catalog__btn-text {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+    }
+}

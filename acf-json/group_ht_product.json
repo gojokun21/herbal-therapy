@@ -1,0 +1,176 @@
+{
+    "key": "group_ht_product",
+    "title": "Pagina de produs",
+    "fields": [
+        {
+            "key": "field_ht_product_benefits",
+            "label": "Beneficii",
+            "name": "beneficii",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Lista cu bulina de sub titlu. Se afiseaza primele 6 randuri. Goala inseamna ca se folosesc punctele din descrierea scurta.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 6,
+            "collapsed": "field_ht_product_benefit_text",
+            "button_label": "Adauga beneficiu",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_ht_product_benefit_text",
+                    "label": "Beneficiu",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Un singur rand, fara liniuta sau bulina la inceput - o deseneaza tema.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Sustinerea sanatatii oaselor",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_product_benefits"
+                }
+            ]
+        },
+        {
+            "key": "field_ht_product_ingredients",
+            "label": "Ingrediente",
+            "name": "ingrediente",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Randurile din tabelul de langa taburi, in ordinea in care apar.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_ht_product_ingredient_text",
+            "button_label": "Adauga ingredient",
+            "rows_per_page": 30,
+            "sub_fields": [
+                {
+                    "key": "field_ht_product_ingredient_text",
+                    "label": "Ingredient",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "80",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Calciu - 250 mg (VNR - 31,25%)",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_product_ingredients"
+                },
+                {
+                    "key": "field_ht_product_ingredient_strong",
+                    "label": "Ingrosat",
+                    "name": "strong",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Pentru randurile de nota, ca \"VNR - Valoarea nutritionala de referinta\".",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_ht_product_ingredients"
+                }
+            ]
+        },
+        {
+            "key": "field_ht_product_usage",
+            "label": "Mod de utilizare",
+            "name": "mod_de_utilizare",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Continutul tabului \"Mod de Utilizare\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 1
+        },
+        {
+            "key": "field_ht_product_warnings",
+            "label": "Atentionari si mentiuni",
+            "name": "atentionari",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Continutul tabului \"Atentionari si Mentiuni\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Textele proprii paginii de produs: beneficiile de sub titlu, taburile si tabelul de ingrediente.",
+    "show_in_rest": 0,
+    "modified": 1788240000
+}

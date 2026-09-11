@@ -1,0 +1,126 @@
+.ht-favorites {
+    padding: 32px 0 64px;
+}
+
+.ht-favorites__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.ht-favorites__title {
+    margin: 0;
+    font-size: var(--ht-title-page);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.ht-favorites__clear {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 1.4rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    transition: color .2s ease;
+}
+
+.ht-favorites__clear:hover,
+.ht-favorites__clear:focus-visible {
+    color: var(--text);
+}
+
+.ht-favorites__clear[disabled] {
+    opacity: .5;
+    cursor: default;
+}
+
+.ht-favorites__intro {
+    max-width: 720px;
+    margin-bottom: 24px;
+    color: var(--muted);
+}
+
+.ht-favorites__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@media (min-width: 768px) {
+    .ht-favorites__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .ht-favorites__grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.ht-favorites__item {
+    min-width: 0;
+}
+
+.ht-favorites__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 16px 64px;
+    text-align: center;
+}
+
+.ht-favorites__empty-icon svg {
+    width: 56px;
+    height: 56px;
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1.5;
+}
+
+.ht-favorites__empty-text {
+    margin: 20px 0 4px;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.ht-favorites__empty-hint {
+    margin: 0 0 24px;
+    max-width: 380px;
+    color: var(--muted);
+}
+
+.ht-favorites__empty-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 32px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s ease;
+}
+
+.ht-favorites__empty-link:hover,
+.ht-favorites__empty-link:focus-visible {
+    background: var(--accent-hover);
+    color: #fff;
+}
+
+.ht-card__fav.is-busy,
+.ht-pp__fav.is-busy {
+    opacity: .6;
+}

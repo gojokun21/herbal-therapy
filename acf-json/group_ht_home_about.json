@@ -1,0 +1,113 @@
+{
+    "key": "group_ht_home_about",
+    "title": "Blocul despre noi (prima pagina)",
+    "fields": [
+        {
+            "key": "field_ht_home_about_title",
+            "label": "Titlu",
+            "name": "ht_home_about_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Gol inseamna textul din design: \"Fabrica Farmaceutica din Chisinau, Republica Moldova\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_home_about_text",
+            "label": "Descriere",
+            "name": "ht_home_about_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Doua randuri sub titlu. Gol inseamna textul din design.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_ht_home_about_image",
+            "label": "Fotografie",
+            "name": "ht_home_about_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Ideal 1446x930. Goala inseamna fotografia fabricii, livrata cu tema.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_ht_home_about_button",
+            "label": "Buton",
+            "name": "ht_home_about_button",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Gol inseamna pagina cu sablonul \"Despre noi\" si eticheta \"Despre noi\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/home-template.php"
+            }
+        ],
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Placa gri de la finalul primei pagini: titlu, descriere, buton si fotografie.",
+    "show_in_rest": 0,
+    "modified": 1787112000
+}

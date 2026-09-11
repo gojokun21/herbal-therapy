@@ -1,0 +1,259 @@
+.ht-footer,
+.ht-footer * {
+    box-sizing: border-box;
+}
+
+.ht-footer {
+    /* Unitatea footerului: 1rem = 10px, adica exact valoarea din macheta de
+     * 1440px. Creste pe ecranele foarte late si scade pe telefon, in trepte
+     * (vezi media queries de la finalul fisierului) - fara clamp, fara vw. */
+    --ht-u: 1rem;
+
+    --ht-footer-text: #202020;
+    --ht-footer-muted: #8a8a8a;
+    --ht-footer-hover: var(--accent, #cbcfb4);
+    --ht-footer-bottom-bg: #f6f6f6;
+
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    color: var(--ht-footer-text);
+    font-size: calc(1.4 * var(--ht-u));
+    line-height: normal;
+}
+
+.ht-footer a {
+    color: inherit;
+    text-decoration: none;
+    transition: color .3s ease;
+}
+
+.ht-footer a:hover,
+.ht-footer a:focus-visible {
+    color: var(--ht-footer-hover);
+}
+
+.ht-footer__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(5 * var(--ht-u)) calc(3 * var(--ht-u));
+    /* aer intre ultima coloana si bara cu copyright, cat un rand din grila */
+    margin-bottom: calc(5 * var(--ht-u));
+}
+
+.ht-footer__col-title {
+    margin: 0 0 calc(2.5 * var(--ht-u));
+    color: var(--ht-footer-muted);
+    font-size: var(--ht-u);
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+}
+
+.ht-footer__links {
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(1.8 * var(--ht-u));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: inherit;
+}
+
+.ht-footer__contacts-socials {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: start;
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+.ht-footer__contacts {
+    display: flex;
+    flex-direction: column;
+    row-gap: calc(1.5 * var(--ht-u));
+}
+
+.ht-footer__contacts-item a,
+.ht-footer__contacts-item > span:first-child {
+    display: inline-block;
+    margin-bottom: calc(1.2 * var(--ht-u));
+    white-space: nowrap;
+}
+
+.ht-footer__contacts-schedule {
+    display: block;
+    color: var(--ht-footer-muted);
+    line-height: 1.3;
+}
+
+.ht-footer__socials {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(.5 * var(--ht-u)) var(--ht-u);
+    margin: 0 0 calc(1.5 * var(--ht-u));
+    padding: 0;
+    list-style: none;
+    font-size: inherit;
+}
+
+.ht-footer__socials-item {
+    height: calc(2 * var(--ht-u));
+}
+
+.ht-footer__socials-item a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.ht-footer__socials-item .ht-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.ht-footer__socials-item .ht-icon svg {
+    display: block;
+    width: auto;
+    height: 60%;
+}
+
+/* Cardurile acceptate. Pe telefon stau centrate pe toata latimea, sub
+ * contacte; pe desktop se lipesc de marginea dreapta a randului cu contactele,
+ * in oglinda cu telefonul din stanga. */
+.ht-footer__payments {
+    grid-column: span 2;
+    align-self: center;
+    margin: var(--ht-u) 0 calc(2.5 * var(--ht-u));
+}
+
+.ht-footer__payments-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: calc(.5 * var(--ht-u)) var(--ht-u);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: inherit;
+}
+
+.ht-footer__payments-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(2.4 * var(--ht-u));
+}
+
+.ht-footer__payments-item img {
+    display: block;
+    width: auto;
+    height: 100%;
+}
+
+.ht-footer__bottom {
+    padding: calc(2.3 * var(--ht-u));
+    background: var(--ht-footer-bottom-bg);
+    font-size: var(--ht-u);
+    text-align: center;
+}
+
+@media (min-width: 651px) {
+    .ht-footer__content {
+        grid-template-columns: .9fr 1.1fr .85fr 1.35fr;
+        gap: calc(9 * var(--ht-u)) calc(5 * var(--ht-u));
+        margin-bottom: calc(5.5 * var(--ht-u));
+    }
+
+    .ht-footer__col-title {
+        margin-bottom: calc(3.5 * var(--ht-u));
+        font-size: calc(1.2 * var(--ht-u));
+    }
+
+    .ht-footer__links {
+        row-gap: calc(3 * var(--ht-u));
+    }
+
+    .ht-footer__contacts-socials {
+        display: grid;
+        grid-area: auto / 1 / auto / 3;
+        grid-template-columns: .9fr 1.1fr;
+        grid-template-columns: subgrid;
+        align-items: center;
+    }
+
+    .ht-footer__contacts-item a,
+    .ht-footer__contacts-item > span:first-child {
+        margin-bottom: var(--ht-u);
+    }
+
+    .ht-footer__socials {
+        column-gap: calc(1.9 * var(--ht-u));
+        margin-bottom: 0;
+    }
+
+    .ht-footer__socials-item {
+        height: calc(3.3 * var(--ht-u));
+    }
+
+    .ht-footer__payments {
+        grid-column: 3 / 5;
+        margin: 0;
+    }
+
+    .ht-footer__payments-list {
+        justify-content: flex-end;
+        column-gap: calc(3.5 * var(--ht-u));
+    }
+
+    .ht-footer__payments-item {
+        height: calc(2.8 * var(--ht-u));
+    }
+
+    .ht-footer__bottom {
+        padding: calc(2 * var(--ht-u));
+        font-size: calc(1.2 * var(--ht-u));
+    }
+}
+
+@media (max-width: 650px) {
+    .ht-footer {
+        --ht-u: 1.5rem;
+    }
+
+    .ht-footer__col:nth-child(4) {
+        grid-column: span 2;
+    }
+}
+
+/* telefoane mai mici: unitatea coboara in doua trepte (30rem = 480px, 25rem = 400px) */
+@media (max-width: 30rem) {
+    .ht-footer {
+        --ht-u: 1.2rem;
+    }
+}
+
+@media (max-width: 25rem) {
+    .ht-footer {
+        --ht-u: 1rem;
+    }
+}
+
+/* ecrane foarte late: footerul urca pana la macheta de 1920px
+ * (100rem = 1600px, 120rem = 1920px) */
+@media (min-width: 100rem) {
+    .ht-footer {
+        --ht-u: 1.1rem;
+    }
+}
+
+@media (min-width: 120rem) {
+    .ht-footer {
+        --ht-u: 1.334rem;
+    }
+}

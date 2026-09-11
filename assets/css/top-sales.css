@@ -1,0 +1,117 @@
+/*
+ * Sectiunea "Top vânzări" (Figma, nodul 33:4611).
+ *
+ * Sectiunea sta pe scheletul caruselului de produse (products.css): aici sunt
+ * doar taburile de categorii si starea de incarcare. Masuratorile chip-urilor
+ * sunt cele din design: 50px inaltime (22px text + 14px sus/jos), colturi de
+ * 8px, 12px intre ele si 16px pana la randul de carduri.
+ *
+ * Randul de taburi e un Swiper cu sageti laterale: pe desktop rotita nu deruleaza
+ * containerele orizontale, deci fara ele chip-urile de dupa margine nu se pot
+ * atinge cu mouse-ul. Distanta dintre chip-uri o da Swiper (spaceBetween), nu gap.
+ */
+
+.ht-top-sales__tabs-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.ht-top-sales__tabs {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ht-top-sales__tabs .swiper-slide {
+    width: auto;
+}
+
+.ht-top-sales__tabs-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ht-card-ink);
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.ht-top-sales__tabs-arrow:hover {
+    background: var(--ht-card-ink);
+    border-color: var(--ht-card-ink);
+    color: #fff;
+}
+
+.ht-top-sales__tabs-arrow--prev .ht-icon {
+    transform: rotate(180deg);
+}
+
+.ht-top-sales__tabs-arrow.swiper-button-disabled {
+    opacity: .35;
+    pointer-events: none;
+}
+
+/* cand toate chip-urile incap, watchOverflow blocheaza caruselul si sagetile dispar */
+.ht-top-sales__tabs-arrow.swiper-button-lock {
+    display: none;
+}
+
+/*
+ * In products.css punctele apar doar pe telefon, unde tin locul sagetilor din
+ * antet. Aici sagetile din antet lipsesc de tot (ar fi stat langa perechea de
+ * la taburi), asa ca punctele raman vizibile pe orice latime.
+ */
+.ht-top-sales .ht-products__pagination {
+    display: block;
+}
+
+.ht-top-sales__tab {
+    /* 1px de border sta in loc de 1px de padding, ca activarea sa nu miste randul */
+    padding: 13px 23px;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    background: var(--ht-card-bg);
+    font-family: inherit;
+    font-size: 1.9rem;
+    font-weight: 500;
+    line-height: 2.2rem;
+    color: #333;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color .2s ease, color .2s ease;
+}
+
+.ht-top-sales__tab:hover {
+    color: var(--ht-card-ink);
+}
+
+.ht-top-sales__tab.is-active {
+    border-color: var(--ht-card-ink);
+    color: var(--ht-card-ink);
+}
+
+/* cat timp tabul isi aduce produsele, pista veche palneste */
+.ht-top-sales.is-loading .ht-products__swiper {
+    opacity: .45;
+    pointer-events: none;
+}
+
+@media (max-width: 48rem) {
+    /* pe touch chip-urile se trag cu degetul, sagetile doar ar aglomera randul */
+    .ht-top-sales__tabs-arrow {
+        display: none;
+    }
+
+    .ht-top-sales__tab {
+        padding: 9px 15px;
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+}

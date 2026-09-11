@@ -1,0 +1,691 @@
+/*
+ * Cautarea: panoul din header si pagina de rezultate.
+ *
+ * Panoul foloseste aceleasi variabile ca restul header-ului (--ht-*), iar
+ * cardurile de sugestie imprumuta limbajul cardului de produs: patrat gri
+ * deschis pentru imagine, pret peste denumire.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Panoul din header
+ * ------------------------------------------------------------------------ */
+
+.ht-search {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.ht-search.is-open {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.ht-search__panel {
+    position: relative;
+    z-index: 2;
+    max-height: calc(100vh - var(--ht-top-h) - var(--ht-nav-h));
+    background: var(--ht-bg);
+    border-top: 1px solid var(--ht-line);
+    box-shadow: 0 24px 40px rgba(0, 0, 0, .1);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateY(-12px);
+    opacity: 0;
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+.ht-search.is-open .ht-search__panel {
+    transform: none;
+    opacity: 1;
+}
+
+/* acopera restul paginii, dar nu si header-ul de deasupra */
+.ht-search__backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 100vh;
+    z-index: 1;
+    background: rgba(0, 0, 0, .35);
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+.ht-search.is-open .ht-search__backdrop {
+    opacity: 1;
+}
+
+/* ---------- campul ---------- */
+
+.ht-search__form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--ht-line);
+}
+
+.ht-search__icon {
+    flex: 0 0 auto;
+    color: var(--ht-muted);
+}
+
+.ht-search__field {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    color: var(--ht-text);
+    font-size: 2rem;
+    line-height: 1.3;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.ht-search__field::placeholder {
+    color: var(--ht-muted);
+}
+
+/* butonul nativ de golire ar sta peste al nostru */
+.ht-search__field::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* '.ht-search' in fata: altfel reset-ul '.ht-header button' din header.css ar castiga */
+.ht-search .ht-search__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #f2f2f2;
+    color: var(--ht-muted);
+    transition: background .2s ease, color .2s ease;
+}
+
+.ht-search .ht-search__clear:hover {
+    background: var(--ht-text);
+    color: #fff;
+}
+
+.ht-search__clear .ht-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+.ht-search .ht-search__submit {
+    flex: 0 0 auto;
+    padding: 12px 32px;
+    border-radius: 999px;
+    background: var(--ht-text);
+    color: #fff;
+    font-size: 1.5rem;
+    transition: background .2s ease;
+}
+
+.ht-search .ht-search__submit:hover {
+    background: var(--brand, #274f32);
+}
+
+.ht-search .ht-search__close {
+    display: none;
+    flex: 0 0 auto;
+    color: var(--ht-muted);
+}
+
+/* ---------- corpul panoului ---------- */
+
+.ht-search__body {
+    padding: 28px 0 36px;
+}
+
+/* campul gol nu are continut: panoul ramane doar bara de cautare */
+.ht-search__body:empty {
+    display: none;
+}
+
+/*
+ * Flex, nu grid: fara categorii si fara istoric, coloana din stanga dispare cu
+ * totul si produsele ocupa toata latimea, in loc sa ramana impinse la dreapta
+ * de o coloana goala.
+ */
+.ht-search__cols {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.ht-search__side {
+    flex: 0 0 260px;
+}
+
+.ht-search__side:not(:has(> :not([hidden]))) {
+    display: none;
+}
+
+.ht-search__main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ht-search__block + .ht-search__block {
+    margin-top: 28px;
+}
+
+.ht-search__block-title {
+    margin-bottom: 14px;
+    color: var(--ht-muted);
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.ht-search__links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-search__links a {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 7px 0;
+    color: var(--ht-text);
+    font-size: 1.6rem;
+    line-height: 1.3;
+    transition: color .2s ease;
+}
+
+.ht-search__links a:hover,
+.ht-search__links a.is-active {
+    color: var(--brand, #274f32);
+}
+
+.ht-search__links-count {
+    color: var(--ht-muted);
+    font-size: 1.3rem;
+    font-style: normal;
+}
+
+.ht-search__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-search__chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid var(--ht-line);
+    border-radius: 999px;
+    background: none;
+    color: var(--ht-text);
+    font-size: 1.4rem;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: border-color .2s ease, background .2s ease;
+}
+
+.ht-search__chip:hover,
+.ht-search__chip.is-active {
+    border-color: var(--ht-text);
+    background: #f6f6f6;
+}
+
+.ht-search__chips-clear {
+    margin-top: 12px;
+    color: var(--ht-muted);
+    font-size: 1.3rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ht-search__chips-clear:hover {
+    color: var(--ht-text);
+}
+
+/* ---------- produsele gasite ---------- */
+
+.ht-search__main-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.ht-search__main-head .ht-search__block-title {
+    margin-bottom: 14px;
+}
+
+.ht-search__main-count {
+    color: var(--ht-muted);
+    font-size: 1.3rem;
+}
+
+.ht-search__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 16px;
+}
+
+.ht-suggest {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    color: var(--ht-text);
+    border-radius: 8px;
+    transition: color .2s ease;
+}
+
+.ht-suggest:hover,
+.ht-suggest.is-active {
+    color: var(--brand, #274f32);
+}
+
+.ht-suggest__media {
+    flex: 0 0 auto;
+    width: 84px;
+    aspect-ratio: 1 / 1;
+    border-radius: 7px;
+    background: #f6f6f6;
+    overflow: hidden;
+}
+
+.ht-suggest__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ht-suggest__body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.ht-suggest__price {
+    color: var(--ht-text);
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.ht-suggest__price del {
+    margin-right: .5em;
+    color: var(--ht-muted);
+    font-size: .8em;
+    font-weight: 400;
+}
+
+.ht-suggest__price ins {
+    text-decoration: none;
+}
+
+.ht-suggest__name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    font-size: 1.5rem;
+    line-height: 1.3;
+}
+
+.ht-search__all {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 13px 30px;
+    border-radius: 999px;
+    background: var(--brand, #274f32);
+    color: #fff !important;
+    font-size: 1.5rem;
+    transition: background .2s ease;
+}
+
+.ht-search__all:hover {
+    background: var(--brand-dark, #1b3a24);
+    color: #fff;
+}
+
+.ht-search__all-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.ht-search__empty {
+    padding: 8px 0 4px;
+}
+
+.ht-search__empty-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.ht-search__empty-text {
+    margin-top: 6px;
+    color: var(--ht-muted);
+    font-size: 1.5rem;
+}
+
+.ht-search__body.is-loading {
+    opacity: .45;
+    transition: opacity .15s ease;
+}
+
+/* ---------- header transparent peste hero ---------- */
+
+.ht-header--overlay .ht-search__field,
+.ht-header--overlay .ht-search__links a,
+.ht-header--overlay .ht-suggest,
+.ht-header--overlay .ht-search__empty-title {
+    color: var(--ht-text);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1024px) {
+    .ht-search__cols {
+        gap: 28px;
+    }
+
+    .ht-search__side {
+        flex-basis: 220px;
+    }
+
+    .ht-search__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767px) {
+    .ht-search__panel {
+        max-height: calc(100vh - var(--ht-top-h));
+    }
+
+    .ht-search__form {
+        gap: 8px;
+        padding: 14px 0;
+    }
+
+    .ht-search__field {
+        font-size: 1.6rem;
+    }
+
+    .ht-search .ht-search__submit {
+        display: none;
+    }
+
+    .ht-search .ht-search__close {
+        display: inline-flex;
+    }
+
+    .ht-search__body {
+        padding: 20px 0 28px;
+    }
+
+    .ht-search__cols {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .ht-search__side {
+        flex-basis: auto;
+        width: 100%;
+    }
+
+    /* pe telefon produsele conteaza mai mult decat lista de categorii */
+    .ht-search__main {
+        order: -1;
+    }
+
+    .ht-search__grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .ht-suggest__media {
+        width: 64px;
+    }
+
+    .ht-search__all {
+        width: 100%;
+        justify-content: center;
+        margin-top: 20px;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+ * Pagina de rezultate
+ * ------------------------------------------------------------------------ */
+
+.ht-results {
+    padding: 40px 0 80px;
+}
+
+.ht-results__head {
+    margin-bottom: 28px;
+}
+
+.ht-results__title {
+    font-size: var(--ht-title-page);
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+.ht-results__title em {
+    font-style: normal;
+    color: var(--brand);
+}
+
+.ht-results__count {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 1.5rem;
+}
+
+.ht-searchform {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 620px;
+    margin-top: 24px;
+    padding: 6px 6px 6px 20px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    transition: border-color .2s ease;
+}
+
+.ht-searchform:focus-within {
+    border-color: var(--text);
+}
+
+.ht-searchform .ht-icon {
+    flex: 0 0 auto;
+    color: var(--muted);
+}
+
+.ht-searchform input[type="search"] {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 0;
+    border: 0;
+    background: transparent;
+    font-size: 1.6rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.ht-searchform button {
+    flex: 0 0 auto;
+    padding: 12px 28px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.ht-searchform button:hover {
+    background: var(--accent-hover);
+}
+
+.ht-results__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+    padding-bottom: 4px;
+}
+
+.ht-results__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 1.5rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.ht-results__tab:hover {
+    border-color: var(--text);
+    color: var(--text);
+}
+
+.ht-results__tab.is-active {
+    background: var(--text);
+    border-color: var(--text);
+    color: #fff;
+}
+
+.ht-results__tab-count {
+    font-size: 1.3rem;
+    opacity: .6;
+}
+
+/* aceeasi grila ca la produse; selectorul e mai specific decat .ht-blog, care
+   isi aduce propriul padding de sectiune */
+.ht-results .ht-results__posts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 40px 15px;
+    padding: 0;
+}
+
+@media (max-width: 1199px) {
+    .ht-results .ht-results__posts {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767px) {
+    .ht-results .ht-results__posts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 10px;
+    }
+}
+
+.ht-results__none {
+    max-width: 640px;
+    padding: 8px 0 16px;
+}
+
+.ht-results__none-title {
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+
+.ht-results__none-text {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 1.6rem;
+}
+
+.ht-results__suggestions {
+    margin-top: 32px;
+}
+
+.ht-results__suggestions-title {
+    margin-bottom: 14px;
+    color: var(--muted);
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.ht-results__cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ht-results__cats a {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 1.5rem;
+    transition: border-color .2s ease, background .2s ease;
+}
+
+.ht-results__cats a:hover {
+    border-color: var(--text);
+    background: #f6f6f6;
+    color: var(--text);
+}
+
+@media (max-width: 767px) {
+    .ht-results {
+        padding: 24px 0 56px;
+    }
+
+    .ht-searchform {
+        padding-left: 16px;
+    }
+
+    .ht-searchform button {
+        padding: 12px 20px;
+        font-size: 1.4rem;
+    }
+
+    .ht-results__tabs {
+        margin-bottom: 24px;
+    }
+}

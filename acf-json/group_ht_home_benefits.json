@@ -1,0 +1,164 @@
+{
+    "key": "group_ht_home_benefits",
+    "title": "Beneficii (prima pagina)",
+    "fields": [
+        {
+            "key": "field_ht_home_benefits_title",
+            "label": "Titlul sectiunii",
+            "name": "ht_home_benefits_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Gol inseamna titlul din design: \"Puterea naturii, concentrata in fiecare produs\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "70",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_home_benefits_hide",
+            "label": "Ascunde sectiunea",
+            "name": "ht_home_benefits_hide",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Bifat, sectiunea nu se afiseaza deloc pe prima pagina.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "30",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_ht_home_benefits",
+            "label": "Carduri",
+            "name": "ht_beneficii",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Cardurile de sub titlu. Fara niciun rand, sectiunea arata cele patru carduri de pe site-ul vechi (Formule Unice, Eficienta Maxima, Calitate Garantata, Grija pentru Mediu).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_ht_home_benefit_titlu",
+            "button_label": "Adauga card",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_ht_home_benefit_iconita",
+                    "label": "Iconita",
+                    "name": "iconita",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Patrata, ideal PNG sau SVG pe fundal transparent; se afiseaza la 56px.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "png,svg,webp,jpg,jpeg",
+                    "preview_size": "thumbnail",
+                    "parent_repeater": "field_ht_home_benefits"
+                },
+                {
+                    "key": "field_ht_home_benefit_titlu",
+                    "label": "Titlu",
+                    "name": "titlu",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Ex. \"Formule Unice\".",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_ht_home_benefits"
+                },
+                {
+                    "key": "field_ht_home_benefit_text",
+                    "label": "Text",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Una-doua propozitii. Cuvintele ingrosate raman ingrosate pe site.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "visual",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 1,
+                    "parent_repeater": "field_ht_home_benefits"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/home-template.php"
+            }
+        ],
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Sectiunea \"Puterea naturii\" de pe prima pagina, sub recenzii: titlu si carduri cu iconita, titlu si text.",
+    "show_in_rest": 0,
+    "modified": 1788566400
+}
