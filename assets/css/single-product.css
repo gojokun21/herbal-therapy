@@ -804,14 +804,14 @@ a.ht-pp__bundle-name:hover {
 
 .ht-pp__secure {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 16px;
 }
 
 .ht-pp__secure-body {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .ht-pp__secure-title {
@@ -821,11 +821,12 @@ a.ht-pp__bundle-name:hover {
     color: #212529;
 }
 
+/* wordmark lat (470x69): il tinem pe inaltime ca sa nu depaseasca coloana */
 .ht-pp__secure-logo {
     display: block;
     width: auto;
-    max-width: 122px;
-    height: 18px;
+    max-width: 100%;
+    height: 24px;
     object-fit: contain;
 }
 
