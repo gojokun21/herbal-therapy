@@ -1134,8 +1134,8 @@ function ht_single_product_buy($product)
             <div class="ht-pp__secure-body">
                 <p class="ht-pp__secure-title"><?php esc_html_e('Plătești în siguranță cu', 'herbal-therapy'); ?></p>
                 <img class="ht-pp__secure-logo"
-                     src="<?php echo esc_url(ht_asset_uri('/assets/img/product/maib.png')); ?>"
-                     width="60" height="25" alt="maib" loading="lazy" decoding="async">
+                     src="<?php echo esc_url(ht_asset_uri('/assets/img/product/victoriabank.svg')); ?>"
+                     width="122" height="18" alt="Victoriabank" loading="lazy" decoding="async">
             </div>
         </div>
 

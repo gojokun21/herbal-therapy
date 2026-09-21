@@ -823,8 +823,9 @@ a.ht-pp__bundle-name:hover {
 
 .ht-pp__secure-logo {
     display: block;
-    width: 60px;
-    height: 25px;
+    width: auto;
+    max-width: 122px;
+    height: 18px;
     object-fit: contain;
 }
 
