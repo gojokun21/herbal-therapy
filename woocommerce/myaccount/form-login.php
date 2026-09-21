@@ -32,7 +32,7 @@ $ht_active = ($ht_registration && !empty($_POST['register'])) ? 'register' : 'lo
 <div class="ht-account__auth ht-account__auth--media" id="customer_login" data-active="<?php echo esc_attr($ht_active); ?>">
 
     <div class="ht-account__auth-media" aria-hidden="true">
-        <img src="<?php echo esc_url(ht_asset_uri('/assets/img/account/login.jpg')); ?>" alt="" />
+        <img src="<?php echo esc_url(ht_asset_uri('/assets/img/account/contul-meu.webp')); ?>" alt="" />
     </div>
 
     <section class="ht-account__panel ht-account__auth-card">
