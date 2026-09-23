@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Herbal Therapy 1.0.0\n"
 "Report-Msgid-Bugs-To: https://www.wavenity.com\n"
-"POT-Creation-Date: 2026-09-11 11:01+0000\n"
+"POT-Creation-Date: 2026-09-23 06:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,6 +27,18 @@ msgstr ""
 
 #: 404.php:21
 msgid "Înapoi la prima pagină"
+msgstr ""
+
+#. translators: %s: codul fiscal (IDNO) al companiei.
+#: footer.php:114
+#, php-format
+msgid "IDNO %s"
+msgstr ""
+
+#. translators: %s: adresa juridica a companiei.
+#: footer.php:121
+#, php-format
+msgid "Sediul: %s"
 msgstr ""
 
 #: header.php:102
@@ -448,13 +460,13 @@ msgid "TVA inclus"
 msgstr ""
 
 #: inc/cart.php:347
-#: inc/checkout.php:659
-#: inc/checkout.php:660
+#: inc/checkout.php:733
+#: inc/checkout.php:734
 msgid "Cod promoțional"
 msgstr ""
 
 #: inc/cart.php:350
-#: inc/checkout.php:663
+#: inc/checkout.php:737
 msgid "Aplică"
 msgstr ""
 
@@ -509,43 +521,55 @@ msgstr ""
 msgid "Vezi toate categoriile"
 msgstr ""
 
-#: inc/checkout.php:324
+#: inc/checkout.php:335
+msgid "Am citit și accept [terms], inclusiv politica de retur și anulare a comenzii"
+msgstr ""
+
+#: inc/checkout.php:355
+msgid "Datele tale personale vor fi folosite pentru procesarea comenzii și în alte scopuri descrise în [privacy_policy]."
+msgstr ""
+
+#: inc/checkout.php:359
+msgid "Datele tale personale vor fi folosite pentru gestionarea contului și în alte scopuri descrise în [privacy_policy]."
+msgstr ""
+
+#: inc/checkout.php:398
 #, php-format
 msgid "%s (livrare)"
 msgstr ""
 
-#: inc/checkout.php:330
+#: inc/checkout.php:404
 #, php-format
 msgid "Te rugăm să completezi câmpul %s."
 msgstr ""
 
-#: inc/checkout.php:334
+#: inc/checkout.php:408
 #, php-format
 msgid "%s nu pare un număr de telefon valid."
 msgstr ""
 
-#: inc/checkout.php:338
+#: inc/checkout.php:412
 #, php-format
 msgid "%s nu pare o adresă de email validă."
 msgstr ""
 
-#: inc/checkout.php:469
+#: inc/checkout.php:543
 msgid "Bloc, scară, interfon, ora la care vrei livrarea..."
 msgstr ""
 
-#: inc/checkout.php:514
+#: inc/checkout.php:588
 msgid "Plasează comanda"
 msgstr ""
 
-#: inc/checkout.php:683
+#: inc/checkout.php:757
 msgid "Mulțumim pentru comandă"
 msgstr ""
 
-#: inc/checkout.php:687
+#: inc/checkout.php:761
 msgid "Plata comenzii"
 msgstr ""
 
-#: inc/checkout.php:690
+#: inc/checkout.php:764
 #: woocommerce/checkout/form-checkout.php:35
 msgid "Finalizare comandă"
 msgstr ""
@@ -668,7 +692,7 @@ msgid "Șterge din favorite"
 msgstr ""
 
 #. translators: 1: anul curent, 2: numele site-ului.
-#: inc/footer.php:278
+#: inc/footer.php:311
 #, php-format
 msgid "&copy; %1$s %2$s &mdash; Toate drepturile rezervate"
 msgstr ""

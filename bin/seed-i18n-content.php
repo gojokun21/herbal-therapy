@@ -175,6 +175,9 @@ return array(
 
         /* Checkout */
         'Checkout' => array(
+            'Am citit și accept [terms], inclusiv politica de retur și anulare a comenzii' => 'Я прочитал(а) и принимаю [terms], включая политику возврата и отмены заказа',
+            'Datele tale personale vor fi folosite pentru gestionarea contului și în alte scopuri descrise în [privacy_policy].' => 'Ваши персональные данные будут использоваться для управления аккаунтом и в других целях, описанных в документе «[privacy_policy]».',
+            'Datele tale personale vor fi folosite pentru procesarea comenzii și în alte scopuri descrise în [privacy_policy].' => 'Ваши персональные данные будут использоваться для обработки заказа и в других целях, описанных в документе «[privacy_policy]».',
             'Actualizează totalurile' => 'Обновить итоги',
             'anulează' => 'отменить',
             'Bloc, scară, interfon, ora la care vrei livrarea...' => 'Корпус, подъезд, домофон, удобное время доставки...',
@@ -331,6 +334,8 @@ return array(
         /* Footer */
         'Footer' => array(
             'Legal' => 'Правовая информация',
+            'IDNO %s' => 'IDNO %s',
+            'Sediul: %s' => 'Юридический адрес: %s',
             '&copy; %1$s %2$s &mdash; Toate drepturile rezervate' => '&copy; %1$s %2$s &mdash; Все права защищены',
         ),
 

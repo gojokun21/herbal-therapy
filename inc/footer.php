@@ -173,36 +173,43 @@ function ht_footer_socials()
 /**
  * Logourile metodelor de plata.
  *
- * Implicit: o singura imagine cu Visa, Mastercard si American Express
- * (cards.png, cerut pe 2026-09-11). Fisierele stau in /assets/img/payments/;
- * tot acolo raman si logourile separate (visa.svg, mastercard.svg,
- * maestro.svg), pentru cine vrea cate o intrare de fiecare:
+ * Implicit: Visa si Mastercard, cate o intrare fiecare - VictoriaBank cere
+ * logourile de acceptare pe pagina principala, in footer, luate doar de pe
+ * portalurile oficiale (mastercard.com/brandcenter, globalclient.visa.com/brand-mark).
+ * Fisierele din /assets/img/payments/ sunt artwork-ul oficial nemodificat;
+ * cards.png (Visa + Mastercard + Amex) si maestro.svg raman pentru cine le
+ * vrea inapoi:
  *
  *   add_filter('ht_footer_payment_files', function () {
- *       return array('Visa' => 'visa.svg', 'Mastercard' => 'mastercard.svg');
+ *       return array('Visa, Mastercard, American Express' => 'cards.png');
  *   });
  *
  * Cheia e eticheta (alt-ul imaginii), valoarea - numele fisierului. Intrarile
  * fara fisier pe disc sunt ignorate.
  *
- * @return array Fiecare intrare: 'label' + 'src'.
+ * @return array Fiecare intrare: 'label', 'slug' (numele fisierului, pentru CSS) + 'src'.
  */
 function ht_footer_payments()
 {
     $files = apply_filters('ht_footer_payment_files', array(
-        'Visa, Mastercard, American Express' => 'cards.png',
+        'Visa'       => 'visa.svg',
+        'Mastercard' => 'mastercard.svg',
     ));
 
     $payments = array();
 
     foreach ($files as $label => $file) {
-        if (!file_exists(HT_DIR . '/assets/img/payments/' . $file)) {
+        $path = HT_DIR . '/assets/img/payments/' . $file;
+
+        if (!file_exists($path)) {
             continue;
         }
 
+        /* versiunea dupa data fisierului: un logo inlocuit sub acelasi nume nu ramane in cache */
         $payments[] = array(
             'label' => $label,
-            'src'   => HT_URI . '/assets/img/payments/' . $file,
+            'slug'  => sanitize_html_class(pathinfo($file, PATHINFO_FILENAME)),
+            'src'   => add_query_arg('ver', filemtime($path), HT_URI . '/assets/img/payments/' . $file),
         );
     }
 
@@ -264,6 +271,32 @@ function ht_footer_legal()
     }
 
     return apply_filters('ht_footer_legal', $links);
+}
+
+/**
+ * Datele juridice ale vanzatorului: denumirea, IDNO, sediul si e-mailul de suport.
+ *
+ * Visa si Mastercard (prin VictoriaBank) cer denumirea completa si adresa
+ * juridica din Republica Moldova in subsolul paginii principale. Vin din
+ * Setari generale; cat timp denumirea si sediul sunt goale, randul nu apare.
+ *
+ * @return array 'name', 'idno', 'address', 'email' - sau gol.
+ */
+function ht_footer_legal_entity()
+{
+    $entity = array();
+
+    foreach (array('name', 'idno', 'address', 'email') as $key) {
+        $entity[$key] = function_exists('get_field')
+            ? trim((string)get_field('ht_legal_' . $key, 'option'))
+            : '';
+    }
+
+    if ('' === $entity['name'] || '' === $entity['address']) {
+        $entity = array();
+    }
+
+    return apply_filters('ht_footer_legal_entity', $entity);
 }
 
 /**

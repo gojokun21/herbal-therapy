@@ -13,6 +13,7 @@ $ht_socials = array_filter(ht_footer_socials(), function ($social) {
     return !empty($social['url']);
 });
 $ht_payments = ht_footer_payments();
+$ht_entity = ht_footer_legal_entity();
 ?>
 
 <footer class="ht-footer">
@@ -90,7 +91,7 @@ $ht_payments = ht_footer_payments();
             <div class="ht-footer__payments">
                 <ul class="ht-footer__payments-list">
                     <?php foreach ($ht_payments as $ht_payment) : ?>
-                        <li class="ht-footer__payments-item">
+                        <li class="ht-footer__payments-item ht-footer__payments-item--<?php echo esc_attr($ht_payment['slug']); ?>">
                             <img src="<?php echo esc_url($ht_payment['src']); ?>"
                                  alt="<?php echo esc_attr($ht_payment['label']); ?>"
                                  loading="lazy" decoding="async"/>
@@ -103,6 +104,31 @@ $ht_payments = ht_footer_payments();
     </div>
 
     <div class="ht-footer__bottom">
+        <?php if ($ht_entity) : ?>
+            <p class="ht-footer__legal">
+                <span><?php echo esc_html($ht_entity['name']); ?></span>
+                <?php if ('' !== $ht_entity['idno']) : ?>
+                    <span>
+                        <?php
+                        /* translators: %s: codul fiscal (IDNO) al companiei. */
+                        echo esc_html(sprintf(__('IDNO %s', 'herbal-therapy'), $ht_entity['idno']));
+                        ?>
+                    </span>
+                <?php endif; ?>
+                <span>
+                    <?php
+                    /* translators: %s: adresa juridica a companiei. */
+                    echo esc_html(sprintf(__('Sediul: %s', 'herbal-therapy'), $ht_entity['address']));
+                    ?>
+                </span>
+                <?php if (is_email($ht_entity['email'])) : ?>
+                    <a href="<?php echo esc_url('mailto:' . antispambot($ht_entity['email'])); ?>">
+                        <?php echo esc_html(antispambot($ht_entity['email'])); ?>
+                    </a>
+                <?php endif; ?>
+            </p>
+        <?php endif; ?>
+
         <?php echo wp_kses_post(ht_footer_copyright()); ?>
     </div>
 </footer>

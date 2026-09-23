@@ -291,6 +291,130 @@ function ht_checkout_phone_required($fields)
 add_filter('woocommerce_checkout_fields', 'ht_checkout_phone_required', 100);
 
 /* ---------------------------------------------------------------------------
+ * Termenii si conditiile
+ * ------------------------------------------------------------------------ */
+
+/**
+ * Pagina de termeni pentru bifa de la finalizare.
+ *
+ * WooCommerce afiseaza bifa doar cand are o pagina de termeni (Setari ->
+ * Avansat). Cand acolo nu e aleasa, luam pagina din Setari generale - aceeasi
+ * ca in coloana "Legal" din subsol - in limba curenta. VictoriaBank cere ca
+ * clientul sa accepte termenii si politica de retur inainte de plata.
+ *
+ * @param int $page_id Pagina aleasa in WooCommerce (0 = niciuna).
+ *
+ * @return int
+ */
+function ht_checkout_terms_page_id($page_id)
+{
+    if ($page_id || !function_exists('get_field')) {
+        return $page_id;
+    }
+
+    $page_id = (int)get_field('ht_terms_page', 'option');
+
+    if ($page_id && function_exists('pll_get_post')) {
+        $translated = (int)pll_get_post($page_id);
+        $page_id = $translated ? $translated : $page_id;
+    }
+
+    return $page_id;
+}
+
+add_filter('woocommerce_terms_and_conditions_page_id', 'ht_checkout_terms_page_id');
+
+/**
+ * Inlocuieste [terms] si [privacy_policy] cu legaturi care poarta titlul
+ * paginii ("Termenii și condițiile"), nu textul generic din WooCommerce
+ * ("termeni și condiții"), care nu se acorda in propozitie.
+ *
+ * Clasele sunt cele din WooCommerce: legatura spre termeni deschide textul lor
+ * chiar in pagina de finalizare. O pagina lipsa ramane pe seama WooCommerce.
+ *
+ * @param string $text Textul cu placeholdere.
+ *
+ * @return string
+ */
+function ht_checkout_policy_links($text)
+{
+    $pages = array(
+        '[terms]'          => array(wc_terms_and_conditions_page_id(), 'woocommerce-terms-and-conditions-link'),
+        '[privacy_policy]' => array(wc_privacy_policy_page_id(), 'woocommerce-privacy-policy-link'),
+    );
+
+    foreach ($pages as $placeholder => $page) {
+        list($id, $class) = $page;
+
+        if (false === strpos($text, $placeholder) || !$id) {
+            continue;
+        }
+
+        if (function_exists('pll_get_post')) {
+            $translated = (int)pll_get_post($id);
+            $id = $translated ? $translated : $id;
+        }
+
+        $link = sprintf(
+            '<a href="%1$s" class="%2$s" target="_blank">%3$s</a>',
+            esc_url(get_permalink($id)),
+            esc_attr($class),
+            esc_html(get_the_title($id))
+        );
+
+        $text = str_replace($placeholder, $link, $text);
+    }
+
+    return $text;
+}
+
+/**
+ * Textul bifei: numeste explicit si politica de retur, care e parte din
+ * termeni. [terms] devine legatura spre pagina.
+ *
+ * @return string
+ */
+function ht_checkout_terms_checkbox_text()
+{
+    return ht_checkout_policy_links(
+        __('Am citit și accept [terms], inclusiv politica de retur și anulare a comenzii', 'herbal-therapy')
+    );
+}
+
+add_filter('woocommerce_get_terms_and_conditions_checkbox_text', 'ht_checkout_terms_checkbox_text');
+
+/**
+ * Nota despre datele personale de la finalizare si de la inregistrare.
+ *
+ * Textul salvat in WooCommerce e in engleza si nu trece prin traduceri, deci
+ * il dam din tema, in limba curenta. [privacy_policy] devine legatura spre
+ * politica de confidentialitate.
+ *
+ * @param string $text Textul din setari.
+ * @param string $type 'checkout' sau 'registration'.
+ *
+ * @return string
+ */
+function ht_checkout_privacy_text($text, $type)
+{
+    if ('checkout' === $type) {
+        return ht_checkout_policy_links(
+            __('Datele tale personale vor fi folosite pentru procesarea comenzii și în alte scopuri descrise în [privacy_policy].', 'herbal-therapy')
+        );
+    }
+
+    if ('registration' === $type) {
+        return ht_checkout_policy_links(
+            __('Datele tale personale vor fi folosite pentru gestionarea contului și în alte scopuri descrise în [privacy_policy].', 'herbal-therapy')
+        );
+    }
+
+    return $text;
+}
+
+add_filter('woocommerce_get_privacy_policy_text', 'ht_checkout_privacy_text', 10, 2);
+
+/* ---------------------------------------------------------------------------
  * Mesajele de validare
  * ------------------------------------------------------------------------ */
 

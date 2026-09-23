@@ -168,12 +168,13 @@ return array(
         'Șterge istoricul',
     ),
 
-    /* Checkout (37) */
+    /* Checkout (40) */
     'Checkout' => array(
         '%s (livrare)',
         '%s nu pare o adresă de email validă.',
         '%s nu pare un număr de telefon valid.',
         'Actualizează totalurile',
+        'Am citit și accept [terms], inclusiv politica de retur și anulare a comenzii',
         'anulează',
         'Bloc, scară, interfon, ora la care vrei livrarea...',
         'Browserul tău nu rulează JavaScript. Apasă %s înainte de a plasa comanda, altfel totalul afișat poate fi greșit.',
@@ -185,6 +186,8 @@ return array(
         'Data:',
         'Date de facturare',
         'Date de facturare și livrare',
+        'Datele tale personale vor fi folosite pentru gestionarea contului și în alte scopuri descrise în [privacy_policy].',
+        'Datele tale personale vor fi folosite pentru procesarea comenzii și în alte scopuri descrise în [privacy_policy].',
         'Email:',
         'Finalizare comandă',
         'Informații suplimentare',
@@ -332,10 +335,12 @@ return array(
         'Șterge din favorite',
     ),
 
-    /* Footer (2) */
+    /* Footer (4) */
     'Footer' => array(
         '&copy; %1$s %2$s &mdash; Toate drepturile rezervate',
+        'IDNO %s',
         'Legal',
+        'Sediul: %s',
     ),
 
     /* General (35) */

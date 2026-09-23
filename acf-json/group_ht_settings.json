@@ -70,6 +70,85 @@
             "bidirectional": 0,
             "bidirectional_target": [],
             "ui": 1
+        },
+        {
+            "key": "field_ht_legal_name",
+            "label": "Denumirea juridică",
+            "name": "ht_legal_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Apare în subsolul fiecărei pagini, cu IDNO și sediul (cerință Visa/Mastercard pentru plata cu cardul). Gol = rândul nu se afișează.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "ex. Herbal Therapy Laboratories S.A.",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_legal_idno",
+            "label": "IDNO",
+            "name": "ht_legal_idno",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Codul fiscal al companiei.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "1017600043620",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_legal_address",
+            "label": "Sediul juridic",
+            "name": "ht_legal_address",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Adresa înregistrată în Republica Moldova.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "MD-2023, mun. Chișinău, ...",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ht_legal_email",
+            "label": "E-mail de suport",
+            "name": "ht_legal_email",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "Afișat în subsol, lângă datele juridice.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "office@...",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -90,5 +169,5 @@
     "active": true,
     "description": "Setări comune întregului site, din meniul „Setări generale”.",
     "show_in_rest": 0,
-    "modified": 1789100000
+    "modified": 1790150000
 }

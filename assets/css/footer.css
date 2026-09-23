@@ -156,11 +156,34 @@
     height: 100%;
 }
 
+/* inscriptia Visa umple tot fisierul, simbolul Mastercard are zona de protectie
+   in jur - Visa se micsoreaza ca cele doua sa para egale */
+.ht-footer__payments-item--visa img {
+    height: 62%;
+}
+
 .ht-footer__bottom {
     padding: calc(2.3 * var(--ht-u));
     background: var(--ht-footer-bottom-bg);
     font-size: var(--ht-u);
     text-align: center;
+}
+
+.ht-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: calc(.3 * var(--ht-u)) var(--ht-u);
+    margin: 0 0 calc(.8 * var(--ht-u));
+    color: var(--ht-footer-muted);
+}
+
+.ht-footer__legal a {
+    color: inherit;
+}
+
+.ht-footer__legal a:hover {
+    color: var(--ht-footer-hover);
 }
 
 @media (min-width: 651px) {
