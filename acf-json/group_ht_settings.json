@@ -72,6 +72,35 @@
             "ui": 1
         },
         {
+            "key": "field_ht_delivery_page",
+            "label": "Pagina „Livrare și Retur”",
+            "name": "ht_delivery_page",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Apare în coloana „Legal” din subsol, după termeni. Goală = nu apare.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "bidirectional_target": [],
+            "ui": 1
+        },
+        {
             "key": "field_ht_legal_name",
             "label": "Denumirea juridică",
             "name": "ht_legal_name",
@@ -169,5 +198,5 @@
     "active": true,
     "description": "Setări comune întregului site, din meniul „Setări generale”.",
     "show_in_rest": 0,
-    "modified": 1790150000
+    "modified": 1790160000
 }

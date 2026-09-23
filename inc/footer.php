@@ -20,7 +20,8 @@ if (!defined('ABSPATH')) {
 
 /**
  * Coloanele de linkuri: cele din meniul 'footer-menu', apoi coloana "Legal"
- * cu termenii si politica de confidentialitate (vezi ht_footer_legal()).
+ * cu termenii, livrarea si returul si politica de confidentialitate (vezi
+ * ht_footer_legal()).
  *
  * Cat timp meniul nu e setat, raman doar coloana "Legal" (daca are pagini).
  * Se suprascrie complet cu: add_filter('ht_footer_columns', ...)
@@ -236,8 +237,8 @@ function ht_footer_terms_page_id()
 }
 
 /**
- * Legaturile din coloana "Legal": termenii si conditiile si politica de
- * confidentialitate.
+ * Legaturile din coloana "Legal": termenii si conditiile, livrarea si returul
+ * (din Setari generale) si politica de confidentialitate.
  *
  * Politica vine din Setari -> Confidentialitate (aceeasi pagina o foloseste si
  * bifa din formularul de contact). Fiecare pagina se ia in limba curenta cand
@@ -249,6 +250,7 @@ function ht_footer_legal()
 {
     $ids = array(
         ht_footer_terms_page_id(),
+        function_exists('get_field') ? (int)get_field('ht_delivery_page', 'option') : 0,
         (int)get_option('wp_page_for_privacy_policy'),
     );
 
