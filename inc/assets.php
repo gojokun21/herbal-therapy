@@ -227,6 +227,15 @@ function ht_enqueue_assets()
         );
     }
 
+    if (ht_is_text_page()) {
+        wp_enqueue_style(
+            'ht-page',
+            ht_asset_uri('/assets/css/page.css'),
+            array('ht-style'),
+            ht_asset_version('/assets/css/page.css')
+        );
+    }
+
     wp_enqueue_style(
         'ht-responsive',
         ht_asset_uri('/assets/css/responsive.css'),

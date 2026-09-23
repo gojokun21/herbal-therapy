@@ -1,0 +1,324 @@
+/*
+ * Paginile de text pe sablonul implicit: Termenii si conditiile, Politica de
+ * confidentialitate, Livrare si retur si altele la fel.
+ *
+ * Continutul vine din editor (blocuri Gutenberg: h1-h3, p, ul/ol) si nu e
+ * mereu scris la fel - o pagina are h1 in text, alta incepe cu un h3 pe post
+ * de subtitlu - asa ca stilurile de mai jos nu se bazeaza pe o ordine anume.
+ */
+
+.ht-page {
+    --ht-page-ink: #191a24;
+    --ht-page-body: #3b3d42;
+    --ht-page-green: var(--ht-card-cta);
+    --ht-page-green-dark: #43613f;
+    --ht-page-line: #ececec;
+    --ht-page-card: #fff;
+
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+/* ---------------------------------------------------------------------------
+ * Firimiturile si titlul
+ * ------------------------------------------------------------------------ */
+
+.ht-page__crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    line-height: 1.6;
+}
+
+.ht-page__crumbs a,
+.ht-page__crumb-sep {
+    color: var(--ht-page-green);
+}
+
+.ht-page__crumbs a:hover {
+    color: var(--ht-page-green-dark);
+}
+
+.ht-page__crumb-current {
+    color: var(--ht-page-ink);
+}
+
+.ht-page .entry-header {
+    margin-bottom: 32px;
+}
+
+.ht-page .entry-title {
+    font-size: var(--ht-title-page);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -.01em;
+    color: var(--ht-page-ink);
+}
+
+.ht-page .entry-title::after {
+    content: '';
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin-top: 20px;
+    border-radius: 3px;
+    background: var(--ht-page-green);
+}
+
+/* ---------------------------------------------------------------------------
+ * Textul
+ * ------------------------------------------------------------------------ */
+
+.ht-page .entry-content {
+    padding: 56px 64px;
+    background: var(--ht-page-card);
+    border: 1px solid var(--ht-page-line);
+    border-radius: 20px;
+    font-size: 1.7rem;
+    line-height: 1.75;
+    color: var(--ht-page-body);
+    overflow-wrap: break-word; /* IBAN-ul si adresele lungi nu ies din cartonas */
+}
+
+.ht-page .entry-content > * + * {
+    margin-top: 14px;
+}
+
+.ht-page .entry-content h1,
+.ht-page .entry-content h2,
+.ht-page .entry-content h3,
+.ht-page .entry-content h4 {
+    color: var(--ht-page-ink);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -.005em;
+}
+
+/* h1 si h2 deschid o sectiune noua: linie de despartire deasupra */
+.ht-page .entry-content h1,
+.ht-page .entry-content h2 {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--ht-page-line);
+}
+
+.ht-page .entry-content h1 {
+    font-size: 2.8rem;
+}
+
+.ht-page .entry-content h2 {
+    font-size: 2.3rem;
+}
+
+.ht-page .entry-content h3 {
+    margin-top: 32px;
+    font-size: 1.9rem;
+    color: var(--ht-page-green);
+}
+
+.ht-page .entry-content h4 {
+    margin-top: 24px;
+    font-size: 1.7rem;
+}
+
+/* un titlu pus imediat sub altul (h1 > h2, h2 > h3) tine de aceeasi sectiune */
+.ht-page .entry-content :is(h1, h2, h3) + :is(h2, h3, h4) {
+    margin-top: 10px;
+    padding-top: 0;
+    border-top: 0;
+}
+
+/* textul de sub titlu sta mai aproape de el decat de sectiunea de deasupra */
+.ht-page .entry-content :is(h1, h2, h3, h4) + :not(h1, h2, h3, h4) {
+    margin-top: 12px;
+}
+
+/* randurile de tip "Eticheta: valoare" puse unul sub altul formeaza un bloc de date */
+.ht-page .entry-content p:has(> strong:first-child) + p:has(> strong:first-child) {
+    margin-top: 8px;
+}
+
+.ht-page .entry-content > :first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+}
+
+.ht-page .entry-content strong,
+.ht-page .entry-content b {
+    font-weight: 600;
+    color: var(--ht-page-ink);
+}
+
+.ht-page .entry-content a {
+    color: var(--ht-page-green);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color .2s ease;
+}
+
+.ht-page .entry-content a:hover {
+    color: var(--ht-page-green-dark);
+}
+
+/* ---------------------------------------------------------------------------
+ * Listele
+ * ------------------------------------------------------------------------ */
+
+.ht-page .entry-content ul,
+.ht-page .entry-content ol {
+    padding-left: 0;
+}
+
+.ht-page .entry-content ul {
+    list-style: none;
+}
+
+.ht-page .entry-content ul > li {
+    position: relative;
+    padding-left: 26px;
+}
+
+.ht-page .entry-content ul > li::before {
+    content: '';
+    position: absolute;
+    top: .75em;
+    left: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ht-page-green);
+    transform: translateY(-50%);
+}
+
+.ht-page .entry-content ol {
+    padding-left: 26px;
+    list-style: decimal;
+}
+
+.ht-page .entry-content ol > li::marker {
+    font-weight: 600;
+    color: var(--ht-page-green);
+}
+
+.ht-page .entry-content li + li {
+    margin-top: 8px;
+}
+
+.ht-page .entry-content li > ul,
+.ht-page .entry-content li > ol {
+    margin-top: 8px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Restul blocurilor
+ * ------------------------------------------------------------------------ */
+
+.ht-page .entry-content blockquote {
+    padding: 16px 24px;
+    border-left: 3px solid var(--ht-page-green);
+    border-radius: 0 12px 12px 0;
+    background: #f4f6f2;
+    font-style: normal;
+    color: var(--ht-page-body);
+}
+
+.ht-page .entry-content hr {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid var(--ht-page-line);
+}
+
+.ht-page .entry-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.6rem;
+}
+
+.ht-page .entry-content th,
+.ht-page .entry-content td {
+    padding: 10px 14px;
+    border: 1px solid var(--ht-page-line);
+    text-align: left;
+    vertical-align: top;
+}
+
+.ht-page .entry-content th {
+    background: #f6f7f5;
+    color: var(--ht-page-ink);
+    font-weight: 600;
+}
+
+.ht-page .entry-footer {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 20px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Ecrane mici
+ * ------------------------------------------------------------------------ */
+
+@media (max-width: 64rem) {
+    .ht-page .entry-content {
+        padding: 44px 40px;
+    }
+}
+
+@media (max-width: 48rem) {
+    .ht-page__crumbs {
+        margin-bottom: 14px;
+        font-size: 1.4rem;
+    }
+
+    .ht-page .entry-header {
+        margin-bottom: 24px;
+    }
+
+    .ht-page .entry-title::after {
+        margin-top: 16px;
+    }
+
+    .ht-page .entry-content {
+        padding: 28px 20px;
+        border-radius: 16px;
+        font-size: 1.6rem;
+        line-height: 1.7;
+    }
+
+    .ht-page .entry-content h1,
+    .ht-page .entry-content h2 {
+        margin-top: 36px;
+        padding-top: 28px;
+    }
+
+    .ht-page .entry-content h1 {
+        font-size: 2.3rem;
+    }
+
+    .ht-page .entry-content h2 {
+        font-size: 2rem;
+    }
+
+    .ht-page .entry-content h3 {
+        margin-top: 26px;
+        font-size: 1.7rem;
+    }
+
+    .ht-page .entry-content ul > li {
+        padding-left: 22px;
+    }
+
+    .ht-page .entry-content ul > li::before {
+        left: 4px;
+    }
+
+    .ht-page .entry-content table {
+        display: block;
+        overflow-x: auto;
+    }
+}

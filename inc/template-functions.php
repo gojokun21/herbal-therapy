@@ -36,6 +36,26 @@ function ht_body_classes($classes)
 add_filter('body_class', 'ht_body_classes');
 
 /**
+ * Pagina curenta e o pagina de text pe sablonul implicit (termeni, politici,
+ * livrare) - primeste firimituri, cartonasul de text si assets/css/page.css.
+ *
+ * @return bool
+ */
+function ht_is_text_page()
+{
+    if (!is_page() || is_front_page() || '' !== (string)get_page_template_slug()) {
+        return false;
+    }
+
+    /* cosul, finalizarea si contul au sabloanele lor, puse prin template_include */
+    if (function_exists('is_woocommerce') && (is_cart() || is_checkout() || is_account_page())) {
+        return false;
+    }
+
+    return true;
+}
+
+/**
  * Terminatia extrasului.
  *
  * @return string
