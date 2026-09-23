@@ -325,12 +325,20 @@ function ht_checkout_terms_page_id($page_id)
 add_filter('woocommerce_terms_and_conditions_page_id', 'ht_checkout_terms_page_id');
 
 /**
- * Inlocuieste [terms] si [privacy_policy] cu legaturi care poarta titlul
- * paginii ("Termenii și condițiile"), nu textul generic din WooCommerce
- * ("termeni și condiții"), care nu se acorda in propozitie.
+ * Legaturile spre paginile legale din textele de la finalizare.
  *
- * Clasele sunt cele din WooCommerce: legatura spre termeni deschide textul lor
- * chiar in pagina de finalizare. O pagina lipsa ramane pe seama WooCommerce.
+ * Doua forme:
+ *   [terms]                   - legatura cu titlul paginii ("Termenii și condițiile"),
+ *                               nu textul generic din WooCommerce, care nu se acorda
+ *                               in propozitie;
+ *   [terms]textul[/terms]     - legatura cu textul dat, ca traducatorul sa poata
+ *                               acorda denumirea in propozitie.
+ *
+ * Chei: terms, delivery (pagina "Livrare și Retur" din Setari generale) si
+ * privacy_policy. Clasele sunt cele din WooCommerce: legatura spre termeni
+ * deschide textul lor chiar in pagina de finalizare. Cand pagina lipseste,
+ * forma cu text ramane text simplu, iar [terms] / [privacy_policy] raman pe
+ * seama WooCommerce.
  *
  * @param string $text Textul cu placeholdere.
  *
@@ -339,45 +347,66 @@ add_filter('woocommerce_terms_and_conditions_page_id', 'ht_checkout_terms_page_i
 function ht_checkout_policy_links($text)
 {
     $pages = array(
-        '[terms]'          => array(wc_terms_and_conditions_page_id(), 'woocommerce-terms-and-conditions-link'),
-        '[privacy_policy]' => array(wc_privacy_policy_page_id(), 'woocommerce-privacy-policy-link'),
+        'terms'          => array(wc_terms_and_conditions_page_id(), 'woocommerce-terms-and-conditions-link'),
+        'delivery'       => array(
+            function_exists('get_field') ? (int)get_field('ht_delivery_page', 'option') : 0,
+            'ht-checkout__delivery-link',
+        ),
+        'privacy_policy' => array(wc_privacy_policy_page_id(), 'woocommerce-privacy-policy-link'),
     );
 
-    foreach ($pages as $placeholder => $page) {
+    foreach ($pages as $key => $page) {
         list($id, $class) = $page;
 
-        if (false === strpos($text, $placeholder) || !$id) {
+        if (false === strpos($text, '[' . $key . ']')) {
             continue;
         }
 
-        if (function_exists('pll_get_post')) {
+        if ($id && function_exists('pll_get_post')) {
             $translated = (int)pll_get_post($id);
             $id = $translated ? $translated : $id;
         }
 
-        $link = sprintf(
-            '<a href="%1$s" class="%2$s" target="_blank">%3$s</a>',
-            esc_url(get_permalink($id)),
-            esc_attr($class),
-            esc_html(get_the_title($id))
+        $link = function ($label) use ($id, $class) {
+            if (!$id) {
+                return esc_html($label);
+            }
+
+            return sprintf(
+                '<a href="%1$s" class="%2$s" target="_blank">%3$s</a>',
+                esc_url(get_permalink($id)),
+                esc_attr($class),
+                esc_html($label)
+            );
+        };
+
+        $text = preg_replace_callback(
+            '~\[' . $key . '\](.*?)\[/' . $key . '\]~s',
+            function ($match) use ($link) {
+                return $link($match[1]);
+            },
+            $text
         );
 
-        $text = str_replace($placeholder, $link, $text);
+        if ($id) {
+            $text = str_replace('[' . $key . ']', $link(get_the_title($id)), $text);
+        }
     }
 
     return $text;
 }
 
 /**
- * Textul bifei: numeste explicit si politica de retur, care e parte din
- * termeni. [terms] devine legatura spre pagina.
+ * Textul bifei, in formularea ceruta de VictoriaBank: acordul cu termenii de
+ * plata si cu politica de livrare, retur si anulare, fiecare cu legatura spre
+ * pagina lui.
  *
  * @return string
  */
 function ht_checkout_terms_checkbox_text()
 {
     return ht_checkout_policy_links(
-        __('Am citit și accept [terms], inclusiv politica de retur și anulare a comenzii', 'herbal-therapy')
+        __('Am citit și accept [terms]Termenii și condițiile de plată[/terms] și [delivery]Politica de livrare, retur și anulare[/delivery]', 'herbal-therapy')
     );
 }
 

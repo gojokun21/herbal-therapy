@@ -175,7 +175,7 @@ return array(
 
         /* Checkout */
         'Checkout' => array(
-            'Am citit și accept [terms], inclusiv politica de retur și anulare a comenzii' => 'Я прочитал(а) и принимаю [terms], включая политику возврата и отмены заказа',
+            'Am citit și accept [terms]Termenii și condițiile de plată[/terms] și [delivery]Politica de livrare, retur și anulare[/delivery]' => 'Я прочитал(а) и принимаю [terms]Условия оплаты[/terms] и [delivery]Политику доставки, возврата и отмены[/delivery]',
             'Datele tale personale vor fi folosite pentru gestionarea contului și în alte scopuri descrise în [privacy_policy].' => 'Ваши персональные данные будут использоваться для управления аккаунтом и в других целях, описанных в документе «[privacy_policy]».',
             'Datele tale personale vor fi folosite pentru procesarea comenzii și în alte scopuri descrise în [privacy_policy].' => 'Ваши персональные данные будут использоваться для обработки заказа и в других целях, описанных в документе «[privacy_policy]».',
             'Actualizează totalurile' => 'Обновить итоги',

@@ -174,7 +174,7 @@ return array(
         '%s nu pare o adresă de email validă.',
         '%s nu pare un număr de telefon valid.',
         'Actualizează totalurile',
-        'Am citit și accept [terms], inclusiv politica de retur și anulare a comenzii',
+        'Am citit și accept [terms]Termenii și condițiile de plată[/terms] și [delivery]Politica de livrare, retur și anulare[/delivery]',
         'anulează',
         'Bloc, scară, interfon, ora la care vrei livrarea...',
         'Browserul tău nu rulează JavaScript. Apasă %s înainte de a plasa comanda, altfel totalul afișat poate fi greșit.',
