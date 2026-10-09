@@ -59,13 +59,13 @@ function ht_enqueue_assets()
         true
     );
 
-    /* ---------- Fonturi ---------- */
+    /* ---------- Fonturi (locale: Google Fonts ar primi IP-ul vizitatorului) ---------- */
 
     wp_enqueue_style(
         'ht-fonts',
-        'https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap',
+        ht_asset_uri('/assets/css/fonts.css'),
         array(),
-        null
+        ht_asset_version('/assets/css/fonts.css')
     );
 
     /* ---------- Stilurile temei ---------- */
@@ -374,21 +374,23 @@ function ht_enqueue_assets()
 add_action('wp_enqueue_scripts', 'ht_enqueue_assets');
 
 /**
- * Preconnect catre Google Fonts - scurteaza timpul pana la primul render.
+ * Preload pentru fontul de baza (Figtree latin, normal) - scurteaza timpul
+ * pana la primul render, cum facea inainte preconnect-ul catre Google Fonts.
  *
- * @param array  $urls          URL-urile deja inregistrate.
- * @param string $relation_type Tipul de hint.
+ * @param array $preload Resursele deja inregistrate.
  *
  * @return array
  */
-function ht_resource_hints($urls, $relation_type)
+function ht_preload_fonts($preload)
 {
-    if ('preconnect' === $relation_type) {
-        $urls[] = array('href' => 'https://fonts.googleapis.com');
-        $urls[] = array('href' => 'https://fonts.gstatic.com', 'crossorigin' => 'anonymous');
-    }
+    $preload[] = array(
+        'href'        => ht_asset_uri('/assets/fonts/figtree-latin.woff2'),
+        'as'          => 'font',
+        'type'        => 'font/woff2',
+        'crossorigin' => 'anonymous',
+    );
 
-    return $urls;
+    return $preload;
 }
 
-add_filter('wp_resource_hints', 'ht_resource_hints', 10, 2);
+add_filter('wp_preload_resources', 'ht_preload_fonts');
