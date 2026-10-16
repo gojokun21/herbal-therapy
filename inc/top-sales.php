@@ -26,7 +26,8 @@ if (!defined('ABSPATH')) {
  * implicita din WooCommerce. Lista se poate fixa prin 'categories' (slug-uri,
  * in ordinea dorita) sau prin filtrul 'ht_top_sales_terms'.
  *
- * @param array $args 'categories' (slug-uri) si 'tabs' (numarul maxim de taburi).
+ * @param array $args 'categories' (slug-uri), 'tabs' (numarul maxim de taburi) si
+ *                    'first' (slug-ul categoriei fixate pe primul tab in ordinea implicita).
  *
  * @return WP_Term[]
  */
@@ -35,6 +36,7 @@ function ht_top_sales_terms($args = array())
     $args = wp_parse_args($args, array(
         'categories' => array(),
         'tabs'       => 9,
+        'first'      => 'cosmetica-medicala',
     ));
 
     if (!empty($args['categories'])) {
@@ -80,6 +82,12 @@ function ht_top_sales_terms($args = array())
 
         usort($terms, function ($a, $b) {
             return (int)$b->count <=> (int)$a->count;
+        });
+
+        /* categoria fixata trece in fata inainte de taiere, ca sa nu cada din rand */
+        $first = (string)$args['first'];
+        usort($terms, function ($a, $b) use ($first) {
+            return ($b->slug === $first) <=> ($a->slug === $first);
         });
     }
 
@@ -197,6 +205,7 @@ function ht_top_sales_section($args = array())
         'limit'      => 10,
         'categories' => array(),
         'tabs'       => 9,
+        'first'      => 'cosmetica-medicala',
     ));
 
     $terms = ht_top_sales_terms($args);
