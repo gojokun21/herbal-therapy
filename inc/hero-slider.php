@@ -125,8 +125,11 @@ function ht_hero_slider()
                             <?php if ($title !== '' || $text !== '' || $btn_url !== '') : ?>
                                 <div class="ht-hero__content">
                                     <div class="ht-wrapper ht-hero__content-inner">
-                                        <?php if ($title !== '') : ?>
-                                            <h2 class="ht-hero__title"><?php echo esc_html($title); ?></h2>
+                                        <?php if ($title !== '') :
+                                            /* titlul primului slide e h1-ul paginii; restul raman h2 */
+                                            $title_tag = $index === 1 ? 'h1' : 'h2';
+                                            ?>
+                                            <<?php echo $title_tag; ?> class="ht-hero__title"><?php echo esc_html($title); ?></<?php echo $title_tag; ?>>
                                         <?php endif; ?>
                                         <?php if ($text !== '') : ?>
                                             <p class="ht-hero__text"><?php echo wp_kses($text, array('br' => array(), 'strong' => array(), 'em' => array())); ?></p>
