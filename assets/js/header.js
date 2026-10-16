@@ -252,6 +252,8 @@
         }
 
         drawer.classList.toggle('is-open', open);
+        /* inchis, drawer-ul ramane in DOM: inert il scoate din Tab si din cititoarele de ecran */
+        drawer.inert = !open;
         if (overlay) {
             overlay.classList.toggle('is-open', open);
         }

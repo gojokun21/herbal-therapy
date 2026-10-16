@@ -5,7 +5,7 @@
     /* starile de hover/apasare urmeaza culoarea temei, nu verdele pal al etichetelor */
     --ht-blog-hover: var(--accent);
     --ht-blog-ink: #202020;
-    --ht-blog-meta: #8a8a8a;
+    --ht-blog-meta: #6f6f6f;
     --ht-blog-arrow: 6rem;
 
     padding: 3.5rem 0;
@@ -354,7 +354,7 @@
 .ht-aside {
     --ht-aside-line: #ebebeb;
     --ht-aside-ink: #202020;
-    --ht-aside-meta: #8a8a8a;
+    --ht-aside-meta: #6f6f6f;
 
     min-width: 0;
     font-size: 1.5rem;

@@ -53,6 +53,11 @@
                 spaceBetween: 8,
                 speed: 600,
                 watchOverflow: true,
+                /*
+                 * Chip-urile sunt butoane cu nume propriu: modulul a11y le-ar pune
+                 * role="group" si aria-label="1 / 9", care le strica rolul si numele.
+                 */
+                a11y: {enabled: false},
                 navigation: {
                     nextEl: section.querySelector('.ht-top-sales__tabs-arrow--next'),
                     prevEl: section.querySelector('.ht-top-sales__tabs-arrow--prev'),

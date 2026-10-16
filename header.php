@@ -112,7 +112,7 @@ $ht_many_cities = count($cities) > 1;
 
 </header>
 
-<div class="ht-drawer" id="htDrawer" aria-hidden="true">
+<div class="ht-drawer" id="htDrawer" inert>
     <div class="ht-drawer__head">
         <span class="ht-drawer__title"><?php esc_html_e('Meniu', 'herbal-therapy'); ?></span>
         <button class="ht-drawer__close" type="button" data-ht-drawer-toggle>
