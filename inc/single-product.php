@@ -1129,16 +1129,6 @@ function ht_single_product_buy($product)
 
         <?php ht_single_product_buttons($product); ?>
 
-        <div class="ht-pp__secure">
-            <?php ht_product_asset_icon('icon-money', 24); ?>
-            <div class="ht-pp__secure-body">
-                <p class="ht-pp__secure-title"><?php esc_html_e('Plătești în siguranță cu', 'herbal-therapy'); ?></p>
-                <img class="ht-pp__secure-logo"
-                     src="<?php echo esc_url(ht_asset_uri('/assets/img/payments/paynet.svg')); ?>"
-                     width="87" height="24" alt="Paynet" loading="lazy" decoding="async">
-            </div>
-        </div>
-
         <?php
         /*
          * La pachetele statice, in locul caruselului sta lista produselor din

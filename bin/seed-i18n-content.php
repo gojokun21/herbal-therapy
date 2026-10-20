@@ -437,7 +437,6 @@ return array(
             'Economisești %d%% pe bucată' => 'Экономия %d%% на штуку',
             'Vezi produsul' => 'Смотреть товар',
             'Plată la livrare sau online, securizat cu cardul' => 'Оплата при доставке или онлайн, безопасно картой',
-            'Plătești în siguranță cu' => 'Безопасная оплата через',
             'Produse asemănătoare' => 'Похожие товары',
             'În stoc' => 'В наличии',
         ),

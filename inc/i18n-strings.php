@@ -456,7 +456,6 @@ return array(
         'Mărește sau micșorează',
         'Oamenii cumpără acest produs împreună cu',
         'Plată la livrare sau online, securizat cu cardul',
-        'Plătești în siguranță cu',
         'Pornește sau oprește prezentarea',
         'Poți închide această fereastră cu tasta ESC',
         'Produse asemănătoare',
