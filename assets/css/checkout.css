@@ -467,6 +467,33 @@
     margin-left: auto;
 }
 
+/* logo-urile Visa, Mastercard, Paynet din dreptul metodei Paynet; inaltimile
+   le egaleaza vizual, ca in subsol */
+.ht-checkout .ht-checkout-pay-logos {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 10px;
+    height: 22px;
+    margin-left: auto;
+}
+
+.ht-checkout .wc_payment_method > label .ht-checkout-pay-logos__item {
+    display: block;
+    width: auto;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+}
+
+.ht-checkout .wc_payment_method > label .ht-checkout-pay-logos__item--visa {
+    height: 62%;
+}
+
+.ht-checkout .wc_payment_method > label .ht-checkout-pay-logos__item--paynet {
+    height: 72%;
+}
+
 .ht-checkout .payment_box {
     margin: 0;
     padding: 0 20px 18px 52px;
@@ -1093,6 +1120,11 @@ a.ht-checkout-review__title:focus-visible {
 
     .ht-checkout-step__body {
         padding: 20px 16px;
+    }
+
+    .ht-checkout .ht-checkout-pay-logos {
+        gap: 8px;
+        height: 18px;
     }
 
     .ht-checkout .payment_box {
