@@ -467,31 +467,78 @@
     margin-left: auto;
 }
 
-/* logo-urile Visa, Mastercard, Paynet din dreptul metodei Paynet; inaltimile
-   le egaleaza vizual, ca in subsol */
-.ht-checkout .ht-checkout-pay-logos {
+/*
+ * Paynet: pluginul lipeste in eticheta un buton "+/-" si, sub metoda, lista
+ * sub-metodelor (ul.paynet-awailable-options), cu stiluri proprii puse in
+ * <head> din paynet.js. Le aducem la aspectul blocului de plata; selectorii
+ * sunt mai specifici decat ai pluginului, iar marginea li-ului vine la el cu
+ * !important, deci si aici.
+ */
+.ht-checkout .wc_payment_method > label .toggle-paynet-options {
     display: flex;
     flex: 0 0 auto;
     align-items: center;
-    gap: 10px;
-    height: 22px;
-    margin-left: auto;
-}
-
-.ht-checkout .wc_payment_method > label .ht-checkout-pay-logos__item {
-    display: block;
-    width: auto;
-    height: 100%;
-    max-height: none;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
     margin: 0;
+    border: 1px solid var(--ht-co-field);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ht-co-text);
+    font-size: 1.8rem;
+    line-height: 1;
+    transition: border-color .2s ease;
 }
 
-.ht-checkout .wc_payment_method > label .ht-checkout-pay-logos__item--visa {
-    height: 62%;
+.ht-checkout .wc_payment_method > label .toggle-paynet-options:hover {
+    border-color: var(--ht-co-text);
 }
 
-.ht-checkout .wc_payment_method > label .ht-checkout-pay-logos__item--paynet {
-    height: 72%;
+.ht-checkout .wc_payment_method ul.paynet-awailable-options.active {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0 20px 18px 52px;
+}
+
+.ht-checkout .wc_payment_method ul.paynet-awailable-options li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 !important;
+    padding: 0;
+    border: 1px solid var(--ht-co-line);
+    border-radius: var(--ht-co-radius-field);
+    background: var(--ht-co-soft);
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.ht-checkout .wc_payment_method ul.paynet-awailable-options li:has(input:checked) {
+    border-color: var(--ht-co-text);
+    background: var(--surface);
+}
+
+/* in markup eticheta vine inaintea butonului radio - il mutam in fata */
+.ht-checkout .wc_payment_method ul.paynet-awailable-options input {
+    order: -1;
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin: 0 0 0 14px;
+    accent-color: #000;
+    cursor: pointer;
+}
+
+.ht-checkout .wc_payment_method ul.paynet-awailable-options label {
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 12px 14px 12px 0;
+    color: var(--ht-co-text);
+    font-size: 1.6rem;
+    line-height: 21px;
+    cursor: pointer;
 }
 
 .ht-checkout .payment_box {
@@ -1122,9 +1169,8 @@ a.ht-checkout-review__title:focus-visible {
         padding: 20px 16px;
     }
 
-    .ht-checkout .ht-checkout-pay-logos {
-        gap: 8px;
-        height: 18px;
+    .ht-checkout .wc_payment_method ul.paynet-awailable-options.active {
+        padding-left: 20px;
     }
 
     .ht-checkout .payment_box {
