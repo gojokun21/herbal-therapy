@@ -174,10 +174,10 @@ function ht_footer_socials()
 /**
  * Logourile metodelor de plata.
  *
- * Implicit: Visa si Mastercard, cate o intrare fiecare - VictoriaBank cere
- * logourile de acceptare pe pagina principala, in footer, luate doar de pe
- * portalurile oficiale (mastercard.com/brandcenter, globalclient.visa.com/brand-mark).
- * Fisierele din /assets/img/payments/ sunt artwork-ul oficial nemodificat;
+ * Implicit: Visa, Mastercard si Paynet, cate o intrare fiecare - Paynet cere
+ * logourile celor trei sisteme de plata in footer. Fisierele sunt artwork-ul
+ * oficial nemodificat (mastercard.com/brandcenter, globalclient.visa.com/brand-mark,
+ * paynet.md/content/images/landing/logo-paynet.svg);
  * cards.png (Visa + Mastercard + Amex) si maestro.svg raman pentru cine le
  * vrea inapoi:
  *
@@ -195,6 +195,7 @@ function ht_footer_payments()
     $files = apply_filters('ht_footer_payment_files', array(
         'Visa'       => 'visa.svg',
         'Mastercard' => 'mastercard.svg',
+        'Paynet'     => 'paynet.svg',
     ));
 
     $payments = array();
@@ -278,7 +279,7 @@ function ht_footer_legal()
 /**
  * Datele juridice ale vanzatorului: denumirea, IDNO, sediul si e-mailul de suport.
  *
- * Visa si Mastercard (prin VictoriaBank) cer denumirea completa si adresa
+ * Procesatorul de plati (Paynet) cere denumirea completa si adresa
  * juridica din Republica Moldova in subsolul paginii principale. Vin din
  * Setari generale; cat timp denumirea si sediul sunt goale, randul nu apare.
  *

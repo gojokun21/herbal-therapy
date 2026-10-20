@@ -162,6 +162,11 @@
     height: 62%;
 }
 
+/* "paynet" are coada literelor y/p sub rand - fara ea, textul ar parea mai mare */
+.ht-footer__payments-item--paynet img {
+    height: 72%;
+}
+
 .ht-footer__bottom {
     padding: calc(2.3 * var(--ht-u));
     background: var(--ht-footer-bottom-bg);
@@ -231,7 +236,7 @@
 
     .ht-footer__payments-list {
         justify-content: flex-end;
-        column-gap: calc(3.5 * var(--ht-u));
+        column-gap: calc(2 * var(--ht-u));
     }
 
     .ht-footer__payments-item {

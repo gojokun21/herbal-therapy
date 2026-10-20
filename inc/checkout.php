@@ -299,7 +299,7 @@ add_filter('woocommerce_checkout_fields', 'ht_checkout_phone_required', 100);
  *
  * WooCommerce afiseaza bifa doar cand are o pagina de termeni (Setari ->
  * Avansat). Cand acolo nu e aleasa, luam pagina din Setari generale - aceeasi
- * ca in coloana "Legal" din subsol - in limba curenta. VictoriaBank cere ca
+ * ca in coloana "Legal" din subsol - in limba curenta. Procesatorul de plati cere ca
  * clientul sa accepte termenii si politica de retur inainte de plata.
  *
  * @param int $page_id Pagina aleasa in WooCommerce (0 = niciuna).
@@ -397,7 +397,7 @@ function ht_checkout_policy_links($text)
 }
 
 /**
- * Textul bifei, in formularea ceruta de VictoriaBank: acordul cu termenii de
+ * Textul bifei, in formularea ceruta de procesatorul de plati: acordul cu termenii de
  * plata si cu politica de livrare, retur si anulare, fiecare cu legatura spre
  * pagina lui.
  *
