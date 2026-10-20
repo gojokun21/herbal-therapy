@@ -644,6 +644,42 @@ body.ht-no-scroll {
     .ht-header__logo-text {
         font-size: 18px;
     }
+
+    /*
+     * Pe telefon burger + catalog, logo si cele patru iconite nu mai incap in
+     * 1fr auto 1fr (coloanele egale cer cat cea mai lata parte, iconitele):
+     * stanga intra peste logo. Logo-ul ia ce ramane intre ele si se micsoreaza.
+     */
+    .ht-header__top {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 12px;
+    }
+
+    .ht-header__left,
+    .ht-icons__list {
+        gap: 12px;
+    }
+
+    .ht-header__logo {
+        min-width: 0;
+    }
+
+    .ht-header__logo img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* iPhone SE (1) si alte ecrane de 320px */
+@media (max-width: 360px) {
+    .ht-header__top {
+        gap: 8px;
+    }
+
+    .ht-header__left,
+    .ht-icons__list {
+        gap: 10px;
+    }
 }
 
 .ht-header--overlay {

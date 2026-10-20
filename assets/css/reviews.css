@@ -585,3 +585,20 @@
         padding: 16px;
     }
 }
+
+/*
+ * Widget-ul Cloudflare Turnstile are 300px fix. Sub ~370px, cu marginile
+ * formularului, iese din ecran si da scroll orizontal paginii - il micsoram.
+ */
+@media (max-width: 370px) {
+    .ht-rev .cf-turnstile {
+        display: block;
+        width: 255px;
+        height: 55px;
+    }
+
+    .ht-rev .cf-turnstile > div {
+        transform: scale(.85);
+        transform-origin: 0 0;
+    }
+}
