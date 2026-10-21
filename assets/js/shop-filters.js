@@ -36,8 +36,14 @@
     var fieldMin = form.querySelector('[data-ht-range-input="min"]');
     var fieldMax = form.querySelector('[data-ht-range-input="max"]');
 
-    /* grupurile de bife, in ordinea in care intra in adresa */
-    var GROUPS = ['cat', 'price', 'stock'];
+    /* grupurile de bife, in ordinea in care intra in adresa; pe langa cele ale
+       temei pot fi si grupuri de la pluginuri (ex. 'problema'), vezi
+       ht_shop_filter_term_groups() */
+    var GROUPS = (form.getAttribute('data-ht-filters-groups') || 'cat,price,stock')
+        .split(',')
+        .filter(function (key) {
+            return '' !== key;
+        });
 
     /* sortarea nu are camp in formular: o tinem aici si o punem in adresa */
     var orderby = readParam(window.location.href, 'orderby');

@@ -26,6 +26,13 @@ final class ShopFiltersTest extends TestCase
 
             return $scope ? HT_Test_Fixtures::rows_in(ht_shop_term_family($scope)) : HT_Test_Fixtures::rows();
         });
+
+        /* datele din fixturi sunt fixe, iar ht_shop_new_since() numara de azi:
+           fereastra de „Nou” se intinde pana la HT_Test_Fixtures::FRESH, ca
+           testele sa nu inceapa sa pice pe masura ce trec zilele */
+        add_filter('ht_product_new_days', function () {
+            return (int)floor((time() - strtotime(HT_Test_Fixtures::FRESH . ' UTC')) / DAY_IN_SECONDS);
+        });
     }
 
     protected function tearDown(): void

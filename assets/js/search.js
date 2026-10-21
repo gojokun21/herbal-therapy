@@ -24,6 +24,7 @@
     var timer = null;
     var request = null;
     var lastQuery = null;
+    var initialHtml = null;
 
     /* ------------------------------------------------------------------
      * Cautari recente
@@ -106,7 +107,14 @@
      * Sugestii
      * ---------------------------------------------------------------- */
 
-    /* campul gol nu arata nimic: panoul ramane doar bara de cautare */
+    /* ce se cauta de fapt: sub minimul de caractere, campul conteaza ca gol */
+    function currentQuery() {
+        var query = input.value.trim();
+
+        return query.length < (data.min || 2) ? '' : query;
+    }
+
+    /* campul gol: ce pun pluginurile (ex. problemele), adus o data si tinut minte */
     function showInitial() {
         lastQuery = '';
 
@@ -115,8 +123,17 @@
             request = null;
         }
 
-        body.innerHTML = '';
         body.classList.remove('is-loading');
+
+        if (initialHtml !== null) {
+            body.innerHTML = initialHtml;
+            renderRecent();
+
+            return;
+        }
+
+        body.innerHTML = '';
+        fetchSuggestions('');
     }
 
     function fetchSuggestions(query) {
@@ -142,14 +159,23 @@
         }).then(function (response) {
             return response.ok ? response.json() : Promise.reject(response.status);
         }).then(function (payload) {
+            if (payload.query === '') {
+                initialHtml = payload.html;
+            }
+
             /* raspunsul unei taste vechi nu trebuie sa suprascrie ce se vede acum */
-            if (payload.query !== input.value.trim()) {
+            if (payload.query !== currentQuery()) {
                 return;
             }
 
             body.innerHTML = payload.html;
             body.classList.remove('is-loading');
             renderRecent();
+
+            /* pentru pluginuri care vor sa reactioneze la rezultatele din panou */
+            document.dispatchEvent(new CustomEvent('ht:search-results', {
+                detail: {query: payload.query, total: payload.total, body: body}
+            }));
         }).catch(function (err) {
             if (err && err.name === 'AbortError') {
                 return;

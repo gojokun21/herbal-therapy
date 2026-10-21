@@ -11,6 +11,8 @@
  *   price     - intervale predefinite de pret ('0-200', '200-500', ...)
  *   stock     - 'instock', 'outofstock', 'new'
  *   min_price / max_price - intervalul liber de pret; le trateaza WooCommerce
+ *   <grup>    - slug-uri de termeni din grupurile adaugate de pluginuri prin
+ *               'ht_shop_filter_term_groups' (ex. 'problema' din Herbal Search)
  *
  * Contoarele de langa optiuni se calculeaza in inc/shop-facets.php, pe
  * listarea curenta si tinand cont de celelalte filtre bifate.
@@ -47,7 +49,47 @@ function ht_is_shop_archive()
  */
 function ht_shop_filter_keys()
 {
-    return array('cat', 'price', 'stock');
+    return array_merge(array('cat'), array_keys(ht_shop_filter_term_groups()), array('price', 'stock'));
+}
+
+/**
+ * Grupurile de filtre pe termeni adaugate de pluginuri.
+ *
+ * Fiecare grup e o taxonomie de produs, cu un parametru propriu in adresa si
+ * un bloc propriu in bara laterala, imediat dupa tipul de produs:
+ *
+ *   add_filter('ht_shop_filter_term_groups', function ($groups) {
+ *       $groups['problema'] = array('taxonomy' => 'hsr_concern', 'title' => 'Problemă');
+ *       return $groups;
+ *   });
+ *
+ * @return array Cheie (parametrul din adresa) => array('taxonomy', 'title').
+ */
+function ht_shop_filter_term_groups()
+{
+    return ht_shop_memo('term_groups', function () {
+        $groups = array();
+
+        foreach ((array)apply_filters('ht_shop_filter_term_groups', array()) as $key => $group) {
+            $key = sanitize_key($key);
+
+            /* cheile rezervate ar amesteca parametrii intre grupuri */
+            if ('' === $key || in_array($key, array('cat', 'price', 'stock', 'min_price', 'max_price', 'orderby'), true)) {
+                continue;
+            }
+
+            if (empty($group['taxonomy']) || !taxonomy_exists($group['taxonomy'])) {
+                continue;
+            }
+
+            $groups[$key] = array(
+                'taxonomy' => (string)$group['taxonomy'],
+                'title'    => isset($group['title']) ? (string)$group['title'] : $key,
+            );
+        }
+
+        return $groups;
+    });
 }
 
 /**
@@ -197,6 +239,81 @@ function ht_shop_filter_categories_compute()
     ));
 
     return apply_filters('ht_shop_filter_categories', is_wp_error($found) ? array() : $found);
+}
+
+/**
+ * Termenii unui grup din bara laterala: cei care au produse in listarea
+ * curenta, fara termenul vizitat (pe /problema/riduri/ „Riduri” nu se
+ * listeaza pe ea insasi).
+ *
+ * @param string $key Cheia grupului.
+ *
+ * @return WP_Term[]
+ */
+function ht_shop_filter_group_terms($key)
+{
+    return ht_shop_memo('group_terms:' . $key, function () use ($key) {
+        $groups = ht_shop_filter_term_groups();
+
+        if (!isset($groups[$key])) {
+            return array();
+        }
+
+        $ids = array();
+
+        foreach (ht_shop_facet_rows() as $row) {
+            foreach (ht_shop_row_terms($row, $key) as $term_id) {
+                $ids[$term_id] = true;
+            }
+        }
+
+        $scope = ht_shop_scope_term();
+
+        if ($scope && $groups[$key]['taxonomy'] === $scope->taxonomy) {
+            unset($ids[(int)$scope->term_id]);
+        }
+
+        if (!$ids) {
+            return array();
+        }
+
+        $found = get_terms(array(
+            'taxonomy'   => $groups[$key]['taxonomy'],
+            'include'    => array_keys($ids),
+            'hide_empty' => false,
+            'orderby'    => 'name',
+            'order'      => 'ASC',
+        ));
+
+        return is_wp_error($found) ? array() : $found;
+    });
+}
+
+/**
+ * Slug-urile bifate dintr-un grup de termeni, traduse in ID-uri.
+ *
+ * @param string $key Cheia grupului.
+ *
+ * @return int[]
+ */
+function ht_shop_filter_group_selected_ids($key)
+{
+    $groups = ht_shop_filter_term_groups();
+    $ids = array();
+
+    if (!isset($groups[$key])) {
+        return $ids;
+    }
+
+    foreach (ht_shop_filter_values($key) as $slug) {
+        $term = get_term_by('slug', $slug, $groups[$key]['taxonomy']);
+
+        if ($term instanceof WP_Term) {
+            $ids[] = (int)$term->term_id;
+        }
+    }
+
+    return $ids;
 }
 
 /**
@@ -421,16 +538,37 @@ function ht_shop_facet_rows_compute()
 
     $ids = implode(',', array_map('absint', array_keys($rows)));
 
-    // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- lista de ID-uri e construita intern.
+    /* taxonomie => cheia grupului; categoriile merg in 'cats', restul in 'terms' */
+    $keys = array('product_cat' => '');
+
+    foreach (ht_shop_filter_term_groups() as $key => $group) {
+        $keys[$group['taxonomy']] = $key;
+
+        foreach (array_keys($rows) as $id) {
+            $rows[$id]['terms'][$key] = array();
+        }
+    }
+
+    $taxonomies = implode(',', array_map(function ($taxonomy) use ($wpdb) {
+        return $wpdb->prepare('%s', $taxonomy);
+    }, array_keys($keys)));
+
+    // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- lista de ID-uri si taxonomiile sunt construite intern.
     $links = $wpdb->get_results(
-        "SELECT tr.object_id, tt.term_id
+        "SELECT tr.object_id, tt.term_id, tt.taxonomy
          FROM {$wpdb->term_relationships} AS tr
          INNER JOIN {$wpdb->term_taxonomy} AS tt ON tt.term_taxonomy_id = tr.term_taxonomy_id
-         WHERE tt.taxonomy = 'product_cat' AND tr.object_id IN ({$ids})"
+         WHERE tt.taxonomy IN ({$taxonomies}) AND tr.object_id IN ({$ids})"
     );
 
     foreach ((array)$links as $link) {
-        $rows[(int)$link->object_id]['cats'][] = (int)$link->term_id;
+        $key = $keys[$link->taxonomy];
+
+        if ('' === $key) {
+            $rows[(int)$link->object_id]['cats'][] = (int)$link->term_id;
+        } else {
+            $rows[(int)$link->object_id]['terms'][$key][] = (int)$link->term_id;
+        }
     }
 
     return $rows;
@@ -457,12 +595,19 @@ function ht_shop_facet_selection_from_request()
         }
     }
 
+    $terms = array();
+
+    foreach (array_keys(ht_shop_filter_term_groups()) as $key) {
+        $terms[$key] = ht_shop_filter_group_selected_ids($key);
+    }
+
     return ht_shop_facet_selection(array(
         'cat'       => $cats,
         'price'     => ht_shop_filter_values('price'),
         'min_price' => ht_shop_price_input('min_price'),
         'max_price' => ht_shop_price_input('max_price'),
         'stock'     => ht_shop_filter_values('stock'),
+        'terms'     => $terms,
     ));
 }
 
@@ -490,6 +635,7 @@ function ht_shop_facets()
                 'buckets' => ht_shop_price_buckets(),
                 'stock'   => ht_shop_stock_options(),
                 'fresh'   => ht_shop_new_since(),
+                'groups'  => array_keys(ht_shop_filter_term_groups()),
             )
         );
     });
@@ -509,7 +655,7 @@ function ht_shop_new_since()
  * Contoarele, indexate dupa numele parametrului si valoarea optiunii -
  * forma pe care o primeste scriptul dupa o cerere AJAX.
  *
- * @return array cat => [slug => n], price => [cheie => n], stock => [cheie => n]
+ * @return array cat => [slug => n], <grup> => [slug => n], price => [cheie => n], stock => [cheie => n]
  */
 function ht_shop_facet_payload()
 {
@@ -519,6 +665,14 @@ function ht_shop_facet_payload()
     foreach (ht_shop_filter_categories() as $term) {
         $id = (int)$term->term_id;
         $payload['cat'][$term->slug] = isset($facets['cat'][$id]) ? (int)$facets['cat'][$id] : 0;
+    }
+
+    foreach (array_keys(ht_shop_filter_term_groups()) as $key) {
+        $payload[$key] = array();
+
+        foreach (ht_shop_filter_group_terms($key) as $term) {
+            $payload[$key][$term->slug] = ht_shop_facet_group_count($facets, $key, (int)$term->term_id);
+        }
     }
 
     foreach (ht_shop_price_buckets() as $bucket) {
@@ -532,6 +686,20 @@ function ht_shop_facet_payload()
     }
 
     return $payload;
+}
+
+/**
+ * Contorul unui termen dintr-un grup de termeni.
+ *
+ * @param array  $facets  Contoarele (ht_shop_facets()).
+ * @param string $key     Cheia grupului.
+ * @param int    $term_id Termenul.
+ *
+ * @return int
+ */
+function ht_shop_facet_group_count(array $facets, $key, $term_id)
+{
+    return isset($facets['terms'][$key][$term_id]) ? (int)$facets['terms'][$key][$term_id] : 0;
 }
 
 /**
@@ -701,6 +869,16 @@ function ht_shop_active_filters()
         }
     }
 
+    foreach (ht_shop_filter_term_groups() as $key => $group) {
+        foreach (ht_shop_filter_values($key) as $slug) {
+            $term = get_term_by('slug', $slug, $group['taxonomy']);
+
+            if ($term instanceof WP_Term) {
+                $chips[] = array('label' => $term->name, 'url' => ht_shop_toggle_url($key, $slug));
+            }
+        }
+    }
+
     foreach (ht_shop_price_buckets() as $bucket) {
         if (ht_shop_filter_checked('price', $bucket['key'])) {
             $chips[] = array('label' => $bucket['label'], 'url' => ht_shop_toggle_url('price', $bucket['key']));
@@ -739,28 +917,41 @@ function ht_shop_active_filters()
  * ------------------------------------------------------------------------ */
 
 /**
- * Restrange listarea la categoriile bifate.
+ * Restrange listarea la categoriile (si termenii din grupurile pluginurilor) bifate.
  *
  * @param WP_Query $query Interogarea de produse.
  */
 function ht_shop_filter_categories_query($query)
 {
-    $slugs = ht_shop_filter_values('cat');
+    $taxonomies = array('cat' => 'product_cat');
 
-    if (!$slugs) {
-        return;
+    foreach (ht_shop_filter_term_groups() as $key => $group) {
+        $taxonomies[$key] = $group['taxonomy'];
     }
 
     $tax_query = (array)$query->get('tax_query');
+    $changed = false;
 
-    $tax_query[] = array(
-        'taxonomy' => 'product_cat',
-        'field'    => 'slug',
-        'terms'    => $slugs,
-        'operator' => 'IN',
-    );
+    /* intr-un grup optiunile se aduna (IN), intre grupuri se intersecteaza */
+    foreach ($taxonomies as $key => $taxonomy) {
+        $slugs = ht_shop_filter_values($key);
 
-    $query->set('tax_query', $tax_query);
+        if (!$slugs) {
+            continue;
+        }
+
+        $tax_query[] = array(
+            'taxonomy' => $taxonomy,
+            'field'    => 'slug',
+            'terms'    => $slugs,
+            'operator' => 'IN',
+        );
+        $changed = true;
+    }
+
+    if ($changed) {
+        $query->set('tax_query', $tax_query);
+    }
 }
 
 add_action('woocommerce_product_query', 'ht_shop_filter_categories_query', 10, 1);
@@ -944,7 +1135,8 @@ function ht_shop_filters_markup()
         </button>
 
         <form class="ht-filters" id="htFiltersForm" method="get"
-              action="<?php echo esc_url(ht_shop_filter_base()); ?>" data-ht-filters>
+              action="<?php echo esc_url(ht_shop_filter_base()); ?>" data-ht-filters
+              data-ht-filters-groups="<?php echo esc_attr(implode(',', ht_shop_filter_keys())); ?>">
             <?php if ('' !== $orderby) : ?>
                 <input type="hidden" name="orderby" value="<?php echo esc_attr($orderby); ?>">
             <?php endif; ?>
@@ -976,6 +1168,21 @@ function ht_shop_filters_markup()
                 </p>
             </div>
             <?php endif; ?>
+
+            <?php foreach (ht_shop_filter_term_groups() as $key => $group) : ?>
+                <?php $terms = ht_shop_filter_group_terms($key); ?>
+                <?php if ($terms) : ?>
+                <div class="ht-filters__group">
+                    <?php ht_shop_filter_head($group['title'], $key); ?>
+
+                    <ul class="ht-filters__list">
+                        <?php foreach ($terms as $term) : ?>
+                            <?php ht_shop_filter_option($key, $term->slug, $term->name, ht_shop_facet_group_count($facets, $key, (int)$term->term_id)); ?>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
 
             <div class="ht-filters__group">
                 <?php ht_shop_filter_head(__('Preț', 'herbal-therapy'), 'price'); ?>

@@ -296,4 +296,88 @@ final class ShopFacetsTest extends TestCase
         $this->assertArrayNotHasKey(HT_Test_Fixtures::CAT_SIROPURI, $facets['cat']);
         $this->assertSame(1, $facets['cat'][HT_Test_Fixtures::CAT_VITAMINE_COPII]);
     }
+
+    /* ---- grupuri de termeni de la pluginuri (ex. problemele) ------------- */
+
+    const PROB_RACEALA = 501;
+    const PROB_MUSCHI = 502;
+
+    /**
+     * Catalogul, cu problemele puse pe cateva produse.
+     *
+     * @return array
+     */
+    private function rows_with_problems()
+    {
+        $map = array(
+            1  => array(self::PROB_RACEALA),
+            2  => array(self::PROB_RACEALA),
+            4  => array(self::PROB_MUSCHI),
+            6  => array(self::PROB_MUSCHI),
+            8  => array(self::PROB_RACEALA, self::PROB_MUSCHI),
+        );
+
+        $rows = HT_Test_Fixtures::rows();
+
+        foreach ($rows as $id => $row) {
+            $rows[$id]['terms'] = array('problema' => isset($map[$id]) ? $map[$id] : array());
+        }
+
+        return $rows;
+    }
+
+    /**
+     * @param array $selection Filtrele active.
+     *
+     * @return array
+     */
+    private function facets_with_problems(array $selection = array())
+    {
+        $config = HT_Test_Fixtures::config();
+        $config['groups'] = array('problema');
+
+        return ht_shop_facet_counts($this->rows_with_problems(), $selection, $config);
+    }
+
+    public function test_without_groups_the_result_has_no_terms_key()
+    {
+        $this->assertArrayNotHasKey('terms', $this->facets());
+    }
+
+    public function test_term_group_counts_without_filters()
+    {
+        $facets = $this->facets_with_problems();
+
+        $this->assertSame(11, $facets['total']);
+        $this->assertSame(array(self::PROB_RACEALA => 3, self::PROB_MUSCHI => 3), $facets['terms']['problema']);
+    }
+
+    public function test_checked_problem_narrows_the_other_groups_but_not_its_own()
+    {
+        $facets = $this->facets_with_problems(array('terms' => array('problema' => array(self::PROB_RACEALA))));
+
+        /* produsele 1, 2, 8 */
+        $this->assertSame(3, $facets['total']);
+        $this->assertSame(array(HT_Test_Fixtures::CAT_SIROPURI => 2, HT_Test_Fixtures::CAT_VITAMINE => 1), $facets['cat']);
+        $this->assertSame(array(self::PROB_RACEALA => 3, self::PROB_MUSCHI => 3), $facets['terms']['problema']);
+    }
+
+    public function test_other_groups_narrow_the_problem_counts()
+    {
+        $facets = $this->facets_with_problems(array('cat' => array(HT_Test_Fixtures::CAT_UNGUENTE)));
+
+        /* unguentele cu probleme: 4 si 6, ambele „muschi” */
+        $this->assertSame(array(self::PROB_MUSCHI => 2), $facets['terms']['problema']);
+    }
+
+    public function test_problem_counts_match_the_total_after_checking()
+    {
+        $selection = array('stock' => array('instock'));
+        $facets = $this->facets_with_problems($selection);
+
+        foreach ($facets['terms']['problema'] as $term_id => $count) {
+            $probe = array_merge($selection, array('terms' => array('problema' => array($term_id))));
+            $this->assertSame($this->facets_with_problems($probe)['total'], $count, "problema {$term_id}");
+        }
+    }
 }

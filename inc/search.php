@@ -237,6 +237,21 @@ function ht_search_visibility_tax_query()
 }
 
 /**
+ * Coloanele in care se cauta produsele: titlul si descrierea scurta.
+ *
+ * Descrierea lunga ramane pe dinafara: are avertizari, mod de utilizare si
+ * text SEO („evitați contactul cu ochii”, „nu lăsați la îndemâna copiilor”),
+ * asa ca aproape orice cautare gasea ceva acolo - „dureri de ochi” aducea
+ * unguentele pentru muschi.
+ *
+ * @return string[]
+ */
+function ht_search_product_columns()
+{
+    return (array)apply_filters('ht_search_product_columns', array('post_title', 'post_excerpt'));
+}
+
+/**
  * Argumentele unei cautari de produse.
  *
  * @param string $query Termenul.
@@ -251,6 +266,7 @@ function ht_search_product_args($query, $args = array())
         'post_status'         => 'publish',
         'posts_per_page'      => ht_search_suggest_limit(),
         's'                   => $query,
+        'search_columns'      => ht_search_product_columns(),
         'ignore_sticky_posts' => true,
     )));
 
@@ -430,8 +446,9 @@ function ht_search_count($post_type, $query)
 /**
  * Adauga produsele al caror SKU contine termenul la rezultatele cautarii.
  *
- * WordPress cauta doar in titlu, continut si extras; intr-un magazin, oamenii
- * scriu si codul produsului.
+ * WordPress cauta doar in text (titlu si descrierea scurta, vezi
+ * ht_search_product_columns()); intr-un magazin, oamenii scriu si codul
+ * produsului.
  *
  * @param string   $search Clauza WHERE construita de WordPress.
  * @param WP_Query $query  Interogarea.
@@ -515,6 +532,8 @@ function ht_search_pre_get_posts($query)
 
     $query->set('post_type', 'product');
     $query->set('posts_per_page', ht_search_products_per_page());
+
+    $query->set('search_columns', ht_search_product_columns());
 
     $visibility = ht_search_visibility_tax_query();
 
@@ -642,10 +661,44 @@ function ht_search_links_block($title, $links)
 }
 
 /**
- * Continutul panoului: coloana cu categorii si articole, plus produsele gasite.
+ * Continutul panoului cu campul gol.
  *
- * Cu campul gol arata categoriile mari si produsele recomandate, ca panoul sa
- * nu se deschida gol.
+ * Tema nu pune nimic aici; pluginurile pot adauga (Herbal Search pune
+ * butoanele „Ce te deranjează?”). Fara ele panoul ramane doar bara de cautare.
+ * Istoricul de cautari intra doar impreuna cu un astfel de continut.
+ *
+ * @return string
+ */
+function ht_search_initial_html()
+{
+    $html = (string)apply_filters('ht_search_initial_html', '');
+
+    if ('' === trim($html)) {
+        return '';
+    }
+
+    ob_start();
+    ?>
+    <div class="ht-search__cols ht-search__cols--initial">
+        <div class="ht-search__side">
+            <div class="ht-search__block ht-search__block--recent" data-ht-recent hidden>
+                <h3 class="ht-search__block-title"><?php esc_html_e('Căutări recente', 'herbal-therapy'); ?></h3>
+                <ul class="ht-search__chips" data-ht-recent-list></ul>
+                <button class="ht-search__chips-clear" type="button" data-ht-recent-clear>
+                    <?php esc_html_e('Șterge istoricul', 'herbal-therapy'); ?>
+                </button>
+            </div>
+
+            <?php echo $html; // phpcs:ignore WordPress.Security.EscapeOutput -- markup escapat de cine l-a pus ?>
+        </div>
+    </div>
+    <?php
+
+    return (string)ob_get_clean();
+}
+
+/**
+ * Continutul panoului: coloana cu categorii si articole, plus produsele gasite.
  *
  * @param string $query Termenul cautat.
  *
@@ -656,10 +709,10 @@ function ht_search_results($query)
     $query = trim((string)$query);
     $is_query = strlen($query) >= ht_search_min_chars();
 
-    /* campul gol nu are continut: panoul e doar bara de cautare */
+    /* campul gol: doar ce adauga pluginurile (vezi ht_search_initial_html) */
     if (!$is_query) {
         return array(
-            'html'  => '',
+            'html'  => ht_search_initial_html(),
             'total' => 0,
         );
     }
@@ -708,6 +761,15 @@ function ht_search_results($query)
             </div>
 
             <?php
+            /**
+             * Inceputul coloanei din stanga, dupa istoric (Herbal Search pune
+             * aici problemele potrivite).
+             *
+             * @param string $query Termenul cautat.
+             * @param int    $total Cate produse s-au gasit.
+             */
+            do_action('ht_search_side_start', $query, $total);
+
             ht_search_links_block(__('Categorii potrivite', 'herbal-therapy'), $category_links);
 
             ht_search_links_block(__('Din blog', 'herbal-therapy'), $post_links);

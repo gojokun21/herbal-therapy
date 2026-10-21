@@ -66,6 +66,16 @@ if ($ht_shop && 'products' === $ht_tab) {
 
             <?php if ('products' === $ht_tab) : ?>
 
+                <?php
+                /**
+                 * Deasupra produselor gasite (Herbal Search pune aici problemele potrivite).
+                 *
+                 * @param string $ht_query          Termenul cautat.
+                 * @param int    $ht_products_count Cate produse s-au gasit.
+                 */
+                do_action('ht_search_results_before', $ht_query, $ht_products_count);
+                ?>
+
                 <ul class="ht-shop__grid" data-ht-products>
                     <?php
                     $ht_index = 0;
@@ -122,6 +132,15 @@ if ($ht_shop && 'products' === $ht_tab) {
                     </p>
                 <?php endif; ?>
             </div>
+
+            <?php
+            /**
+             * Sub mesajul „Nu am găsit nimic” (Herbal Search pune aici problemele).
+             *
+             * @param string $ht_query Termenul cautat (poate fi gol).
+             */
+            do_action('ht_search_no_results', $ht_query);
+            ?>
 
             <?php $ht_categories = ht_search_top_categories(8); ?>
             <?php if ($ht_categories) : ?>

@@ -14,6 +14,8 @@
  *   stock  - 'instock', 'outofstock' sau 'onbackorder'
  *   date   - data publicarii, GMT, 'Y-m-d H:i:s'
  *   cats   - ID-urile categoriilor de produs (int[])
+ *   terms  - optional, termenii din grupurile adaugate prin filtrul
+ *            'ht_shop_filter_term_groups' (ex. problemele): cheie => int[]
  *
  * Selectia (filtrele active) este un array cu cheile:
  *   cat        - ID-urile categoriilor bifate (int[])
@@ -21,6 +23,7 @@
  *   min_price  - capatul liber de jos (float|null)
  *   max_price  - capatul liber de sus (float|null)
  *   stock      - cheile de disponibilitate bifate (string[])
+ *   terms      - ID-urile bifate in grupurile de termeni: cheie => int[]
  *
  * Regula de numarare este cea clasica a filtrelor cu fatete: numarul de langa
  * o optiune spune cate produse ar ramane daca ai bifa-o, tinand cont de
@@ -45,6 +48,7 @@ function ht_shop_facet_selection(array $selection = array())
         'min_price' => null,
         'max_price' => null,
         'stock'     => array(),
+        'terms'     => array(),
     ), $selection);
 }
 
@@ -174,6 +178,19 @@ function ht_shop_row_matches_cats(array $row, array $selected)
 }
 
 /**
+ * Termenii unui rand dintr-un grup de termeni.
+ *
+ * @param array  $row Randul de produs.
+ * @param string $key Cheia grupului.
+ *
+ * @return int[]
+ */
+function ht_shop_row_terms(array $row, $key)
+{
+    return isset($row['terms'][$key]) ? array_map('intval', (array)$row['terms'][$key]) : array();
+}
+
+/**
  * Contoarele pentru toate grupurile.
  *
  * @param array $rows      Randurile de produse din listarea curenta (fara filtre).
@@ -182,10 +199,12 @@ function ht_shop_row_matches_cats(array $row, array $selected)
  *     @type array  $buckets Intervalele predefinite.
  *     @type array  $stock   Optiunile de disponibilitate.
  *     @type string $fresh   Data GMT de la care incoace un produs e nou.
+ *     @type array  $groups  Cheile grupurilor de termeni (ex. 'problema').
  * }
  *
  * @return array {
  *     @type array $cat   Contor per ID de categorie (doar categoriile intalnite).
+ *     @type array $terms Per grup de termeni, contor per ID de termen.
  *     @type array $price Contor per cheie de interval.
  *     @type array $stock Contor per cheie de disponibilitate.
  *     @type float $max   Cel mai mare pret din listare, indiferent de filtre.
@@ -200,8 +219,19 @@ function ht_shop_facet_counts(array $rows, array $selection, array $config)
     $buckets = isset($config['buckets']) ? $config['buckets'] : array();
     $stock_options = isset($config['stock']) ? $config['stock'] : array();
     $fresh = isset($config['fresh']) ? $config['fresh'] : '';
+    $groups = isset($config['groups']) ? array_values((array)$config['groups']) : array();
 
     $facets = array('cat' => array(), 'price' => array(), 'stock' => array(), 'max' => 0.0, 'total' => 0);
+    $selected_terms = array();
+
+    if ($groups) {
+        $facets['terms'] = array();
+    }
+
+    foreach ($groups as $key) {
+        $facets['terms'][$key] = array();
+        $selected_terms[$key] = isset($selection['terms'][$key]) ? array_map('intval', (array)$selection['terms'][$key]) : array();
+    }
 
     foreach ($buckets as $bucket) {
         $facets['price'][$bucket['key']] = 0;
@@ -220,8 +250,37 @@ function ht_shop_facet_counts(array $rows, array $selection, array $config)
         $price_ok = ht_shop_row_matches_price($row, $selection, $buckets);
         $stock_ok = ht_shop_row_matches_stock($row, $selection['stock'], $fresh);
 
-        if ($cat_ok && $price_ok && $stock_ok) {
+        /* grupurile de termeni: cate dintre ele nu trec, ca sa stim daca
+           un grup anume e singurul care opreste randul */
+        $terms_ok = array();
+        $terms_failed = 0;
+
+        foreach ($groups as $key) {
+            $terms_ok[$key] = ht_shop_row_matches_cats(array('cats' => ht_shop_row_terms($row, $key)), $selected_terms[$key]);
+            $terms_failed += $terms_ok[$key] ? 0 : 1;
+        }
+
+        $all_terms_ok = 0 === $terms_failed;
+
+        if ($cat_ok && $price_ok && $stock_ok && $all_terms_ok) {
             $facets['total']++;
+        }
+
+        /* fiecare grup de termeni: toate celelalte grupuri conteaza, el nu */
+        if ($cat_ok && $price_ok && $stock_ok) {
+            foreach ($groups as $key) {
+                if ($terms_failed - ($terms_ok[$key] ? 0 : 1) > 0) {
+                    continue;
+                }
+
+                foreach (ht_shop_row_terms($row, $key) as $term_id) {
+                    $facets['terms'][$key][$term_id] = isset($facets['terms'][$key][$term_id]) ? $facets['terms'][$key][$term_id] + 1 : 1;
+                }
+            }
+        }
+
+        if (!$all_terms_ok) {
+            continue;
         }
 
         /* categorii: celelalte doua grupuri conteaza, grupul propriu nu */
