@@ -238,8 +238,22 @@ function ht_footer_terms_page_id()
 }
 
 /**
+ * ID-ul paginii cu politica de cookie-uri (slug-ul 'politica-cookies').
+ *
+ * Se schimba cu: add_filter('ht_footer_cookie_page_id', ...)
+ *
+ * @return int 0 cand pagina nu exista.
+ */
+function ht_footer_cookie_page_id()
+{
+    $page = get_page_by_path('politica-cookies');
+
+    return (int)apply_filters('ht_footer_cookie_page_id', $page ? $page->ID : 0);
+}
+
+/**
  * Legaturile din coloana "Legal": termenii si conditiile, livrarea si returul
- * (din Setari generale) si politica de confidentialitate.
+ * (din Setari generale), politica de confidentialitate si politica cookies.
  *
  * Politica vine din Setari -> Confidentialitate (aceeasi pagina o foloseste si
  * bifa din formularul de contact). Fiecare pagina se ia in limba curenta cand
@@ -253,6 +267,7 @@ function ht_footer_legal()
         ht_footer_terms_page_id(),
         function_exists('get_field') ? (int)get_field('ht_delivery_page', 'option') : 0,
         (int)get_option('wp_page_for_privacy_policy'),
+        ht_footer_cookie_page_id(),
     );
 
     $links = array();

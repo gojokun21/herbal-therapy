@@ -207,6 +207,7 @@ return array(
             'Nu am putut aplica codul. Încearcă din nou.' => 'Не удалось применить промокод. Попробуйте ещё раз.',
             'Numărul comenzii:' => 'Номер заказа:',
             'Plasează comanda' => 'Оформить заказ',
+            'Plătește' => 'Оплатить',
             'Plata:' => 'Оплата:',
             'Plata comenzii' => 'Оплата заказа',
             'Plata nu a putut fi procesată. Încearcă din nou sau alege altă modalitate de plată.' => 'Не удалось обработать платёж. Попробуйте ещё раз или выберите другой способ оплаты.',

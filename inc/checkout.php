@@ -668,6 +668,27 @@ function ht_checkout_order_button_text()
 }
 
 /**
+ * Eticheta butonului cand e aleasa plata online: "Plătește".
+ *
+ * Paynet cere ca clientul sa bifeze termenii inainte de butonul "Plătește".
+ * Pluginul lasa 'order_button_text' gol, iar checkout.js pune pe buton
+ * atributul 'data-order_button_text' al metodei alese - deci la Paynet scrie
+ * "Plătește", la numerar revine la "Plasează comanda".
+ *
+ * @param WC_Payment_Gateway[] $gateways
+ * @return WC_Payment_Gateway[]
+ */
+function ht_checkout_paynet_button_text($gateways)
+{
+    if (isset($gateways['paynet']) && empty($gateways['paynet']->order_button_text)) {
+        $gateways['paynet']->order_button_text = __('Plătește', 'herbal-therapy');
+    }
+
+    return $gateways;
+}
+add_filter('woocommerce_available_payment_gateways', 'ht_checkout_paynet_button_text');
+
+/**
  * Blocul cu conditii, buton si nonce, asa cum il stie WooCommerce.
  *
  * E acelasi markup ca in checkout/payment.php, doar ca traieste in sumar. Se

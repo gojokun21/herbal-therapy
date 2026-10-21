@@ -168,7 +168,7 @@ return array(
         'Șterge istoricul',
     ),
 
-    /* Checkout (40) */
+    /* Checkout (41) */
     'Checkout' => array(
         '%s (livrare)',
         '%s nu pare o adresă de email validă.',
@@ -203,6 +203,7 @@ return array(
         'Plata:',
         'Plata comenzii',
         'Plata nu a putut fi procesată. Încearcă din nou sau alege altă modalitate de plată.',
+        'Plătește',
         'Reia plata',
         'Te rugăm să completezi câmpul %s.',
         'Total:',
@@ -425,7 +426,7 @@ return array(
         'Slide %d',
     ),
 
-    /* Produs (35) */
+    /* Produs (34) */
     'Produs' => array(
         '%1$s - imaginea %2$d',
         '%1$s capsule în loc de %2$s',
