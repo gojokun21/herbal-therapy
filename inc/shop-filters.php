@@ -1048,7 +1048,7 @@ function ht_shop_filter_option($key, $value, $label, $count = 0, $hide_empty = f
 {
     $checked = ht_shop_filter_checked($key, $value);
     ?>
-    <li class="ht-filters__item"<?php echo ($hide_empty && 0 === (int)$count && !$checked) ? ' hidden' : ''; ?>>
+    <li class="ht-filters__item"<?php echo ($hide_empty && 0 === (int)$count && !$checked) ? ' data-ht-filters-zero hidden' : ''; ?>>
         <label class="ht-check">
             <input class="ht-check__input"
                    type="checkbox"
@@ -1154,11 +1154,12 @@ function ht_shop_filters_markup()
                            data-ht-filters-search>
                 </label>
 
-                <ul class="ht-filters__list" data-ht-filters-searchable>
+                <?php /* categoriile cu 0 nu apar: alt filtru bifat (ex. o problema) le-a golit */ ?>
+                <ul class="ht-filters__list" data-ht-filters-searchable data-ht-filters-hide-empty>
                     <?php foreach ($categories as $term) : ?>
                         <?php
                         $count = isset($facets['cat'][(int)$term->term_id]) ? (int)$facets['cat'][(int)$term->term_id] : 0;
-                        ht_shop_filter_option('cat', $term->slug, $term->name, $count);
+                        ht_shop_filter_option('cat', $term->slug, $term->name, $count, true);
                         ?>
                     <?php endforeach; ?>
                 </ul>
