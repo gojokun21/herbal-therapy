@@ -181,7 +181,7 @@ final class ShopFiltersTest extends TestCase
 
         $this->assertSame(array('vitamine-copii' => 1), $payload['cat']);
         $this->assertSame(array('0-200' => 2, '200-500' => 1, '500-1000' => 1, '1000-2000' => 0), $payload['price']);
-        $this->assertSame(array('instock' => 2, 'outofstock' => 1, 'new' => 2), $payload['stock']);
+        $this->assertSame(array('instock' => 2, 'outofstock' => 1), $payload['stock']);
     }
 
     public function test_counts_react_to_the_other_groups()
@@ -191,7 +191,7 @@ final class ShopFiltersTest extends TestCase
         $payload = ht_shop_facet_payload();
 
         $this->assertSame(array('siropuri' => 1, 'unguente' => 1, 'vitamine-copii' => 1, 'vitamine-si-suplimente' => 1), $payload['cat']);
-        $this->assertSame(array('instock' => 1, 'outofstock' => 2, 'new' => 2), $payload['stock']);
+        $this->assertSame(array('instock' => 1, 'outofstock' => 2), $payload['stock']);
         $this->assertSame(9, $payload['price']['0-200'], 'grupul propriu nu se restrange');
     }
 
@@ -267,15 +267,15 @@ final class ShopFiltersTest extends TestCase
 
     public function test_active_chips_in_display_order_with_removal_links()
     {
-        $_GET = array('cat' => 'unguente,nu-exista', 'price' => '0-200', 'min_price' => '10', 'max_price' => '50', 'stock' => 'new');
+        $_GET = array('cat' => 'unguente,nu-exista', 'price' => '0-200', 'min_price' => '10', 'max_price' => '50', 'stock' => 'outofstock');
 
         $chips = ht_shop_active_filters();
         $labels = array_column($chips, 'label');
 
-        $this->assertSame(array('Unguente', 'Sub 200', '10 - 50', 'Nou'), $labels, 'slug-ul necunoscut nu produce eticheta');
+        $this->assertSame(array('Unguente', 'Sub 200', '10 - 50', 'Stoc epuizat'), $labels, 'slug-ul necunoscut nu produce eticheta');
         /* eticheta scoate doar valoarea ei; ce mai era in adresa (si slug-ul necunoscut) ramane */
-        $this->assertEquals(array('cat' => 'nu-exista', 'price' => '0-200', 'min_price' => '10', 'max_price' => '50', 'stock' => 'new'), $this->query($chips[0]['url']));
-        $this->assertEquals(array('cat' => 'unguente,nu-exista', 'price' => '0-200', 'stock' => 'new'), $this->query($chips[2]['url']));
+        $this->assertEquals(array('cat' => 'nu-exista', 'price' => '0-200', 'min_price' => '10', 'max_price' => '50', 'stock' => 'outofstock'), $this->query($chips[0]['url']));
+        $this->assertEquals(array('cat' => 'unguente,nu-exista', 'price' => '0-200', 'stock' => 'outofstock'), $this->query($chips[2]['url']));
     }
 
     public function test_chip_for_a_category_from_another_listing_still_shows()

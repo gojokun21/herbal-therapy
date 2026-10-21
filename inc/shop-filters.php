@@ -343,7 +343,6 @@ function ht_shop_stock_options()
     return apply_filters('ht_shop_stock_options', array(
         array('key' => 'instock', 'label' => __('În Stoc', 'herbal-therapy')),
         array('key' => 'outofstock', 'label' => __('Stoc epuizat', 'herbal-therapy')),
-        array('key' => 'new', 'label' => __('Nou', 'herbal-therapy')),
     ));
 }
 
