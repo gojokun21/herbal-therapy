@@ -688,6 +688,130 @@ function ht_checkout_paynet_button_text($gateways)
 }
 add_filter('woocommerce_available_payment_gateways', 'ht_checkout_paynet_button_text');
 
+/* ---------------------------------------------------------------------------
+ * Produse fara plata online
+ * ------------------------------------------------------------------------ */
+
+/**
+ * Metodele de plata ascunse cand in comanda e un produs "fara plata online".
+ *
+ * Se schimba cu: add_filter('ht_checkout_online_gateways', ...)
+ *
+ * @return string[] ID-urile metodelor.
+ */
+function ht_checkout_online_gateways()
+{
+    return (array)apply_filters('ht_checkout_online_gateways', array('paynet'));
+}
+
+/**
+ * Bifa din fisa produsului (Date produs -> General).
+ */
+function ht_checkout_no_online_field()
+{
+    woocommerce_wp_checkbox(array(
+        'id'          => '_ht_no_online_payment',
+        'label'       => __('Fără plată online', 'herbal-therapy'),
+        'description' => __('Când produsul e în coș, comanda se poate achita doar numerar la livrare.', 'herbal-therapy'),
+    ));
+}
+add_action('woocommerce_product_options_general_product_data', 'ht_checkout_no_online_field');
+
+/**
+ * Salveaza bifa si o copiaza pe traducerile produsului, ca regula sa fie
+ * aceeasi in toate limbile.
+ *
+ * @param int $product_id
+ */
+function ht_checkout_no_online_save($product_id)
+{
+    $value = isset($_POST['_ht_no_online_payment']) ? 'yes' : 'no'; // phpcs:ignore WordPress.Security.NonceVerification -- verificat de WooCommerce.
+    $ids = function_exists('pll_get_post_translations') ? pll_get_post_translations($product_id) : array();
+    $ids[] = $product_id;
+
+    foreach (array_unique(array_map('intval', $ids)) as $id) {
+        update_post_meta($id, '_ht_no_online_payment', $value);
+    }
+}
+add_action('woocommerce_process_product_meta', 'ht_checkout_no_online_save');
+
+/**
+ * Produsul e marcat "fara plata online"? Variatiile urmeaza produsul parinte.
+ *
+ * @param WC_Product|null $product
+ * @return bool
+ */
+function ht_checkout_product_no_online($product)
+{
+    if (!$product) {
+        return false;
+    }
+
+    $id = $product->get_parent_id() ? $product->get_parent_id() : $product->get_id();
+
+    return 'yes' === get_post_meta($id, '_ht_no_online_payment', true);
+}
+
+/**
+ * Numele produselor fara plata online din comanda curenta: cosul la
+ * finalizare, sau comanda deja creata pe pagina "Plata comenzii".
+ *
+ * @return string[]
+ */
+function ht_checkout_no_online_items()
+{
+    $products = array();
+
+    if (is_wc_endpoint_url('order-pay')) {
+        $order = wc_get_order(absint(get_query_var('order-pay')));
+
+        if ($order) {
+            foreach ($order->get_items() as $item) {
+                $products[] = $item->get_product();
+            }
+        }
+    } elseif (WC()->cart) {
+        foreach (WC()->cart->get_cart() as $item) {
+            $products[] = $item['data'];
+        }
+    }
+
+    $names = array();
+
+    foreach ($products as $product) {
+        if (ht_checkout_product_no_online($product)) {
+            $names[] = $product->get_name();
+        }
+    }
+
+    return array_values(array_unique($names));
+}
+
+/**
+ * Scoate plata online cand comanda are un produs marcat.
+ *
+ * Filtrul ruleaza si la trimiterea comenzii, deci o metoda ascunsa aici e
+ * refuzata de WooCommerce chiar daca cineva o trimite fortat.
+ *
+ * @param WC_Payment_Gateway[] $gateways
+ * @return WC_Payment_Gateway[]
+ */
+function ht_checkout_hide_online_gateways($gateways)
+{
+    if (is_admin() && !wp_doing_ajax()) {
+        return $gateways;
+    }
+
+    if (ht_checkout_no_online_items()) {
+        foreach (ht_checkout_online_gateways() as $id) {
+            unset($gateways[$id]);
+        }
+    }
+
+    return $gateways;
+}
+add_filter('woocommerce_available_payment_gateways', 'ht_checkout_hide_online_gateways');
+
 /**
  * Blocul cu conditii, buton si nonce, asa cum il stie WooCommerce.
  *

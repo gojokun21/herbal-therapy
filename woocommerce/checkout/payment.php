@@ -48,6 +48,19 @@ if (!wp_doing_ajax()) {
             ?>
         </ul>
 
+        <?php $ht_no_online = ht_checkout_no_online_items(); ?>
+        <?php if ($ht_no_online) : ?>
+            <p class="ht-checkout-payment__note">
+                <?php
+                printf(
+                    /* translators: %s: numele produselor, separate prin virgula. */
+                    esc_html__('Plata online nu este disponibilă pentru: %s. Comanda se achită numerar la livrare.', 'herbal-therapy'),
+                    esc_html(implode(', ', $ht_no_online))
+                );
+                ?>
+            </p>
+        <?php endif; ?>
+
     <?php endif; ?>
 
     <noscript>

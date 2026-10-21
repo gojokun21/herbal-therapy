@@ -566,6 +566,12 @@
     margin: 0;
 }
 
+.ht-checkout-payment__note {
+    margin: 12px 0 0;
+    font-size: 1.4rem;
+    color: var(--ht-co-mute);
+}
+
 .ht-checkout-payment__noscript {
     margin-top: 16px;
     font-size: 1.4rem;

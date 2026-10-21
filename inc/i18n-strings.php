@@ -168,7 +168,7 @@ return array(
         'Șterge istoricul',
     ),
 
-    /* Checkout (41) */
+    /* Checkout (44) */
     'Checkout' => array(
         '%s (livrare)',
         '%s nu pare o adresă de email validă.',
@@ -183,6 +183,7 @@ return array(
         'Comanda ta a fost înregistrată. Te sunăm pentru confirmare.',
         'Completează datele de mai sus ca să vezi modalitățile de plată.',
         'Coșul are nevoie de o verificare',
+        'Când produsul e în coș, comanda se poate achita doar numerar la livrare.',
         'Data:',
         'Date de facturare',
         'Date de facturare și livrare',
@@ -190,6 +191,7 @@ return array(
         'Datele tale personale vor fi folosite pentru procesarea comenzii și în alte scopuri descrise în [privacy_policy].',
         'Email:',
         'Finalizare comandă',
+        'Fără plată online',
         'Informații suplimentare',
         'Introdu un cod promoțional.',
         'Livrează la o altă adresă',
@@ -203,6 +205,7 @@ return array(
         'Plata:',
         'Plata comenzii',
         'Plata nu a putut fi procesată. Încearcă din nou sau alege altă modalitate de plată.',
+        'Plata online nu este disponibilă pentru: %s. Comanda se achită numerar la livrare.',
         'Plătește',
         'Reia plata',
         'Te rugăm să completezi câmpul %s.',
