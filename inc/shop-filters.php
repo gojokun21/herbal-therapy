@@ -1038,16 +1038,17 @@ add_filter('posts_clauses', 'ht_shop_filter_clauses', 20, 2);
 /**
  * O optiune bifabila din bara laterala.
  *
- * @param string $key   Numele parametrului.
- * @param string $value Valoarea optiunii.
- * @param string $label Textul din stanga.
- * @param int    $count Numarul din dreapta.
+ * @param string $key        Numele parametrului.
+ * @param string $value      Valoarea optiunii.
+ * @param string $label      Textul din stanga.
+ * @param int    $count      Numarul din dreapta.
+ * @param bool   $hide_empty Ascunde optiunea cand nu are produse (si nu e bifata).
  */
-function ht_shop_filter_option($key, $value, $label, $count = 0)
+function ht_shop_filter_option($key, $value, $label, $count = 0, $hide_empty = false)
 {
     $checked = ht_shop_filter_checked($key, $value);
     ?>
-    <li class="ht-filters__item">
+    <li class="ht-filters__item"<?php echo ($hide_empty && 0 === (int)$count && !$checked) ? ' hidden' : ''; ?>>
         <label class="ht-check">
             <input class="ht-check__input"
                    type="checkbox"
@@ -1169,14 +1170,24 @@ function ht_shop_filters_markup()
             <?php endif; ?>
 
             <?php foreach (ht_shop_filter_term_groups() as $key => $group) : ?>
-                <?php $terms = ht_shop_filter_group_terms($key); ?>
+                <?php
+                $terms = ht_shop_filter_group_terms($key);
+                $visible = 0;
+
+                foreach ($terms as $term) {
+                    if (ht_shop_facet_group_count($facets, $key, (int)$term->term_id) || ht_shop_filter_checked($key, $term->slug)) {
+                        $visible++;
+                    }
+                }
+                ?>
                 <?php if ($terms) : ?>
-                <div class="ht-filters__group">
+                <?php /* optiunile cu 0 nu apar: alt filtru bifat le-a golit (vezi applyFacets() din JS) */ ?>
+                <div class="ht-filters__group" data-ht-filters-hide-empty<?php echo $visible ? '' : ' hidden'; ?>>
                     <?php ht_shop_filter_head($group['title'], $key); ?>
 
                     <ul class="ht-filters__list">
                         <?php foreach ($terms as $term) : ?>
-                            <?php ht_shop_filter_option($key, $term->slug, $term->name, ht_shop_facet_group_count($facets, $key, (int)$term->term_id)); ?>
+                            <?php ht_shop_filter_option($key, $term->slug, $term->name, ht_shop_facet_group_count($facets, $key, (int)$term->term_id), true); ?>
                         <?php endforeach; ?>
                     </ul>
                 </div>

@@ -396,8 +396,9 @@
      *
      * Bara nu se re-randeaza (ar pierde cautarea din lista de categorii si
      * focusul), doar numerele din dreapta optiunilor se schimba. Grupul de
-     * categorii vine deja restrans la listarea curenta din PHP, deci aici nu
-     * apar si nu dispar optiuni.
+     * categorii vine deja restrans la listarea curenta din PHP. In grupurile
+     * marcate data-ht-filters-hide-empty (problemele) optiunile cu 0 se
+     * ascund, iar grupul dispare cand nu mai ramane nimic de bifat.
      *
      * @param {Object} facets {cat: {slug: n}, price: {...}, stock: {...}}
      */
@@ -425,6 +426,19 @@
                     if (count) {
                         count.textContent = formatCount(counts[box.value]);
                     }
+
+                    var group = box.closest('[data-ht-filters-hide-empty]');
+
+                    if (group) {
+                        box.closest('li').hidden = (0 === counts[box.value] && !box.checked);
+                    }
+                }
+            );
+
+            Array.prototype.forEach.call(
+                form.querySelectorAll('[data-ht-filters-hide-empty]'),
+                function (group) {
+                    group.hidden = !group.querySelector('li:not([hidden])');
                 }
             );
         });
