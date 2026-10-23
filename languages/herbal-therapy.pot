@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Herbal Therapy 1.0.0\n"
 "Report-Msgid-Bugs-To: https://www.wavenity.com\n"
-"POT-Creation-Date: 2026-09-23 08:23+0000\n"
+"POT-Creation-Date: 2026-10-23 09:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,7 +48,7 @@ msgstr ""
 
 #: header.php:120
 #: inc/minicart.php:526
-#: inc/single-product.php:1433
+#: inc/single-product.php:1423
 msgid "Închide"
 msgstr ""
 
@@ -92,6 +92,7 @@ msgstr ""
 #: inc/b2b.php:609
 #: inc/blog-archive.php:185
 #: inc/contact.php:656
+#: template-parts/content-page.php:16
 msgid "Firimituri"
 msgstr ""
 
@@ -100,7 +101,8 @@ msgstr ""
 #: inc/blog-archive.php:186
 #: inc/cart.php:174
 #: inc/contact.php:657
-#: inc/single-product.php:1378
+#: inc/single-product.php:1368
+#: template-parts/content-page.php:17
 msgid "Acasă"
 msgstr ""
 
@@ -334,6 +336,7 @@ msgid "Arată articolele"
 msgstr ""
 
 #: inc/blog-archive.php:322
+#: search.php:118
 msgid "Paginare articole"
 msgstr ""
 
@@ -358,10 +361,10 @@ msgstr ""
 #: inc/categories.php:379
 #: inc/home-reviews.php:192
 #: inc/minicart.php:489
-#: inc/navigation.php:51
+#: inc/navigation.php:60
 #: inc/products.php:472
 #: inc/single-product.php:868
-#: inc/top-sales.php:251
+#: inc/top-sales.php:260
 msgid "Înapoi"
 msgstr ""
 
@@ -369,10 +372,10 @@ msgstr ""
 #: inc/categories.php:383
 #: inc/home-reviews.php:196
 #: inc/minicart.php:493
-#: inc/navigation.php:52
+#: inc/navigation.php:62
 #: inc/products.php:476
 #: inc/single-product.php:872
-#: inc/top-sales.php:269
+#: inc/top-sales.php:278
 msgid "Înainte"
 msgstr ""
 
@@ -460,13 +463,13 @@ msgid "TVA inclus"
 msgstr ""
 
 #: inc/cart.php:347
-#: inc/checkout.php:812
-#: inc/checkout.php:813
+#: inc/checkout.php:957
+#: inc/checkout.php:958
 msgid "Cod promoțional"
 msgstr ""
 
 #: inc/cart.php:350
-#: inc/checkout.php:816
+#: inc/checkout.php:961
 msgid "Aplică"
 msgstr ""
 
@@ -561,17 +564,16 @@ msgstr ""
 msgid "Plasează comanda"
 msgstr ""
 
-#: inc/checkout.php:836
-msgid "Mulțumim pentru comandă"
+#: inc/checkout.php:684
+msgid "Plătește"
 msgstr ""
 
-#: inc/checkout.php:840
-msgid "Plata comenzii"
+#: inc/checkout.php:714
+msgid "Fără plată online"
 msgstr ""
 
-#: inc/checkout.php:843
-#: woocommerce/checkout/form-checkout.php:35
-msgid "Finalizare comandă"
+#: inc/checkout.php:715
+msgid "Când produsul e în coș, comanda se poate achita doar numerar la livrare."
 msgstr ""
 
 #: inc/checkout.php:97
@@ -581,6 +583,19 @@ msgstr ""
 
 #: inc/checkout.php:98
 msgid "Nu am putut aplica codul. Încearcă din nou."
+msgstr ""
+
+#: inc/checkout.php:981
+msgid "Mulțumim pentru comandă"
+msgstr ""
+
+#: inc/checkout.php:985
+msgid "Plata comenzii"
+msgstr ""
+
+#: inc/checkout.php:988
+#: woocommerce/checkout/form-checkout.php:35
+msgid "Finalizare comandă"
 msgstr ""
 
 #: inc/contact.php:283
@@ -692,7 +707,7 @@ msgid "Șterge din favorite"
 msgstr ""
 
 #. translators: 1: anul curent, 2: numele site-ului.
-#: inc/footer.php:313
+#: inc/footer.php:329
 #, php-format
 msgid "&copy; %1$s %2$s &mdash; Toate drepturile rezervate"
 msgstr ""
@@ -960,64 +975,66 @@ msgstr ""
 msgid "Nota %s din 5"
 msgstr ""
 
-#: inc/search.php:703
+#: inc/search.php:685
+#: inc/search.php:756
 msgid "Căutări recente"
 msgstr ""
 
-#: inc/search.php:706
+#: inc/search.php:688
+#: inc/search.php:759
 msgid "Șterge istoricul"
 msgstr ""
 
-#: inc/search.php:711
+#: inc/search.php:773
 msgid "Categorii potrivite"
 msgstr ""
 
-#: inc/search.php:713
+#: inc/search.php:775
 msgid "Din blog"
 msgstr ""
 
-#: inc/search.php:721
+#: inc/search.php:783
 msgid "Produse găsite"
 msgstr ""
 
 #. translators: %d: numarul total de produse gasite.
-#: inc/search.php:726
+#: inc/search.php:788
 #, php-format
 msgid "%d produs"
 msgid_plural "%d produse"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/search.php:739
+#: inc/search.php:801
 msgid "Vezi toate rezultatele"
 msgstr ""
 
-#: inc/search.php:746
+#: inc/search.php:808
 msgid "Niciun produs pentru această căutare"
 msgstr ""
 
-#: inc/search.php:747
+#: inc/search.php:809
 msgid "Încearcă un cuvânt mai scurt sau alege o categorie."
 msgstr ""
 
-#: inc/search.php:782
+#: inc/search.php:844
 msgid "Caută produse"
 msgstr ""
 
-#: inc/search.php:786
+#: inc/search.php:848
 msgid "Caută un produs, o categorie sau un cod"
 msgstr ""
 
-#: inc/search.php:791
+#: inc/search.php:853
 msgid "Golește câmpul"
 msgstr ""
 
-#: inc/search.php:795
+#: inc/search.php:857
 #: searchform.php:27
 msgid "Caută"
 msgstr ""
 
-#: inc/search.php:800
+#: inc/search.php:862
 msgid "Închide căutarea"
 msgstr ""
 
@@ -1055,84 +1072,80 @@ msgstr ""
 msgid "Mai adaugă produse de %s și ai livrare gratuită!"
 msgstr ""
 
-#: inc/shop-filters.php:1001
-#: inc/shop-filters.php:1013
-msgid "Preț maxim"
-msgstr ""
-
-#: inc/shop-filters.php:1031
-msgid "Disponibilitate"
-msgstr ""
-
-#: inc/shop-filters.php:1044
-msgid "Aplică filtrele"
-msgstr ""
-
-#: inc/shop-filters.php:1069
-msgid "Șterge filtrul"
-msgstr ""
-
-#: inc/shop-filters.php:212
-msgid "Sub 200"
-msgstr ""
-
-#: inc/shop-filters.php:213
-msgid "200 - 500"
-msgstr ""
-
-#: inc/shop-filters.php:214
-msgid "500 - 1 000"
-msgstr ""
-
-#: inc/shop-filters.php:215
-msgid "1 000 - 2 000"
-msgstr ""
-
-#: inc/shop-filters.php:227
-msgid "În Stoc"
-msgstr ""
-
-#: inc/shop-filters.php:228
-#: inc/single-product.php:1094
-msgid "Stoc epuizat"
-msgstr ""
-
-#: inc/shop-filters.php:229
-msgid "Nou"
-msgstr ""
-
-#: inc/shop-filters.php:906
+#: inc/shop-filters.php:1097
 msgid "Resetare"
 msgstr ""
 
-#: inc/shop-filters.php:906
+#: inc/shop-filters.php:1097
 msgid "Șterge tot"
 msgstr ""
 
-#: inc/shop-filters.php:943
+#: inc/shop-filters.php:1134
 msgid "Filtre"
 msgstr ""
 
-#: inc/shop-filters.php:954
+#: inc/shop-filters.php:1146
 msgid "Tip produs"
 msgstr ""
 
-#: inc/shop-filters.php:957
-#: inc/shop-filters.php:961
+#: inc/shop-filters.php:1149
+#: inc/shop-filters.php:1153
 msgid "Căutare după categorii"
 msgstr ""
 
-#: inc/shop-filters.php:975
+#: inc/shop-filters.php:1168
 msgid "Nicio categorie găsită."
 msgstr ""
 
-#: inc/shop-filters.php:981
+#: inc/shop-filters.php:1199
 msgid "Preț"
 msgstr ""
 
-#: inc/shop-filters.php:994
-#: inc/shop-filters.php:1007
+#: inc/shop-filters.php:1212
+#: inc/shop-filters.php:1225
 msgid "Preț minim"
+msgstr ""
+
+#: inc/shop-filters.php:1219
+#: inc/shop-filters.php:1231
+msgid "Preț maxim"
+msgstr ""
+
+#: inc/shop-filters.php:1249
+msgid "Disponibilitate"
+msgstr ""
+
+#: inc/shop-filters.php:1262
+msgid "Aplică filtrele"
+msgstr ""
+
+#: inc/shop-filters.php:1287
+msgid "Șterge filtrul"
+msgstr ""
+
+#: inc/shop-filters.php:329
+msgid "Sub 200"
+msgstr ""
+
+#: inc/shop-filters.php:330
+msgid "200 - 500"
+msgstr ""
+
+#: inc/shop-filters.php:331
+msgid "500 - 1 000"
+msgstr ""
+
+#: inc/shop-filters.php:332
+msgid "1 000 - 2 000"
+msgstr ""
+
+#: inc/shop-filters.php:344
+msgid "În Stoc"
+msgstr ""
+
+#: inc/shop-filters.php:345
+#: inc/single-product.php:1094
+msgid "Stoc epuizat"
 msgstr ""
 
 #. translators: 1: numarul de capsule al variantei propuse, 2: al celei curente.
@@ -1167,47 +1180,43 @@ msgstr ""
 msgid "În stoc"
 msgstr ""
 
-#: inc/single-product.php:1135
-msgid "Plătești în siguranță cu"
-msgstr ""
-
-#: inc/single-product.php:1244
+#: inc/single-product.php:1234
 msgid "Ingrediente"
 msgstr ""
 
-#: inc/single-product.php:1297
+#: inc/single-product.php:1287
 msgid "Produse asemănătoare"
 msgstr ""
 
-#: inc/single-product.php:1436
+#: inc/single-product.php:1426
 msgid "Poți închide această fereastră cu tasta ESC"
 msgstr ""
 
-#: inc/single-product.php:1437
+#: inc/single-product.php:1427
 msgid "A apărut o problemă. Încearcă din nou mai târziu."
 msgstr ""
 
-#: inc/single-product.php:1438
+#: inc/single-product.php:1428
 msgid "Imaginea nu a fost găsită"
 msgstr ""
 
-#: inc/single-product.php:1439
+#: inc/single-product.php:1429
 msgid "Mărește sau micșorează"
 msgstr ""
 
-#: inc/single-product.php:1440
+#: inc/single-product.php:1430
 msgid "Arată sau ascunde miniaturile"
 msgstr ""
 
-#: inc/single-product.php:1441
+#: inc/single-product.php:1431
 msgid "Pornește sau oprește prezentarea"
 msgstr ""
 
-#: inc/single-product.php:1442
+#: inc/single-product.php:1432
 msgid "Comută pe tot ecranul"
 msgstr ""
 
-#: inc/single-product.php:1443
+#: inc/single-product.php:1433
 msgid "Descarcă"
 msgstr ""
 
@@ -1244,12 +1253,12 @@ msgid "%1$s - imaginea %2$d"
 msgstr ""
 
 #: inc/single-product.php:521
-#: inc/single-product.php:1435
+#: inc/single-product.php:1425
 msgid "Imaginea anterioară"
 msgstr ""
 
 #: inc/single-product.php:525
-#: inc/single-product.php:1434
+#: inc/single-product.php:1424
 msgid "Imaginea următoare"
 msgstr ""
 
@@ -1321,8 +1330,8 @@ msgstr ""
 msgid "Notificări coș"
 msgstr ""
 
-#: inc/top-sales.php:196
-#: inc/top-sales.php:295
+#: inc/top-sales.php:204
+#: inc/top-sales.php:304
 msgid "Top vânzări"
 msgstr ""
 
@@ -1340,27 +1349,31 @@ msgstr ""
 msgid "Scrie-ne pe WhatsApp"
 msgstr ""
 
-#: search.php:111
+#: search.php:117
+msgid "Paginare produse"
+msgstr ""
+
+#: search.php:131
 msgid "Nu am găsit nimic pentru această căutare"
 msgstr ""
 
-#: search.php:114
+#: search.php:134
 msgid "Verifică scrierea, încearcă un cuvânt mai scurt sau pornește de la o categorie."
 msgstr ""
 
-#: search.php:118
+#: search.php:138
 msgid "Scrie ce cauți"
 msgstr ""
 
-#: search.php:121
+#: search.php:141
 msgid "Poți căuta după denumirea produsului, categorie sau codul de pe ambalaj."
 msgstr ""
 
-#: search.php:129
+#: search.php:158
 msgid "Categorii populare"
 msgstr ""
 
-#: search.php:149
+#: search.php:178
 msgid "Poate te interesează"
 msgstr ""
 
@@ -1434,7 +1447,7 @@ msgstr ""
 msgid "Nu există conținut de afișat deocamdată."
 msgstr ""
 
-#: template-parts/content-page.php:30
+#: template-parts/content-page.php:39
 msgid "Editează"
 msgstr ""
 
@@ -1571,15 +1584,21 @@ msgstr ""
 msgid "Completează datele de mai sus ca să vezi modalitățile de plată."
 msgstr ""
 
+#. translators: %s: numele produselor, separate prin virgula.
+#: woocommerce/checkout/payment.php:57
+#, php-format
+msgid "Plata online nu este disponibilă pentru: %s. Comanda se achită numerar la livrare."
+msgstr ""
+
 #. translators: 1: eticheta butonului.
-#: woocommerce/checkout/payment.php:58
+#: woocommerce/checkout/payment.php:71
 #, php-format
 msgid "Browserul tău nu rulează JavaScript. Apasă %s înainte de a plasa comanda, altfel totalul afișat poate fi greșit."
 msgstr ""
 
-#: woocommerce/checkout/payment.php:59
-#: woocommerce/checkout/payment.php:64
-#: woocommerce/checkout/payment.php:65
+#: woocommerce/checkout/payment.php:72
+#: woocommerce/checkout/payment.php:77
+#: woocommerce/checkout/payment.php:78
 msgid "Actualizează totalurile"
 msgstr ""
 

@@ -159,6 +159,7 @@ return array(
             'Golește câmpul' => 'Очистить поле',
             'Niciun produs pentru această căutare' => 'По этому запросу товаров не найдено',
             'Nu am găsit nimic pentru această căutare' => 'По этому запросу ничего не найдено',
+            'Paginare produse' => 'Навигация по товарам',
             'Poate te interesează' => 'Возможно, вас заинтересует',
             'Poți căuta după denumirea produsului, categorie sau codul de pe ambalaj.' => 'Можно искать по названию товара, категории или коду на упаковке.',
             'Produse' => 'Товары',

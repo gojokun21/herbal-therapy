@@ -442,19 +442,23 @@ dl, ol, ul {
     color: var(--muted);
 }
 
-.pagination {
+/* paginarea din ht_pagination() (arhive, cautare): aceleasi butoane rotunde
+   ca in magazin si la reduceri */
+.ht-pagination {
     display: flex;
     justify-content: center;
     margin-top: 56px;
 }
 
-.pagination .nav-links {
+.ht-pagination .nav-links {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
-.pagination .page-numbers {
+.ht-pagination .page-numbers {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -463,14 +467,42 @@ dl, ol, ul {
     padding: 0 14px;
     border: 1px solid var(--line);
     border-radius: 999px;
+    color: var(--text);
     font-size: 1.5rem;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
 }
 
-.pagination .page-numbers.current,
-.pagination .page-numbers:hover {
+.ht-pagination .page-numbers.current,
+.ht-pagination a.page-numbers:hover,
+.ht-pagination a.page-numbers:focus-visible {
     background: var(--accent);
     border-color: var(--accent);
     color: #fff;
+}
+
+.ht-pagination .page-numbers.dots {
+    min-width: auto;
+    padding: 0 4px;
+    border: 0;
+}
+
+.ht-pagination .page-numbers.prev,
+.ht-pagination .page-numbers.next {
+    padding: 0;
+}
+
+.ht-pagination__icon {
+    display: inline-flex;
+}
+
+.ht-pagination__icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.ht-pagination__icon--prev {
+    transform: rotate(180deg);
 }
 
 .search-form {
@@ -539,6 +571,23 @@ dl, ol, ul {
 
     .post-navigation .nav-next {
         text-align: left;
+    }
+
+    /* cel mai lung rand, "‹ 1 … 11 12 13 … 24 ›", are ~321px si incape de la
+       360px in sus; la 320px trece frumos pe doua randuri */
+    .ht-pagination {
+        margin-top: 40px;
+    }
+
+    .ht-pagination .nav-links {
+        gap: 4px;
+    }
+
+    .ht-pagination .page-numbers {
+        min-width: 36px;
+        height: 36px;
+        padding: 0 8px;
+        font-size: 1.4rem;
     }
 }
 

@@ -42,14 +42,24 @@ function ht_main_menu($extra_class = '')
 }
 
 /**
- * Paginare cu numere pentru arhive.
+ * Paginare cu numere pentru arhive si pentru cautare.
+ *
+ * 'class' inlocuieste clasa implicita "pagination" a lui WordPress, deci
+ * stilurile stau pe .ht-pagination (style.css). Sagetile sunt doar iconite;
+ * textul ramane pentru cititoarele de ecran.
+ *
+ * @param array $args Suprascrieri pentru the_posts_pagination(), ex. 'aria_label'.
  */
-function ht_pagination()
+function ht_pagination($args = array())
 {
-    the_posts_pagination(array(
+    $hidden = '<span class="ht-visually-hidden">%s</span>';
+
+    the_posts_pagination(array_merge(array(
         'mid_size'  => 1,
-        'prev_text' => esc_html__('Înapoi', 'herbal-therapy'),
-        'next_text' => esc_html__('Înainte', 'herbal-therapy'),
+        'prev_text' => ht_get_icon('chevron', 'ht-pagination__icon ht-pagination__icon--prev')
+            . sprintf($hidden, esc_html__('Înapoi', 'herbal-therapy')),
+        'next_text' => ht_get_icon('chevron', 'ht-pagination__icon')
+            . sprintf($hidden, esc_html__('Înainte', 'herbal-therapy')),
         'class'     => 'ht-pagination',
-    ));
+    ), $args));
 }

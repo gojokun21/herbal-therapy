@@ -111,7 +111,17 @@ if ($ht_shop && 'products' === $ht_tab) {
 
             <?php endif; ?>
 
-            <?php ht_pagination(); ?>
+            <?php
+            /* implicit WordPress anunta "Paginație articole" si pe tab-ul de produse */
+            $ht_pager_label = 'products' === $ht_tab
+                ? __('Paginare produse', 'herbal-therapy')
+                : __('Paginare articole', 'herbal-therapy');
+
+            ht_pagination(array(
+                'aria_label'         => $ht_pager_label,
+                'screen_reader_text' => $ht_pager_label,
+            ));
+            ?>
 
         <?php else : ?>
 

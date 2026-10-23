@@ -100,7 +100,7 @@ return array(
         'Înapoi',
     ),
 
-    /* Catalog (33) */
+    /* Catalog (32) */
     'Catalog' => array(
         '-%d%%',
         '1 000 - 2 000',
@@ -116,7 +116,6 @@ return array(
         'lei',
         'Nicio categorie găsită.',
         'Nota medie',
-        'Nou',
         'Oferte speciale',
         'Preț',
         'Preț maxim',
@@ -137,7 +136,7 @@ return array(
         'Șterge tot',
     ),
 
-    /* Cautare (27) */
+    /* Cautare (28) */
     'Cautare' => array(
         '%d produs',
         '%d produse',
@@ -154,6 +153,7 @@ return array(
         'Golește câmpul',
         'Niciun produs pentru această căutare',
         'Nu am găsit nimic pentru această căutare',
+        'Paginare produse',
         'Poate te interesează',
         'Poți căuta după denumirea produsului, categorie sau codul de pe ambalaj.',
         'Produse',
