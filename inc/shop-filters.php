@@ -352,6 +352,34 @@ function ht_shop_filter_sort_categories($terms)
 }
 
 /**
+ * Locul fiecarei categorii din ht_shop_filter_category_order(), in limba
+ * curenta. O subcategorie ia locul parintelui ei.
+ *
+ * @return int[] term_id => loc (0 = primul).
+ */
+function ht_shop_category_ranks()
+{
+    $ranks = array();
+
+    foreach (ht_shop_filter_category_order_ids() as $rank => $id) {
+        $family = array($id);
+        $children = get_term_children($id, 'product_cat');
+
+        if (!is_wp_error($children)) {
+            $family = array_merge($family, array_map('intval', $children));
+        }
+
+        foreach ($family as $term_id) {
+            if (!isset($ranks[$term_id])) {
+                $ranks[$term_id] = $rank;
+            }
+        }
+    }
+
+    return $ranks;
+}
+
+/**
  * Termenii unui grup din bara laterala: cei care au produse in listarea
  * curenta, fara termenul vizitat (pe /problema/riduri/ „Riduri” nu se
  * listeaza pe ea insasi).
@@ -1140,6 +1168,81 @@ function ht_shop_filter_clauses($clauses, $query)
 }
 
 add_filter('posts_clauses', 'ht_shop_filter_clauses', 20, 2);
+
+/**
+ * Sortarea „Recomandat” urmeaza ordinea categoriilor din „Tip produs”.
+ *
+ * Intai produsele din prima categorie a lui ht_shop_filter_category_order(),
+ * apoi din a doua s.a.m.d.; in cadrul aceleiasi categorii ramane ordinea
+ * WooCommerce (menu_order, apoi titlul). Un produs din mai multe categorii ia
+ * locul celei mai de sus, iar cele din categoriile nelistate vin la final.
+ * Celelalte sortari (pret, popularitate, noutate) raman neatinse.
+ *
+ * Aici doar se calculeaza locurile; ht_shop_category_order_clauses() le pune
+ * in SQL. Nu se pot calcula acolo: intre pre_get_posts (999) si
+ * posts_selection Polylang impune limba curenta oricarui get_terms() cu
+ * 'slug' (PLL_CRUD_Terms::adjust_query_lang), deci pe rusa slug-urile din
+ * romana nu s-ar mai gasi.
+ *
+ * @param WP_Query $query Interogarea de produse.
+ */
+function ht_shop_category_order_query($query)
+{
+    if (!ht_is_shop_archive()) {
+        return;
+    }
+
+    /* WooCommerce traduce „Recomandat” (menu_order) in 'menu_order title' */
+    $orderby = $query->get('orderby');
+
+    if (!is_string($orderby) || 0 !== strpos($orderby, 'menu_order')) {
+        return;
+    }
+
+    $query->set('ht_category_ranks', ht_shop_category_ranks());
+}
+
+add_action('woocommerce_product_query', 'ht_shop_category_order_query', 10, 1);
+
+/**
+ * Pune in fata sortarii locul categoriei, calculat de
+ * ht_shop_category_order_query().
+ *
+ * @param array    $clauses Bucatile interogarii SQL.
+ * @param WP_Query $query   Interogarea curenta.
+ *
+ * @return array
+ */
+function ht_shop_category_order_clauses($clauses, $query)
+{
+    $ranks = $query->get('ht_category_ranks');
+
+    if (!$ranks || !is_array($ranks)) {
+        return $clauses;
+    }
+
+    global $wpdb;
+
+    $cases = '';
+
+    foreach ($ranks as $term_id => $rank) {
+        $cases .= sprintf(' WHEN %d THEN %d', $term_id, $rank);
+    }
+
+    /* cel mai bun loc dintre categoriile produsului; NULL daca niciuna nu e listata */
+    $best = "(SELECT MIN(CASE ht_ct.term_id{$cases} END)"
+        . " FROM {$wpdb->term_relationships} AS ht_cr"
+        . " INNER JOIN {$wpdb->term_taxonomy} AS ht_ct ON ht_ct.term_taxonomy_id = ht_cr.term_taxonomy_id"
+        . " WHERE ht_cr.object_id = {$wpdb->posts}.ID AND ht_ct.taxonomy = 'product_cat')";
+
+    $order = sprintf('COALESCE(%s, %d) ASC', $best, max($ranks) + 1);
+
+    $clauses['orderby'] = ('' === trim((string)$clauses['orderby'])) ? $order : $order . ', ' . $clauses['orderby'];
+
+    return $clauses;
+}
+
+add_filter('posts_clauses', 'ht_shop_category_order_clauses', 20, 2);
 
 /* ---------------------------------------------------------------------------
  * Markup

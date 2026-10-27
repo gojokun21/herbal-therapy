@@ -351,6 +351,39 @@ final class ShopFiltersTest extends TestCase
         $this->assertSame($clauses, ht_shop_filter_clauses($clauses, new WP_Query()));
     }
 
+    public function test_recommended_sort_follows_the_category_order()
+    {
+        $query = new WP_Query();
+        $query->set('orderby', 'menu_order title');
+        ht_shop_category_order_query($query);
+        $clauses = array('join' => '', 'where' => '', 'orderby' => 'wp_posts.menu_order ASC, wp_posts.post_title ASC');
+
+        $orderby = ht_shop_category_order_clauses($clauses, $query)['orderby'];
+
+        /* siropuri, vitamine-si-suplimente, unguente; vitamine-copii sta pe locul parintelui */
+        $this->assertStringContainsString('CASE ht_ct.term_id WHEN 10 THEN 0 WHEN 12 THEN 1 WHEN 13 THEN 1 WHEN 11 THEN 2 END', $orderby);
+        $this->assertStringStartsWith('COALESCE(', $orderby);
+        $this->assertStringEndsWith(', 3) ASC, wp_posts.menu_order ASC, wp_posts.post_title ASC', $orderby, 'nelistatele la final, apoi ordinea WooCommerce');
+    }
+
+    public function test_other_sorts_and_searches_keep_their_order()
+    {
+        $clauses = array('join' => '', 'where' => '', 'orderby' => 'wp_posts.post_date DESC');
+
+        foreach (array('date ID', array('total_sales' => 'DESC')) as $orderby) {
+            $query = new WP_Query();
+            $query->set('orderby', $orderby);
+            ht_shop_category_order_query($query);
+            $this->assertSame($clauses, ht_shop_category_order_clauses($clauses, $query));
+        }
+
+        HT_Test_Wp::$is_search = true;
+        $query = new WP_Query();
+        $query->set('orderby', 'menu_order title');
+        ht_shop_category_order_query($query);
+        $this->assertSame($clauses, ht_shop_category_order_clauses($clauses, $query));
+    }
+
     /* ---- markup ---------------------------------------------------------- */
 
     private function render()
