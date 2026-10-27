@@ -1170,13 +1170,13 @@ function ht_shop_filter_clauses($clauses, $query)
 add_filter('posts_clauses', 'ht_shop_filter_clauses', 20, 2);
 
 /**
- * Sortarea „Recomandat” urmeaza ordinea categoriilor din „Tip produs”.
+ * Sortarea „Recomandat” amesteca categoriile din „Tip produs”, ca listarea sa
+ * nu inceapa cu toate siropurile.
  *
- * Intai produsele din prima categorie a lui ht_shop_filter_category_order(),
- * apoi din a doua s.a.m.d.; in cadrul aceleiasi categorii ramane ordinea
- * WooCommerce (menu_order, apoi titlul). Un produs din mai multe categorii ia
- * locul celei mai de sus, iar cele din categoriile nelistate vin la final.
- * Celelalte sortari (pret, popularitate, noutate) raman neatinse.
+ * Produsele se iau pe rand, cate unul din fiecare categorie, in ordinea lui
+ * ht_shop_filter_category_order() - vezi ht_shop_mix_categories(). Un produs
+ * din mai multe categorii ia locul celei mai de sus. Celelalte sortari (pret,
+ * popularitate, noutate) raman neatinse.
  *
  * Aici doar se calculeaza locurile; ht_shop_category_order_clauses() le pune
  * in SQL. Nu se pot calcula acolo: intre pre_get_posts (999) si
@@ -1205,8 +1205,62 @@ function ht_shop_category_order_query($query)
 add_action('woocommerce_product_query', 'ht_shop_category_order_query', 10, 1);
 
 /**
- * Pune in fata sortarii locul categoriei, calculat de
- * ht_shop_category_order_query().
+ * Ordinea „Recomandat”: categoriile amestecate, produsele epuizate la final.
+ *
+ * Intai cele din stoc, apoi cele epuizate sau pe comanda (ca la filtrul
+ * „Disponibilitate”). In fiecare parte produsele se iau pe ture: primul sirop,
+ * prima cosmetica, primele vitamine s.a.m.d., apoi al doilea din fiecare
+ * categorie; o categorie care ramane fara produse se sare. Cele din
+ * categoriile nelistate (loc NULL) fac un grup comun, ultimul din fiecare
+ * tura. In cadrul unei categorii ramane ordinea primita.
+ *
+ * @param object[] $rows Produsele in ordinea WooCommerce (menu_order, titlu),
+ *                       cu id, cat_rank (locul categoriei sau NULL) si
+ *                       stock_status.
+ *
+ * @return int[] ID-urile, in ordinea finala.
+ */
+function ht_shop_mix_categories($rows)
+{
+    $parts = array(array(), array());
+
+    foreach ($rows as $row) {
+        $part = in_array($row->stock_status, array('outofstock', 'onbackorder'), true) ? 1 : 0;
+        $rank = null === $row->cat_rank ? PHP_INT_MAX : (int)$row->cat_rank;
+        $parts[$part][$rank][] = (int)$row->id;
+    }
+
+    $ids = array();
+
+    foreach ($parts as $groups) {
+        if (!$groups) {
+            continue;
+        }
+
+        ksort($groups);
+        $rounds = max(array_map('count', $groups));
+
+        for ($i = 0; $i < $rounds; $i++) {
+            foreach ($groups as $group) {
+                if (isset($group[$i])) {
+                    $ids[] = $group[$i];
+                }
+            }
+        }
+    }
+
+    return $ids;
+}
+
+/**
+ * Inlocuieste sortarea cu ordinea din ht_shop_mix_categories(), pe locurile
+ * calculate de ht_shop_category_order_query().
+ *
+ * Turele depind de ce a ramas dupa filtre, deci produsele listarii se citesc
+ * intai separat (aceleasi jonctiuni si conditii, fara paginare), iar
+ * interogarea principala le ordoneaza apoi cu FIELD(). Ruleaza dupa
+ * filtrele WooCommerce (prioritatea 10) si dupa ht_shop_filter_clauses(),
+ * ca sa vada conditiile finale.
  *
  * @param array    $clauses Bucatile interogarii SQL.
  * @param WP_Query $query   Interogarea curenta.
@@ -1235,14 +1289,60 @@ function ht_shop_category_order_clauses($clauses, $query)
         . " INNER JOIN {$wpdb->term_taxonomy} AS ht_ct ON ht_ct.term_taxonomy_id = ht_cr.term_taxonomy_id"
         . " WHERE ht_cr.object_id = {$wpdb->posts}.ID AND ht_ct.taxonomy = 'product_cat')";
 
-    $order = sprintf('COALESCE(%s, %d) ASC', $best, max($ranks) + 1);
+    $stock = "(SELECT ht_ps.stock_status FROM {$wpdb->prefix}wc_product_meta_lookup AS ht_ps"
+        . " WHERE ht_ps.product_id = {$wpdb->posts}.ID)";
+
+    $distinct = isset($clauses['distinct']) ? $clauses['distinct'] : '';
+    $groupby = isset($clauses['groupby']) ? trim((string)$clauses['groupby']) : '';
+    $orderby = trim((string)$clauses['orderby']);
+
+    $sql = "SELECT {$distinct} {$wpdb->posts}.ID AS id, {$best} AS cat_rank, {$stock} AS stock_status"
+        . " FROM {$wpdb->posts} {$clauses['join']} WHERE 1=1 {$clauses['where']}"
+        . ('' === $groupby ? '' : " GROUP BY {$groupby}")
+        . ('' === $orderby ? '' : " ORDER BY {$orderby}");
+
+    $ids = ht_shop_mix_categories((array)$wpdb->get_results($sql));
+
+    if ($ids) {
+        $clauses['orderby'] = sprintf('FIELD(%s.ID, %s)', $wpdb->posts, implode(',', $ids));
+    }
+
+    return $clauses;
+}
+
+add_filter('posts_clauses', 'ht_shop_category_order_clauses', 20, 2);
+
+/**
+ * La celelalte sortari (pret, popularitate, noutate), produsele epuizate sau
+ * pe comanda trec la finalul listarii; intre ele ramane sortarea aleasa.
+ *
+ * „Recomandat” le pune deja la final, prin ht_shop_mix_categories(). Ruleaza
+ * dupa WooCommerce, care isi scrie sortarile in posts_clauses pe prioritatea
+ * 10. Produsul fara rand in tabelul de cautare ramane cu cele din stoc.
+ *
+ * @param array    $clauses Bucatile interogarii SQL.
+ * @param WP_Query $query   Interogarea curenta.
+ *
+ * @return array
+ */
+function ht_shop_stock_last_clauses($clauses, $query)
+{
+    if (is_admin() || !$query->is_main_query() || !ht_is_shop_archive() || $query->get('ht_category_ranks')) {
+        return $clauses;
+    }
+
+    global $wpdb;
+
+    $order = "COALESCE((SELECT ht_so.stock_status IN ('outofstock', 'onbackorder')"
+        . " FROM {$wpdb->prefix}wc_product_meta_lookup AS ht_so"
+        . " WHERE ht_so.product_id = {$wpdb->posts}.ID), 0) ASC";
 
     $clauses['orderby'] = ('' === trim((string)$clauses['orderby'])) ? $order : $order . ', ' . $clauses['orderby'];
 
     return $clauses;
 }
 
-add_filter('posts_clauses', 'ht_shop_category_order_clauses', 20, 2);
+add_filter('posts_clauses', 'ht_shop_stock_last_clauses', 20, 2);
 
 /* ---------------------------------------------------------------------------
  * Markup

@@ -37,6 +37,7 @@ final class HT_Test_Wp
         self::$hooks = array();
         self::$is_search = false;
         $_GET = array();
+        $GLOBALS['wpdb'] = new HT_Test_Wpdb();
 
         ht_shop_memo_flush();
     }
@@ -152,9 +153,17 @@ class HT_Test_Wpdb
         return null;
     }
 
+    /** @var object[] Randurile intoarse de get_results(). */
+    public $results = array();
+
+    /** @var string Ultima interogare primita de get_results(). */
+    public $last_query = '';
+
     public function get_results($query)
     {
-        return array();
+        $this->last_query = $query;
+
+        return $this->results;
     }
 }
 

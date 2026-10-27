@@ -351,19 +351,92 @@ final class ShopFiltersTest extends TestCase
         $this->assertSame($clauses, ht_shop_filter_clauses($clauses, new WP_Query()));
     }
 
-    public function test_recommended_sort_follows_the_category_order()
+    /**
+     * Un rand cum il intoarce $wpdb->get_results() pentru amestecare.
+     *
+     * @param int         $id     ID-ul produsului.
+     * @param string|null $rank   Locul categoriei (NULL = categorie nelistata).
+     * @param string      $status Starea stocului.
+     *
+     * @return object
+     */
+    private function mix_row($id, $rank, $status = 'instock')
+    {
+        return (object)array('id' => (string)$id, 'cat_rank' => $rank, 'stock_status' => $status);
+    }
+
+    public function test_mix_takes_one_product_per_category_in_turn()
+    {
+        $rows = array(
+            $this->mix_row(1, '0'),
+            $this->mix_row(2, '0'),
+            $this->mix_row(3, '0'),
+            $this->mix_row(4, '2'),
+            $this->mix_row(5, null),
+            $this->mix_row(6, '1'),
+            $this->mix_row(7, '1'),
+        );
+
+        /* tura 1: sirop, cosmetica, vitamine, nelistat; tura 2: sirop, cosmetica; tura 3: sirop */
+        $this->assertSame(array(1, 6, 4, 5, 2, 7, 3), ht_shop_mix_categories($rows));
+    }
+
+    public function test_mix_puts_unavailable_products_last()
+    {
+        $rows = array(
+            $this->mix_row(1, '0', 'outofstock'),
+            $this->mix_row(2, '0'),
+            $this->mix_row(3, '1', 'onbackorder'),
+            $this->mix_row(4, '1'),
+            $this->mix_row(5, '0', null),
+        );
+
+        /* fara rand in tabelul de cautare (stoc necunoscut) ramane cu cele din stoc */
+        $this->assertSame(array(2, 4, 5, 1, 3), ht_shop_mix_categories($rows));
+        $this->assertSame(array(), ht_shop_mix_categories(array()));
+    }
+
+    public function test_recommended_sort_mixes_the_categories()
+    {
+        $query = new WP_Query();
+        $query->set('orderby', 'menu_order title');
+        ht_shop_category_order_query($query);
+        $clauses = array(
+            'join'     => ' INNER JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id)',
+            'where'    => " AND wp_posts.post_type = 'product'",
+            'groupby'  => 'wp_posts.ID',
+            'distinct' => '',
+            'orderby'  => 'wp_posts.menu_order ASC, wp_posts.post_title ASC',
+        );
+        $GLOBALS['wpdb']->results = array(
+            $this->mix_row(31, '0'),
+            $this->mix_row(32, '0'),
+            $this->mix_row(33, '2'),
+            $this->mix_row(34, '1', 'outofstock'),
+        );
+
+        $result = ht_shop_category_order_clauses($clauses, $query);
+        $sql = $GLOBALS['wpdb']->last_query;
+
+        $this->assertSame('FIELD(wp_posts.ID, 31,33,32,34)', $result['orderby']);
+        $this->assertSame($clauses['where'], $result['where'], 'filtrele raman neatinse');
+
+        /* siropuri, vitamine-si-suplimente, unguente; vitamine-copii sta pe locul parintelui */
+        $this->assertStringContainsString('CASE ht_ct.term_id WHEN 10 THEN 0 WHEN 12 THEN 1 WHEN 13 THEN 1 WHEN 11 THEN 2 END', $sql);
+        $this->assertStringContainsString('wp_wc_product_meta_lookup AS ht_ps', $sql);
+        $this->assertStringContainsString('FROM wp_posts ' . $clauses['join'] . ' WHERE 1=1 ' . $clauses['where'] . ' GROUP BY wp_posts.ID', $sql, 'aceleasi produse ca listarea');
+        $this->assertStringEndsWith(' ORDER BY wp_posts.menu_order ASC, wp_posts.post_title ASC', $sql, 'in categorie, ordinea WooCommerce');
+        $this->assertStringNotContainsString('LIMIT', $sql);
+    }
+
+    public function test_recommended_sort_keeps_the_order_when_nothing_is_listed()
     {
         $query = new WP_Query();
         $query->set('orderby', 'menu_order title');
         ht_shop_category_order_query($query);
         $clauses = array('join' => '', 'where' => '', 'orderby' => 'wp_posts.menu_order ASC, wp_posts.post_title ASC');
 
-        $orderby = ht_shop_category_order_clauses($clauses, $query)['orderby'];
-
-        /* siropuri, vitamine-si-suplimente, unguente; vitamine-copii sta pe locul parintelui */
-        $this->assertStringContainsString('CASE ht_ct.term_id WHEN 10 THEN 0 WHEN 12 THEN 1 WHEN 13 THEN 1 WHEN 11 THEN 2 END', $orderby);
-        $this->assertStringStartsWith('COALESCE(', $orderby);
-        $this->assertStringEndsWith(', 3) ASC, wp_posts.menu_order ASC, wp_posts.post_title ASC', $orderby, 'nelistatele la final, apoi ordinea WooCommerce');
+        $this->assertSame($clauses, ht_shop_category_order_clauses($clauses, $query));
     }
 
     public function test_other_sorts_and_searches_keep_their_order()
@@ -382,6 +455,35 @@ final class ShopFiltersTest extends TestCase
         $query->set('orderby', 'menu_order title');
         ht_shop_category_order_query($query);
         $this->assertSame($clauses, ht_shop_category_order_clauses($clauses, $query));
+    }
+
+    public function test_other_sorts_put_unavailable_products_last()
+    {
+        $clauses = array('join' => '', 'where' => '', 'orderby' => ' wc_product_meta_lookup.min_price ASC, wc_product_meta_lookup.product_id ASC ');
+        $query = new WP_Query();
+        $query->set('orderby', 'price');
+        ht_shop_category_order_query($query);
+
+        $orderby = ht_shop_stock_last_clauses($clauses, $query)['orderby'];
+
+        $this->assertStringStartsWith("COALESCE((SELECT ht_so.stock_status IN ('outofstock', 'onbackorder') FROM wp_wc_product_meta_lookup AS ht_so WHERE ht_so.product_id = wp_posts.ID), 0) ASC, ", $orderby);
+        $this->assertStringEndsWith(', ' . $clauses['orderby'], $orderby, 'intre ele ramane sortarea aleasa');
+    }
+
+    public function test_stock_order_leaves_recommended_and_search_alone()
+    {
+        $clauses = array('join' => '', 'where' => '', 'orderby' => 'wp_posts.menu_order ASC, wp_posts.post_title ASC');
+
+        /* „Recomandat” le pune la final prin amestecare */
+        $query = new WP_Query();
+        $query->set('orderby', 'menu_order title');
+        ht_shop_category_order_query($query);
+        $this->assertSame($clauses, ht_shop_stock_last_clauses($clauses, $query));
+
+        HT_Test_Wp::$is_search = true;
+        $query = new WP_Query();
+        $query->set('orderby', 'price');
+        $this->assertSame($clauses, ht_shop_stock_last_clauses($clauses, $query));
     }
 
     /* ---- markup ---------------------------------------------------------- */
