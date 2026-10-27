@@ -126,12 +126,27 @@ final class ShopFiltersTest extends TestCase
 
     /* ---- lista de categorii --------------------------------------------- */
 
-    public function test_shop_lists_categories_that_have_products_sorted_by_name()
+    public function test_shop_lists_categories_that_have_products_in_the_set_order()
     {
+        /* siropuri, vitamine-si-suplimente, unguente sunt in lista fixa;
+           vitamine-copii nu e, deci vine dupa ele */
         $this->assertSame(
-            array('siropuri', 'unguente', 'vitamine-copii', 'vitamine-si-suplimente'),
+            array('siropuri', 'vitamine-si-suplimente', 'unguente', 'vitamine-copii'),
             $this->slugs(ht_shop_filter_categories()),
             'ceaiuri nu are produse, deci lipseste'
+        );
+    }
+
+    public function test_categories_outside_the_set_order_follow_by_name()
+    {
+        add_filter('ht_shop_filter_category_order', function () {
+            return array('unguente', 'nu-exista', 'siropuri');
+        });
+
+        $this->assertSame(
+            array('unguente', 'siropuri', 'vitamine-copii', 'vitamine-si-suplimente'),
+            $this->slugs(ht_shop_filter_categories()),
+            'slug-ul inexistent e sarit, restul vine alfabetic'
         );
     }
 
@@ -166,7 +181,7 @@ final class ShopFiltersTest extends TestCase
         $payload = ht_shop_facet_payload();
 
         $this->assertSame(
-            array('siropuri' => 4, 'unguente' => 4, 'vitamine-copii' => 1, 'vitamine-si-suplimente' => 3),
+            array('siropuri' => 4, 'vitamine-si-suplimente' => 3, 'unguente' => 4, 'vitamine-copii' => 1),
             $payload['cat']
         );
         $this->assertSame(array('0-200' => 9, '200-500' => 3, '500-1000' => 1, '1000-2000' => 0), $payload['price']);
@@ -190,7 +205,7 @@ final class ShopFiltersTest extends TestCase
 
         $payload = ht_shop_facet_payload();
 
-        $this->assertSame(array('siropuri' => 1, 'unguente' => 1, 'vitamine-copii' => 1, 'vitamine-si-suplimente' => 1), $payload['cat']);
+        $this->assertSame(array('siropuri' => 1, 'vitamine-si-suplimente' => 1, 'unguente' => 1, 'vitamine-copii' => 1), $payload['cat']);
         $this->assertSame(array('instock' => 1, 'outofstock' => 2), $payload['stock']);
         $this->assertSame(9, $payload['price']['0-200'], 'grupul propriu nu se restrange');
     }

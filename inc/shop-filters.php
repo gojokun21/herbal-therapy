@@ -238,7 +238,117 @@ function ht_shop_filter_categories_compute()
         'order'      => 'ASC',
     ));
 
-    return apply_filters('ht_shop_filter_categories', is_wp_error($found) ? array() : $found);
+    $found = is_wp_error($found) ? array() : ht_shop_filter_sort_categories($found);
+
+    return apply_filters('ht_shop_filter_categories', $found);
+}
+
+/**
+ * Categoriile care deschid grupul „Tip produs”, in ordinea de afisare.
+ *
+ * Restul categoriilor vin dupa ele, in ordine alfabetica. Lista e data prin
+ * slug-urile din romana (limba de baza), ca sa nu depinda de ID-urile din baza
+ * de date; ht_shop_filter_category_order_ids() o traduce in limba curenta.
+ *
+ * @return string[] Slug-uri de product_cat.
+ */
+function ht_shop_filter_category_order()
+{
+    return apply_filters('ht_shop_filter_category_order', array(
+        'siropuri',
+        'cosmetica-medicala',
+        'vitamine-si-suplimente',
+        'unguente',
+        'uleiuri',
+        'vaseline',
+        'sampoane',
+        'geluri-de-dus',
+        'spumant-de-baie',
+    ));
+}
+
+/**
+ * ID-urile din ht_shop_filter_category_order(), in limba curenta.
+ *
+ * Slug-urile se cauta in toate limbile ('lang' => '' opreste filtrul Polylang),
+ * apoi fiecare termen se inlocuieste cu traducerea lui in limba curenta. O
+ * categorie fara traducere sau cu slug-ul schimbat e sarita, nu strica lista.
+ *
+ * @return int[]
+ */
+function ht_shop_filter_category_order_ids()
+{
+    $slugs = ht_shop_filter_category_order();
+
+    if (!$slugs) {
+        return array();
+    }
+
+    $terms = get_terms(array(
+        'taxonomy'   => 'product_cat',
+        'slug'       => $slugs,
+        'hide_empty' => false,
+        'lang'       => '',
+    ));
+
+    if (is_wp_error($terms)) {
+        return array();
+    }
+
+    $by_slug = array();
+
+    foreach ($terms as $term) {
+        $by_slug[$term->slug] = (int)$term->term_id;
+    }
+
+    $lang = function_exists('pll_current_language') ? (string)pll_current_language() : '';
+    $ids = array();
+
+    foreach ($slugs as $slug) {
+        if (empty($by_slug[$slug])) {
+            continue;
+        }
+
+        $id = $by_slug[$slug];
+
+        if ('' !== $lang && function_exists('pll_get_term')) {
+            $id = (int)pll_get_term($id, $lang);
+        }
+
+        if ($id > 0 && !in_array($id, $ids, true)) {
+            $ids[] = $id;
+        }
+    }
+
+    return $ids;
+}
+
+/**
+ * Muta in fata categoriile din ht_shop_filter_category_order(), in ordinea
+ * lor; celelalte raman dupa, in ordinea primita (alfabetica).
+ *
+ * @param WP_Term[] $terms Categoriile, ordonate dupa nume.
+ *
+ * @return WP_Term[]
+ */
+function ht_shop_filter_sort_categories($terms)
+{
+    $rest = array();
+
+    foreach ($terms as $term) {
+        $rest[(int)$term->term_id] = $term;
+    }
+
+    $first = array();
+
+    foreach (ht_shop_filter_category_order_ids() as $id) {
+        if (isset($rest[$id])) {
+            $first[] = $rest[$id];
+            unset($rest[$id]);
+        }
+    }
+
+    return array_merge($first, array_values($rest));
 }
 
 /**

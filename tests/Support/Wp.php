@@ -380,6 +380,10 @@ function get_terms($args)
             continue;
         }
 
+        if (!empty($args['slug']) && !in_array($term->slug, (array)$args['slug'], true)) {
+            continue;
+        }
+
         $out[] = $term;
     }
 
