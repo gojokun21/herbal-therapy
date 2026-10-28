@@ -50,7 +50,8 @@ if (!is_dir($ht_out_dir)) {
  * WordPress
  * ------------------------------------------------------------------------ */
 
-$ht_root = __DIR__;
+/* HT_WP_ROOT: radacina WordPress, cand scriptul ruleaza dintr-o copie din afara temei */
+$ht_root = getenv('HT_WP_ROOT') ? rtrim(getenv('HT_WP_ROOT'), '/\\') : __DIR__;
 while (!file_exists($ht_root . '/wp-load.php')) {
     $ht_parent = dirname($ht_root);
     if ($ht_parent === $ht_root) {

@@ -292,14 +292,18 @@ publicat; a fost restaurat pe 2026-10-28.
 
 `bin/images` se ruleaza cu PHP-ul din Local (8.4), nu cu XAMPP 8.2:
 contact-form-7 cere PHP >= 8.3 si opreste `wp-load.php`. Din acelasi motiv,
-pe productie `php` / `wp` implicite ale utilizatorului (8.2) nu merg. Pe
-server, dupa deploy si dupa ce JPG-urile sunt copiate in
-`bin/images/data/bundles/` (nu sunt in git):
+pe productie `php` / `wp` implicite ale utilizatorului (8.2) nu merg.
+
+Pe productie pachetele s-au creat pe 2026-10-28 fara deploy de cod: o copie
+`bundles.php` + `bundles.json` + `data/bundles/*.jpg` in `/tmp/ht-bundles` pe
+server (stearsa dupa), rulata cu `HT_WP_ROOT` spre radacina WordPress:
 
 ```
-cd /home/herbaltherapy/public_html/wp-content/themes/herbal-therapy
-sudo -u herbaltherapy -H /opt/cpanel/ea-php83/root/usr/bin/php bin/images/bundles.php --dry-run
-sudo -u herbaltherapy -H /opt/cpanel/ea-php83/root/usr/bin/php bin/images/bundles.php
+cd /tmp/ht-bundles && chown -R herbaltherapy: .
+sudo -u herbaltherapy -H env HT_WP_ROOT=/home/herbaltherapy/public_html \
+    /opt/cpanel/ea-php83/root/usr/bin/php bundles.php --dry-run
 ```
+
+Pe live: categoria "Pachete" #777, pachetele #2844, #2846, #2848, #2850, #2852.
 
 Doar RO deocamdata: perechile RU (Polylang) nu sunt create.
