@@ -306,4 +306,9 @@ sudo -u herbaltherapy -H env HT_WP_ROOT=/home/herbaltherapy/public_html \
 
 Pe live: categoria "Pachete" #777, pachetele #2844, #2846, #2848, #2850, #2852.
 
-Doar RO deocamdata: perechile RU (Polylang) nu sunt create.
+Perechea RU a fiecarui pachet (cheia `ru` din `bundles.json`) se creeaza in
+aceeasi rulare, legata prin Polylang, in categoria "Наборы" (`nabory`,
+traducerea categoriei "Pachete"): componentele sunt perechile RU ale
+produselor, pretul, SKU-ul si poza sunt ale pachetului RO. La prima legare
+Polylang copiaza pe traducere categoria RO, deci scriptul pune categoria RU
+din nou dupa legare.

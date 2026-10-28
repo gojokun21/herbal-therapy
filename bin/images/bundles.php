@@ -19,6 +19,11 @@
  * Un pachet se recunoaste dupa meta `_ht_bundle` = slug, deci scriptul se
  * poate rula de mai multe ori. Poza se urca din nou doar cand JPG-ul s-a
  * schimbat (meta `_ht_bundle_image` = md5 pe atasament).
+ *
+ * Cand pachetul are cheia `ru` in bundles.json, se creeaza si perechea in
+ * rusa, legata prin Polylang: componentele sunt perechile RU ale produselor,
+ * pretul, SKU-ul si poza sunt ale pachetului RO, categoria e traducerea
+ * categoriei RO.
  */
 
 if ('cli' !== PHP_SAPI) {
@@ -88,6 +93,13 @@ require_once ABSPATH . 'wp-admin/includes/image.php';
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/media.php';
 
+/*
+ * La legarea traducerilor Polylang for WooCommerce copiaza pretul, stocul etc.
+ * ca randuri noi de meta peste cele existente (vezi ht_import_skip_meta_copy()
+ * din inc/import-endpoint.php). Scriptul pune singur fiecare valoare.
+ */
+add_filter('pllwc_copy_post_metas', '__return_empty_array', 999);
+
 /**
  * Prima poza din galeria produsului (packshot-ul pe alb), cale absoluta.
  */
@@ -100,7 +112,10 @@ function ht_bundle_packshot($pid)
 }
 
 /**
- * Pachetul creat deja pentru slug-ul dat (dupa meta `_ht_bundle`), sau 0.
+ * Pachetul RO creat deja pentru slug-ul dat (dupa meta `_ht_bundle`), sau 0.
+ *
+ * Doar cel in romana: daca Polylang ar copia meta pe traducere, perechea RU
+ * ar avea acelasi `_ht_bundle`.
  */
 function ht_bundle_find($slug)
 {
@@ -110,11 +125,167 @@ function ht_bundle_find($slug)
         'meta_key'       => '_ht_bundle',
         'meta_value'     => $slug,
         'fields'         => 'ids',
-        'posts_per_page' => 1,
+        'posts_per_page' => -1,
         'lang'           => '',
     ));
 
-    return $ids ? (int) $ids[0] : 0;
+    foreach ($ids as $id) {
+        if (!function_exists('pll_get_post_language') || 'ro' === pll_get_post_language($id)) {
+            return (int) $id;
+        }
+    }
+
+    return 0;
+}
+
+/**
+ * Traducerea RU a categoriei RO, creata si legata daca lipseste.
+ *
+ * @return int ID-ul categoriei RU, 0 in --dry-run cand inca nu exista.
+ */
+function ht_bundle_category_ru($ro_cat_id, array $def, $dry)
+{
+    $ru_id = $ro_cat_id ? (int) pll_get_term($ro_cat_id, 'ru') : 0;
+    if ($ru_id || $dry) {
+        if (!$ru_id) {
+            echo "  + categoria RU '{$def['name']}'\n";
+        }
+        return $ru_id;
+    }
+
+    $term = wp_insert_term($def['name'], 'product_cat', array('slug' => $def['slug']));
+    if (is_wp_error($term)) {
+        exit('Categoria RU nu s-a creat: ' . $term->get_error_message() . "\n");
+    }
+    $ru_id = (int) $term['term_id'];
+    pll_set_term_language($ru_id, 'ru');
+    $tr       = pll_get_term_translations($ro_cat_id);
+    $tr['ro'] = $ro_cat_id;
+    $tr['ru'] = $ru_id;
+    pll_save_term_translations($tr);
+    echo "  + categoria RU '{$def['name']}' (#{$ru_id})\n";
+
+    return $ru_id;
+}
+
+/**
+ * Datele de pachet comune RO / RU: componentele si setarile pluginului.
+ *
+ * Componentele existente se pastreaza dupa produs, ca sa nu se schimbe ID-urile.
+ */
+function ht_bundle_set_items(WC_Product_Bundle $product, array $pids)
+{
+    $product->set_layout('default');
+    $product->set_group_mode('parent');
+    $product->set_editable_in_cart(false);
+
+    $existing = array();
+    foreach ($product->get_bundled_data_items('edit') as $item) {
+        $existing[(int) $item->get_product_id()] = (int) $item->get_id();
+    }
+    $items = array();
+    foreach (array_values($pids) as $i => $pid) {
+        $items[] = array(
+            'bundled_item_id' => isset($existing[$pid]) ? $existing[$pid] : 0,
+            'product_id'      => (int) $pid,
+            'menu_order'      => $i,
+            'meta_data'       => array(
+                'quantity_min'              => 1,
+                'quantity_max'              => 1,
+                'quantity_default'          => 1,
+                'priced_individually'       => 'no',
+                'shipped_individually'      => 'no',
+                'optional'                  => 'no',
+                'single_product_visibility' => 'visible',
+                'cart_visibility'           => 'visible',
+                'order_visibility'          => 'visible',
+            ),
+        );
+    }
+    $product->set_bundled_data_items($items);
+}
+
+/**
+ * Perechea RU a pachetului RO, dupa `ru` din bundles.json.
+ *
+ * Aceeasi ordine ca in ht_import_twin_callback(): produsul se salveaza intai
+ * fara SKU, primeste limba si legatura, si abia apoi SKU-ul RO - WooCommerce
+ * accepta acelasi SKU pe doua produse doar daca sunt deja traduceri legate.
+ *
+ * @return string Randul de raport.
+ */
+function ht_bundle_ru($ro_id, array $b, $cat_ru, $dry)
+{
+    $def   = $b['ru'];
+    $ru_id = $ro_id ? (int) pll_get_post($ro_id, 'ru') : 0;
+
+    $pids = array();
+    foreach ($b['items'] as $pid) {
+        $tr = (int) pll_get_post($pid, 'ru');
+        if (!$tr || 'publish' !== get_post_status($tr)) {
+            return "    ! RU: produsul #{$pid} nu are pereche RU publicata, sar pachetul RU\n";
+        }
+        $pids[] = $tr;
+    }
+
+    if ($dry) {
+        return '    ' . ($ru_id ? "~ RU #{$ru_id}" : '+ RU') . " {$def['slug']}: " . implode(',', $pids) . "\n";
+    }
+
+    $ro      = wc_get_product($ro_id);
+    $product = $ru_id ? wc_get_product($ru_id) : new WC_Product_Bundle();
+    if (!$product instanceof WC_Product_Bundle) {
+        return "    ! RU: #{$ru_id} exista, dar nu e pachet\n";
+    }
+
+    $product->set_name($def['title']);
+    $product->set_slug($def['slug']);
+    $product->set_status($ro->get_status('edit'));
+    $product->set_catalog_visibility('visible');
+    $product->set_short_description($def['excerpt']);
+    $product->set_description('<p>' . esc_html($def['excerpt']) . '</p>');
+    $product->set_regular_price($ro->get_regular_price('edit'));
+    $product->set_sale_price($ro->get_sale_price('edit'));
+    $product->set_image_id($ro->get_image_id('edit'));
+    if ($cat_ru) {
+        $product->set_category_ids(array($cat_ru));
+    }
+    ht_bundle_set_items($product, $pids);
+    $ru_id = $product->save();
+
+    pll_set_post_language($ru_id, 'ru');
+    $tr       = pll_get_post_translations($ro_id);
+    $tr['ro'] = $ro_id;
+    $tr['ru'] = $ru_id;
+    pll_save_post_translations($tr);
+
+    /*
+     * La prima legare, sincronizarea Polylang copiaza pe traducere categoria RO
+     * (netradusa, cand categoria RU e creata in aceeasi rulare), deci categoria
+     * RU se pune din nou dupa legare, odata cu SKU-ul.
+     */
+    $product = wc_get_product($ru_id);
+    if ($cat_ru) {
+        $product->set_category_ids(array($cat_ru));
+    }
+    $sku = $ro->get_sku('edit');
+    if ($sku && $sku !== $product->get_sku('edit')) {
+        try {
+            $product->set_sku($sku);
+        } catch (WC_Data_Exception $e) {
+            echo "    ~ RU: SKU {$sku} refuzat: " . $e->getMessage() . "\n";
+        }
+    }
+    $product->save();
+
+    if (function_exists('update_field')) {
+        update_field('field_ht_product_benefits', array_map(function ($text) {
+            return array('field_ht_product_benefit_text' => $text);
+        }, $def['benefits']), $ru_id);
+    }
+    wc_delete_product_transients($ru_id);
+
+    return "    + RU #{$ru_id} {$def['slug']}\n";
 }
 
 $ht_bundles = array_filter($ht_def['bundles'], function ($b) use ($ht_only) {
@@ -190,6 +361,11 @@ if ($ht_cat) {
     echo "  + categoria '{$ht_def['category']['name']}' (#{$ht_cat_id})\n";
 }
 
+$ht_ru     = function_exists('pll_get_post') && in_array('ru', pll_languages_list(), true);
+$ht_cat_ru = ($ht_ru && !empty($ht_def['category']['ru']))
+    ? ht_bundle_category_ru($ht_cat_id, $ht_def['category']['ru'], $ht_dry)
+    : 0;
+
 /* ---------------------------------------------------------------------------
  * Pachetele
  * ------------------------------------------------------------------------ */
@@ -207,6 +383,9 @@ foreach ($ht_bundles as $ht_b) {
     if ($ht_dry) {
         echo ($ht_id ? "  ~ #{$ht_id}" : '  +') . " {$ht_slug}: {$ht_b['price']} lei (separat {$ht_regular}), "
             . count($ht_b['items']) . ' produse' . (file_exists($ht_jpg) ? ', cu poza' : ', fara poza') . "\n";
+        if ($ht_ru && !empty($ht_b['ru'])) {
+            echo ht_bundle_ru($ht_id, $ht_b, $ht_cat_ru, true);
+        }
         continue;
     }
 
@@ -234,35 +413,7 @@ foreach ($ht_bundles as $ht_b) {
             echo "  ~ {$ht_slug}: SKU {$ht_b['sku']} e luat, raman fara\n";
         }
     }
-    $ht_product->set_layout('default');
-    $ht_product->set_group_mode('parent');
-    $ht_product->set_editable_in_cart(false);
-
-    /* componentele existente se pastreaza dupa produs, ca sa nu se schimbe ID-urile */
-    $ht_existing = array();
-    foreach ($ht_product->get_bundled_data_items('edit') as $ht_item) {
-        $ht_existing[(int) $ht_item->get_product_id()] = (int) $ht_item->get_id();
-    }
-    $ht_items = array();
-    foreach (array_values($ht_b['items']) as $ht_i => $ht_pid) {
-        $ht_items[] = array(
-            'bundled_item_id' => isset($ht_existing[$ht_pid]) ? $ht_existing[$ht_pid] : 0,
-            'product_id'      => (int) $ht_pid,
-            'menu_order'      => $ht_i,
-            'meta_data'       => array(
-                'quantity_min'              => 1,
-                'quantity_max'              => 1,
-                'quantity_default'          => 1,
-                'priced_individually'       => 'no',
-                'shipped_individually'      => 'no',
-                'optional'                  => 'no',
-                'single_product_visibility' => 'visible',
-                'cart_visibility'           => 'visible',
-                'order_visibility'          => 'visible',
-            ),
-        );
-    }
-    $ht_product->set_bundled_data_items($ht_items);
+    ht_bundle_set_items($ht_product, $ht_b['items']);
     $ht_id = $ht_product->save();
 
     update_post_meta($ht_id, '_ht_bundle', $ht_slug);
@@ -301,4 +452,8 @@ foreach ($ht_bundles as $ht_b) {
 
     wc_delete_product_transients($ht_id);
     echo "  + #{$ht_id} {$ht_slug}: {$ht_b['price']} lei (separat {$ht_regular}){$ht_note}\n";
+
+    if ($ht_ru && !empty($ht_b['ru'])) {
+        echo ht_bundle_ru($ht_id, $ht_b, $ht_cat_ru, false);
+    }
 }

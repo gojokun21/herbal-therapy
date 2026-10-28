@@ -1,76 +1,169 @@
 {
-    "_comment": "Pachetele din 'Oferta pachete' (client, 2026-10-28). price = pretul pachetului din oferta; items = ID-urile produselor RO, aceleasi pe local si pe productie.",
-    "category": {"slug": "pachete", "name": "Pachete"},
+    "_comment": "Pachetele din 'Oferta pachete' (client, 2026-10-28). price = pretul pachetului din oferta; items = ID-urile produselor RO, aceleasi pe local si pe productie; ru = perechea in rusa (componentele sunt perechile RU ale produselor).",
+    "category": {
+        "slug": "pachete",
+        "name": "Pachete",
+        "ru": {
+            "slug": "nabory",
+            "name": "Наборы"
+        }
+    },
     "bundles": [
         {
             "slug": "pachet-ingrijire-zilnica-pentru-toata-familia",
             "sku": "PACHET-1",
             "title": "Pachet îngrijire zilnică pentru toată familia",
             "price": "340",
-            "items": [521, 573, 539, 557, 612, 651],
+            "items": [
+                521,
+                573,
+                539,
+                557,
+                612,
+                651
+            ],
             "excerpt": "Șase produse pentru îngrijirea de zi cu zi: balsam de buze, cremă Dexpanthen Plus, cremă de mâini cu cătină, cremă de corp hidratantă, șampon și gel de duș cu Gălbenele și Coada Șoricelului.",
             "benefits": [
                 "Îngrijire completă pentru păr, corp, mâini și buze",
                 "Extracte din plante: gălbenele, coada șoricelului, cătină, propolis",
                 "Hidratare și refacere pentru pielea uscată sau iritată",
                 "Preț redus față de produsele cumpărate separat"
-            ]
+            ],
+            "ru": {
+                "slug": "nabor-ezhednevnogo-ukhoda-dlya-vsey-semi",
+                "title": "Набор ежедневного ухода для всей семьи",
+                "excerpt": "Шесть средств для ежедневного ухода: бальзам для губ, крем Dexpanthen Plus, крем для рук с облепихой, увлажняющий крем для тела, шампунь и гель для душа с календулой и тысячелистником.",
+                "benefits": [
+                    "Полный уход за волосами, телом, руками и губами",
+                    "Растительные экстракты: календула, тысячелистник, облепиха, прополис",
+                    "Увлажнение и восстановление сухой или раздражённой кожи",
+                    "Выгоднее, чем покупать средства по отдельности"
+                ]
+            }
         },
         {
             "slug": "pachet-pentru-bunici-articulatii-somn-si-oase",
             "sku": "PACHET-2",
             "title": "Pachet pentru bunici: articulații, somn și oase",
             "price": "371.60",
-            "items": [483, 438, 183, 749],
+            "items": [
+                483,
+                438,
+                183,
+                749
+            ],
             "excerpt": "Patru produse pentru confortul de zi cu zi al celor dragi: cremă REUMIX Herbal pentru dureri reumatice, sirop PhytoCalm Somn, Calciu + Magneziu + Zinc și unguent cu Gălbenele și Siminoc.",
             "benefits": [
                 "Îngrijire pentru articulații și mușchi",
                 "Sprijin pentru un somn odihnitor, cu extracte din plante și melatonină",
                 "Calciu, magneziu și zinc pentru oase",
                 "Preț redus față de produsele cumpărate separat"
-            ]
+            ],
+            "ru": {
+                "slug": "nabor-dlya-babushek-i-dedushek-sustavy-son-i-kosti",
+                "title": "Набор для бабушек и дедушек: суставы, сон и кости",
+                "excerpt": "Четыре средства для ежедневного комфорта ваших близких: крем REUMIX Herbal при ревматических болях, сироп PhytoCalm Сон, Кальций + Магний + Цинк и мазь с календулой и бессмертником.",
+                "benefits": [
+                    "Уход за суставами и мышцами",
+                    "Поддержка спокойного сна с растительными экстрактами и мелатонином",
+                    "Кальций, магний и цинк для костей",
+                    "Выгоднее, чем покупать средства по отдельности"
+                ]
+            }
         },
         {
             "slug": "pachet-vitamine-pentru-copii-care-i-gustul-tau",
             "sku": "PACHET-3",
             "title": "Pachet vitamine pentru copii: care-i gustul tău?",
             "price": "225",
-            "items": [319, 328, 325, 316, 1748, 412],
+            "items": [
+                319,
+                328,
+                325,
+                316,
+                1748,
+                412
+            ],
             "excerpt": "Vitamina C 100 mg în patru gusturi (lămâie, zmeură, struguri și clasică), Calciu D3 cu aromă de caise și sirop IMUNO Vitamine Copii, ca fiecare copil să-și găsească gustul preferat.",
             "benefits": [
                 "Vitamina C în patru gusturi, comprimate masticabile",
                 "Calciu și vitamina D3 cu aromă de caise",
                 "Sirop cu extract de măceș, acid folic și vitamine din grupul B",
                 "Preț redus față de produsele cumpărate separat"
-            ]
+            ],
+            "ru": {
+                "slug": "nabor-vitaminov-dlya-detey-kakoy-tvoy-vkus",
+                "title": "Набор витаминов для детей: какой твой вкус?",
+                "excerpt": "Витамин C 100 мг с четырьмя вкусами (лимон, малина, виноград и классический), Кальций D3 со вкусом абрикоса и сироп IMUNO Витамины для детей, чтобы каждый ребёнок нашёл свой любимый вкус.",
+                "benefits": [
+                    "Витамин C с четырьмя вкусами, жевательные таблетки",
+                    "Кальций и витамин D3 со вкусом абрикоса",
+                    "Сироп с экстрактом шиповника, фолиевой кислотой и витаминами группы B",
+                    "Выгоднее, чем покупать средства по отдельности"
+                ]
+            }
         },
         {
             "slug": "pachet-relaxare-spa-acasa",
             "sku": "PACHET-4",
             "title": "Pachet relaxare SPA acasă",
             "price": "463.75",
-            "items": [643, 665, 689, 562, 835],
+            "items": [
+                643,
+                665,
+                689,
+                562,
+                835
+            ],
             "excerpt": "Șampon și gel de duș cu extracte Herbal și ulei de cânepă, spumant de baie RELAXANT de 1000 ml, cremă de corp cu niacinamidă și parfum floral și Vaselină COSMETICĂ: un ritual complet de relaxare.",
             "benefits": [
                 "Ritual complet de baie și relaxare acasă",
                 "Spumant de baie de 1000 ml cu extracte din plante",
                 "Hidratare cu niacinamidă (B3) și parfum floral",
                 "Preț redus față de produsele cumpărate separat"
-            ]
+            ],
+            "ru": {
+                "slug": "rasslablyayushchiy-nabor-spa-doma",
+                "title": "Расслабляющий набор «СПА дома»",
+                "excerpt": "Шампунь и гель для душа с экстрактами Herbal и конопляным маслом, расслабляющая пена для ванны 1000 мл, крем для тела с ниацинамидом и цветочным ароматом и косметический вазелин: полный ритуал расслабления.",
+                "benefits": [
+                    "Полный ритуал ванны и расслабления дома",
+                    "Пена для ванны 1000 мл с растительными экстрактами",
+                    "Увлажнение с ниацинамидом (B3) и цветочным ароматом",
+                    "Выгоднее, чем покупать средства по отдельности"
+                ]
+            }
         },
         {
             "slug": "pachet-revitalizant-cu-catina",
             "sku": "PACHET-5",
             "title": "Pachet revitalizant cu Cătină",
             "price": "260.80",
-            "items": [603, 647, 668, 534, 557],
+            "items": [
+                603,
+                647,
+                668,
+                534,
+                557
+            ],
             "excerpt": "Șampon și gel de duș cu extract de Cătină și ulei de cânepă, săpun lichid cu Aloe Vera, Ulei de Ricin 55 ml și cremă de corp hidratantă cu D-panthenol.",
             "benefits": [
                 "Revitalizare pentru păr și piele cu extract de cătină",
                 "Ulei de ricin pentru păr, gene și sprâncene",
                 "Hidratare cu D-panthenol și uleiuri naturale",
                 "Preț redus față de produsele cumpărate separat"
-            ]
+            ],
+            "ru": {
+                "slug": "vosstanavlivayushchiy-nabor-s-oblepikhoy",
+                "title": "Восстанавливающий набор с облепихой",
+                "excerpt": "Шампунь и гель для душа с экстрактом облепихи и конопляным маслом, жидкое мыло с алоэ вера, касторовое масло 55 мл и увлажняющий крем для тела с D-пантенолом.",
+                "benefits": [
+                    "Восстановление волос и кожи с экстрактом облепихи",
+                    "Касторовое масло для волос, ресниц и бровей",
+                    "Увлажнение с D-пантенолом и натуральными маслами",
+                    "Выгоднее, чем покупать средства по отдельности"
+                ]
+            }
         }
     ]
 }
