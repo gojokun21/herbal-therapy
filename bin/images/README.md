@@ -261,3 +261,45 @@ raportat, nu suprascris.
 Coperta veche a fiecarui produs ramane in `data/promo/promo_backup.json`
 (NU se sterge, nu se muta in galerie); `--restore` o pune la loc. Bannerele au
 meta `_ht_promo_node`, deci `export_products.php` nu le confunda cu copertile.
+
+## Pachete (WooCommerce Product Bundles, 2026-10-28)
+
+Pachetele din oferta clientului ("Oferta pachete.docx") sunt descrise in
+`bundles.json`: titlu, SKU, pretul pachetului din oferta, ID-urile produselor
+RO (aceleasi pe local si pe productie), textul scurt si beneficiile. Poza
+fiecarui pachet o face gpt-image-2 din packshot-urile pe alb din galeria
+produselor, toate trimise intr-un singur `images.edit`.
+
+```
+HT_DB_HOST=127.0.0.1:10051 php bundles.php --export      # A. packshot-urile -> data/bundles/sources.json
+python bundles.py --workers 5                            # B. gpt-image-2 -> data/bundles/<slug>.jpg (1000x1000)
+python bundles.py --sheet                                #    plansa produse / set: data/bundles/sheet.png
+HT_DB_HOST=127.0.0.1:10051 php bundles.php --dry-run
+HT_DB_HOST=127.0.0.1:10051 php bundles.php [--draft]     # C. creeaza / actualizeaza pachetele + poza
+```
+
+Pretul din oferta intra ca pret redus; pretul intreg e suma preturilor
+actuale ale produselor (ce ar plati clientul cumparandu-le separat azi),
+calculata la fiecare rulare. Componentele nu au pret propriu in pachet, deci
+in cos apare un singur rand cu pretul pachetului (vezi `inc/minicart.php`).
+Pachetele intra in categoria "Pachete" (se creeaza daca lipseste). Scriptul se
+poate rula din nou: pachetul se gaseste dupa meta `_ht_bundle`, iar poza se
+urca din nou doar cand JPG-ul s-a schimbat.
+
+`bundles.php --export` se opreste daca vreo componenta nu e publicata. Pe
+local, "Sirop PhytoCalm Somn" (#438, RU #439) era in cos, desi pe productie e
+publicat; a fost restaurat pe 2026-10-28.
+
+`bin/images` se ruleaza cu PHP-ul din Local (8.4), nu cu XAMPP 8.2:
+contact-form-7 cere PHP >= 8.3 si opreste `wp-load.php`. Din acelasi motiv,
+pe productie `php` / `wp` implicite ale utilizatorului (8.2) nu merg. Pe
+server, dupa deploy si dupa ce JPG-urile sunt copiate in
+`bin/images/data/bundles/` (nu sunt in git):
+
+```
+cd /home/herbaltherapy/public_html/wp-content/themes/herbal-therapy
+sudo -u herbaltherapy -H /opt/cpanel/ea-php83/root/usr/bin/php bin/images/bundles.php --dry-run
+sudo -u herbaltherapy -H /opt/cpanel/ea-php83/root/usr/bin/php bin/images/bundles.php
+```
+
+Doar RO deocamdata: perechile RU (Polylang) nu sunt create.

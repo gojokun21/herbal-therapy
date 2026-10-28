@@ -1,0 +1,76 @@
+{
+    "_comment": "Pachetele din 'Oferta pachete' (client, 2026-10-28). price = pretul pachetului din oferta; items = ID-urile produselor RO, aceleasi pe local si pe productie.",
+    "category": {"slug": "pachete", "name": "Pachete"},
+    "bundles": [
+        {
+            "slug": "pachet-ingrijire-zilnica-pentru-toata-familia",
+            "sku": "PACHET-1",
+            "title": "Pachet îngrijire zilnică pentru toată familia",
+            "price": "340",
+            "items": [521, 573, 539, 557, 612, 651],
+            "excerpt": "Șase produse pentru îngrijirea de zi cu zi: balsam de buze, cremă Dexpanthen Plus, cremă de mâini cu cătină, cremă de corp hidratantă, șampon și gel de duș cu Gălbenele și Coada Șoricelului.",
+            "benefits": [
+                "Îngrijire completă pentru păr, corp, mâini și buze",
+                "Extracte din plante: gălbenele, coada șoricelului, cătină, propolis",
+                "Hidratare și refacere pentru pielea uscată sau iritată",
+                "Preț redus față de produsele cumpărate separat"
+            ]
+        },
+        {
+            "slug": "pachet-pentru-bunici-articulatii-somn-si-oase",
+            "sku": "PACHET-2",
+            "title": "Pachet pentru bunici: articulații, somn și oase",
+            "price": "371.60",
+            "items": [483, 438, 183, 749],
+            "excerpt": "Patru produse pentru confortul de zi cu zi al celor dragi: cremă REUMIX Herbal pentru dureri reumatice, sirop PhytoCalm Somn, Calciu + Magneziu + Zinc și unguent cu Gălbenele și Siminoc.",
+            "benefits": [
+                "Îngrijire pentru articulații și mușchi",
+                "Sprijin pentru un somn odihnitor, cu extracte din plante și melatonină",
+                "Calciu, magneziu și zinc pentru oase",
+                "Preț redus față de produsele cumpărate separat"
+            ]
+        },
+        {
+            "slug": "pachet-vitamine-pentru-copii-care-i-gustul-tau",
+            "sku": "PACHET-3",
+            "title": "Pachet vitamine pentru copii: care-i gustul tău?",
+            "price": "225",
+            "items": [319, 328, 325, 316, 1748, 412],
+            "excerpt": "Vitamina C 100 mg în patru gusturi (lămâie, zmeură, struguri și clasică), Calciu D3 cu aromă de caise și sirop IMUNO Vitamine Copii, ca fiecare copil să-și găsească gustul preferat.",
+            "benefits": [
+                "Vitamina C în patru gusturi, comprimate masticabile",
+                "Calciu și vitamina D3 cu aromă de caise",
+                "Sirop cu extract de măceș, acid folic și vitamine din grupul B",
+                "Preț redus față de produsele cumpărate separat"
+            ]
+        },
+        {
+            "slug": "pachet-relaxare-spa-acasa",
+            "sku": "PACHET-4",
+            "title": "Pachet relaxare SPA acasă",
+            "price": "463.75",
+            "items": [643, 665, 689, 562, 835],
+            "excerpt": "Șampon și gel de duș cu extracte Herbal și ulei de cânepă, spumant de baie RELAXANT de 1000 ml, cremă de corp cu niacinamidă și parfum floral și Vaselină COSMETICĂ: un ritual complet de relaxare.",
+            "benefits": [
+                "Ritual complet de baie și relaxare acasă",
+                "Spumant de baie de 1000 ml cu extracte din plante",
+                "Hidratare cu niacinamidă (B3) și parfum floral",
+                "Preț redus față de produsele cumpărate separat"
+            ]
+        },
+        {
+            "slug": "pachet-revitalizant-cu-catina",
+            "sku": "PACHET-5",
+            "title": "Pachet revitalizant cu Cătină",
+            "price": "260.80",
+            "items": [603, 647, 668, 534, 557],
+            "excerpt": "Șampon și gel de duș cu extract de Cătină și ulei de cânepă, săpun lichid cu Aloe Vera, Ulei de Ricin 55 ml și cremă de corp hidratantă cu D-panthenol.",
+            "benefits": [
+                "Revitalizare pentru păr și piele cu extract de cătină",
+                "Ulei de ricin pentru păr, gene și sprâncene",
+                "Hidratare cu D-panthenol și uleiuri naturale",
+                "Preț redus față de produsele cumpărate separat"
+            ]
+        }
+    ]
+}
