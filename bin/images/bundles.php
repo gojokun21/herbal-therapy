@@ -100,6 +100,13 @@ require_once ABSPATH . 'wp-admin/includes/media.php';
  */
 add_filter('pllwc_copy_post_metas', '__return_empty_array', 999);
 
+/*
+ * Polylang Pro >= 3.9 trimite pe traduceri fiecare valoare ACF scrisa: un
+ * repeater cu subcampuri text (beneficii) se sincronizeaza, deci beneficiile RU
+ * ar ajunge si pe pachetul RO. Fiecare limba isi scrie singura campurile.
+ */
+remove_filter('acf/update_value', array('WP_Syntex\\Polylang_Pro\\Integrations\\ACF\\Dispatcher', 'update'), 5);
+
 /**
  * Prima poza din galeria produsului (packshot-ul pe alb), cale absoluta.
  */
