@@ -3,7 +3,7 @@
  * Pasul 5 - exporta cadrele din Figma (JPG 1000x1000) si le pune ca imagine
  * reprezentativa pe produsul RO si pe perechea lui RU.
  *
- *   HT_DB_HOST=127.0.0.1:10004 php bin/images/upload_to_wp.php [--dry-run] [--force] [--only slug,slug]
+ *   HT_DB_HOST=127.0.0.1:10004 php bin/images/upload_to_wp.php [--dry-run] [--force] [--only slug,slug] [--jpg-dir dir]
  *
  * Citeste data/figma_nodes.json (scris de pluginul Figma: slug -> {ro, ru}) si
  * data/products.json (id-urile produselor). Are nevoie de FIGMA_TOKEN in
@@ -14,6 +14,10 @@
  * fel ca exporturile de pana acum, asa ca export_products.php nu-l va mai
  * propune. Vechea imagine reprezentativa se muta in galerie, sa nu se piarda.
  * Scriptul e idempotent: un produs deja legat de acelasi cadru se sare.
+ *
+ * Cu --jpg-dir nu se mai exporta nimic din Figma (si nu trebuie FIGMA_TOKEN):
+ * cadrele se iau din <dir>/<slug>-<ro|ru>.jpg, randate dinainte (de ex. prin
+ * Figma MCP). Asa merge si pe productie, dintr-o copie cu HT_WP_ROOT.
  */
 
 if ('cli' !== PHP_SAPI) {
@@ -28,6 +32,14 @@ $ht_only  = array();
 $ht_pos   = array_search('--only', $ht_argv, true);
 if (false !== $ht_pos && isset($ht_argv[$ht_pos + 1])) {
     $ht_only = array_filter(array_map('trim', explode(',', $ht_argv[$ht_pos + 1])));
+}
+$ht_jpg_dir = '';
+$ht_pos     = array_search('--jpg-dir', $ht_argv, true);
+if (false !== $ht_pos && isset($ht_argv[$ht_pos + 1])) {
+    $ht_jpg_dir = rtrim($ht_argv[$ht_pos + 1], '/\\');
+    if (!is_dir($ht_jpg_dir)) {
+        exit("--jpg-dir: nu exista {$ht_jpg_dir}\n");
+    }
 }
 
 /* ---------------------------------------------------------------------------
@@ -55,7 +67,7 @@ $ht_env  = array_merge(ht_read_env(dirname(__DIR__) . '/import/.env'), ht_read_e
 $ht_tok  = getenv('FIGMA_TOKEN') ?: (isset($ht_env['FIGMA_TOKEN']) ? $ht_env['FIGMA_TOKEN'] : '');
 $ht_file = getenv('FIGMA_FILE_KEY') ?: (isset($ht_env['FIGMA_FILE_KEY']) ? $ht_env['FIGMA_FILE_KEY'] : 'kcN6mD2YKtUttVTf3f26i2');
 
-if (!$ht_tok) {
+if (!$ht_tok && !$ht_jpg_dir) {
     exit("Lipseste FIGMA_TOKEN (bin/images/.env).\n");
 }
 
@@ -74,7 +86,8 @@ foreach (json_decode(file_get_contents($ht_prod_file), true) as $ht_row) {
  * WordPress
  * ------------------------------------------------------------------------ */
 
-$ht_root = __DIR__;
+/* HT_WP_ROOT: radacina WordPress, cand scriptul ruleaza dintr-o copie din afara temei */
+$ht_root = getenv('HT_WP_ROOT') ? rtrim(getenv('HT_WP_ROOT'), '/\\') : __DIR__;
 while (!file_exists($ht_root . '/wp-load.php')) {
     $ht_parent = dirname($ht_root);
     if ($ht_parent === $ht_root) {
@@ -140,14 +153,14 @@ foreach ($ht_nodes as $ht_slug => $ht_pair) {
 if (!$ht_jobs) {
     exit("Nimic de urcat.\n");
 }
-echo count($ht_jobs) . " imagini de exportat din Figma" . ($ht_dry ? ' (dry-run)' : '') . "\n";
+echo count($ht_jobs) . ($ht_jpg_dir ? " imagini din {$ht_jpg_dir}" : ' imagini de exportat din Figma') . ($ht_dry ? ' (dry-run)' : '') . "\n";
 
 /* ---------------------------------------------------------------------------
  * Export din Figma, in loturi de 40 de noduri
  * ------------------------------------------------------------------------ */
 
 $ht_urls = array();
-foreach (array_chunk(array_keys($ht_jobs), 40) as $ht_chunk) {
+foreach ($ht_jpg_dir ? array() : array_chunk(array_keys($ht_jobs), 40) as $ht_chunk) {
     $ht_api = 'https://api.figma.com/v1/images/' . rawurlencode($ht_file)
         . '?ids=' . rawurlencode(implode(',', $ht_chunk)) . '&format=jpg&scale=1';
     $ht_res = wp_remote_get($ht_api, array('headers' => array('X-Figma-Token' => $ht_tok), 'timeout' => 120));
@@ -167,7 +180,13 @@ foreach (array_chunk(array_keys($ht_jobs), 40) as $ht_chunk) {
 
 foreach ($ht_jobs as $ht_node => $ht_job) {
     $ht_label = "{$ht_job['slug']} {$ht_job['lang']}";
-    if (empty($ht_urls[$ht_node])) {
+    if ($ht_jpg_dir) {
+        $ht_local = "{$ht_jpg_dir}/{$ht_job['slug']}-{$ht_job['lang']}.jpg";
+        if (!file_exists($ht_local)) {
+            echo "  ! {$ht_label}: lipseste {$ht_local}\n";
+            continue;
+        }
+    } elseif (empty($ht_urls[$ht_node])) {
         echo "  ! {$ht_label}: Figma nu a exportat nodul {$ht_node}\n";
         continue;
     }
@@ -176,7 +195,13 @@ foreach ($ht_jobs as $ht_node => $ht_job) {
         continue;
     }
 
-    $ht_tmp = download_url($ht_urls[$ht_node], 120);
+    if ($ht_jpg_dir) {
+        /* media_handle_sideload muta fisierul: lucram pe o copie temporara */
+        $ht_tmp = wp_tempnam($ht_job['file']);
+        copy($ht_local, $ht_tmp);
+    } else {
+        $ht_tmp = download_url($ht_urls[$ht_node], 120);
+    }
     if (is_wp_error($ht_tmp)) {
         echo "  ! {$ht_label}: " . $ht_tmp->get_error_message() . "\n";
         continue;

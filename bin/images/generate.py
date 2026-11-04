@@ -7,6 +7,8 @@ Modelul primeste doua imagini de referinta:
      lumina si compozitia trebuie sa semene.
 si scena scrisa la pasul 1. Textul NU se genereaza aici: il pune pluginul
 Figma, ca sa fie identic cu cadrele existente si usor de corectat.
+La pachete (`bundle` in products.json) prima referinta e poza setului, iar
+promptul (PROMPT_SET) cere toate produsele grupate pe masa.
 
 Rezultatul: data/backgrounds/<slug>.png, 1024x1024. Scriptul e reluabil;
 un fundal existent nu se regenereaza fara --force.
@@ -46,9 +48,27 @@ label text as in the reference. Do not redesign, translate, rotate or alter the 
 
 Photorealistic, natural skin, anatomically correct hands, no added text, no extra logos, no watermark."""
 
+# pachetele: prima referinta e poza setului (bundles.py), cu 4-6 produse
+PROMPT_SET = """Advertising photo of a gift set for a natural pharmacy brand, square format.
+Recreate the photographic style, lighting and composition of the SECOND reference image: bright studio,
+soft diffused light, plain smooth {backdrop} seamless backdrop, glossy white tabletop in the foreground
+with a soft reflection of the products.
 
-def build_prompt(c):
-    return PROMPT.format(
+Scene: {person} {scene} The moment shown: {symptom}.
+Everyone in the scene stays in the RIGHT half of the frame, behind the tabletop. The upper LEFT part of the image
+(left 45%, top 55%) is clean, empty backdrop with nothing in it - it is reserved for text that will be added later.
+
+All the products from the FIRST reference image stand together on the tabletop in the lower part of the frame,
+grouped from the center to the right, in front of them, facing the camera, large and sharp - the tallest
+one about 38% of the frame height. Keep the same products, the same number of items and a similar arrangement
+as in the reference. Reproduce every package exactly: same shape, label, colors and label text. Do not add,
+remove, redesign, translate or rotate any product.
+
+Photorealistic, natural skin, anatomically correct hands, no added text, no extra logos, no watermark."""
+
+
+def build_prompt(c, bundle=False):
+    return (PROMPT_SET if bundle else PROMPT).format(
         backdrop=c.get("backdrop") or "warm beige",
         person=c["person"].rstrip("."),
         scene=c["scene"].strip(),
@@ -61,7 +81,7 @@ def generate(client, product, copy, quality):
         kwargs = dict(
             model=config.IMAGE_MODEL,
             image=[packshot, style],
-            prompt=build_prompt(copy),
+            prompt=build_prompt(copy, product.get("bundle")),
             size=config.IMAGE_SIZE,
             quality=quality,
             n=1,
@@ -111,7 +131,7 @@ def main():
     if args.dry_run:
         for slug, c, _ in todo:
             print("==", slug)
-            print(build_prompt(c))
+            print(build_prompt(c, products[slug].get("bundle")))
             print()
         return
 

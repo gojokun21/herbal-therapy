@@ -18,7 +18,8 @@
  *
  * Un pachet se recunoaste dupa meta `_ht_bundle` = slug, deci scriptul se
  * poate rula de mai multe ori. Poza se urca din nou doar cand JPG-ul s-a
- * schimbat (meta `_ht_bundle_image` = md5 pe atasament).
+ * schimbat (meta `_ht_bundle_image` = md5 pe atasament). Dupa ce pachetul
+ * primeste bannerul din Figma (upload_to_wp.php), poza setului sta in galerie.
  *
  * Cand pachetul are cheia `ru` in bundles.json, se creeaza si perechea in
  * rusa, legata prin Polylang: componentele sunt perechile RU ale produselor,
@@ -213,6 +214,41 @@ function ht_bundle_set_items(WC_Product_Bundle $product, array $pids)
 }
 
 /**
+ * Poza setului (atasamentul cu meta `_ht_bundle_image`): imaginea
+ * reprezentativa sau, dupa ce bannerul i-a luat locul, prima din galerie.
+ */
+function ht_bundle_set_image($pid)
+{
+    $ids = array_merge(
+        array((int) get_post_thumbnail_id($pid)),
+        array_map('intval', explode(',', (string) get_post_meta($pid, '_product_image_gallery', true)))
+    );
+    foreach (array_filter($ids) as $id) {
+        if (get_post_meta($id, '_ht_bundle_image', true)) {
+            return $id;
+        }
+    }
+
+    return 0;
+}
+
+/**
+ * Pune poza setului pe pachet: in galerie cand imaginea reprezentativa e deja
+ * bannerul din Figma (meta `_ht_figma_node`, vezi upload_to_wp.php), altfel ca
+ * imagine reprezentativa, cu galeria goala.
+ */
+function ht_bundle_place_image(WC_Product $product, $att)
+{
+    $thumb = (int) $product->get_image_id('edit');
+    if ($thumb && $thumb !== $att && get_post_meta($thumb, '_ht_figma_node', true)) {
+        $product->set_gallery_image_ids(array($att));
+    } else {
+        $product->set_image_id($att);
+        $product->set_gallery_image_ids(array());
+    }
+}
+
+/**
  * Perechea RU a pachetului RO, dupa `ru` din bundles.json.
  *
  * Aceeasi ordine ca in ht_import_twin_callback(): produsul se salveaza intai
@@ -253,7 +289,10 @@ function ht_bundle_ru($ro_id, array $b, $cat_ru, $dry)
     $product->set_description('<p>' . esc_html($def['excerpt']) . '</p>');
     $product->set_regular_price($ro->get_regular_price('edit'));
     $product->set_sale_price($ro->get_sale_price('edit'));
-    $product->set_image_id($ro->get_image_id('edit'));
+    $set = ht_bundle_set_image($ro_id);
+    if ($set) {
+        ht_bundle_place_image($product, $set);
+    }
     if ($cat_ru) {
         $product->set_category_ids(array($cat_ru));
     }
@@ -435,9 +474,9 @@ foreach ($ht_bundles as $ht_b) {
 
     $ht_note = '';
     if (file_exists($ht_jpg)) {
-        $ht_md5   = md5_file($ht_jpg);
-        $ht_thumb = (int) get_post_thumbnail_id($ht_id);
-        if (!$ht_thumb || get_post_meta($ht_thumb, '_ht_bundle_image', true) !== $ht_md5) {
+        $ht_md5 = md5_file($ht_jpg);
+        $ht_set = ht_bundle_set_image($ht_id);
+        if (!$ht_set || get_post_meta($ht_set, '_ht_bundle_image', true) !== $ht_md5) {
             /* media_handle_sideload muta fisierul: lucram pe o copie temporara */
             $ht_tmp = wp_tempnam($ht_slug . '.jpg');
             copy($ht_jpg, $ht_tmp);
@@ -451,7 +490,9 @@ foreach ($ht_bundles as $ht_b) {
                 if (function_exists('pll_set_post_language')) {
                     pll_set_post_language($ht_att, 'ro');
                 }
-                set_post_thumbnail($ht_id, $ht_att);
+                $ht_product = wc_get_product($ht_id);
+                ht_bundle_place_image($ht_product, $ht_att);
+                $ht_product->save();
                 $ht_note = ", poza #{$ht_att}";
             }
         }

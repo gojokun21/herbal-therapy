@@ -12,6 +12,7 @@
  * Pentru fiecare produs se scriu: slug, titlurile RO si RU, categoria,
  * descrierea scurta, beneficiile ACF si calea poza de produs (pack-shot-ul
  * curent, cel de pe fundal alb). Textele de mai departe se scriu pe baza lor.
+ * La pachete (`bundle`), poza de produs e poza setului.
  */
 
 if ('cli' !== PHP_SAPI) {
@@ -31,7 +32,8 @@ if (false !== $ht_pos && isset($ht_argv[$ht_pos + 1])) {
  * WordPress
  * ------------------------------------------------------------------------ */
 
-$ht_root = __DIR__;
+/* HT_WP_ROOT: radacina WordPress, cand scriptul ruleaza dintr-o copie din afara temei */
+$ht_root = getenv('HT_WP_ROOT') ? rtrim(getenv('HT_WP_ROOT'), '/\\') : __DIR__;
 while (!file_exists($ht_root . '/wp-load.php')) {
     $ht_parent = dirname($ht_root);
     if ($ht_parent === $ht_root) {
@@ -111,6 +113,7 @@ foreach ($ht_products as $ht_p) {
         'packshot'  => $ht_file,
         'thumb_id'  => $ht_thumb,
         'figma_node'=> $ht_node ? $ht_node : null,
+        'bundle'    => 'bundle' === WC_Product_Factory::get_product_type($ht_p->ID),
     );
 }
 

@@ -312,3 +312,40 @@ traducerea categoriei "Pachete"): componentele sunt perechile RU ale
 produselor, pretul, SKU-ul si poza sunt ale pachetului RO. La prima legare
 Polylang copiaza pe traducere categoria RO, deci scriptul pune categoria RU
 din nou dupa legare.
+
+### Bannerul pachetelor (coperta, ca la celelalte produse)
+
+Imaginea reprezentativa a pachetului e un banner ca la produse (persoana +
+setul pe masa + trei randuri de text RO / RU), iar poza setului pe alb sta in
+galerie. Acelasi drum ca la produse, pasii 0-5:
+
+```
+HT_DB_HOST=127.0.0.1:10051 php export_products.php --only <slug-urile pachetelor>   # bundle: true
+#   textele, culorile si scena: scrise de mana in data/copy.json (nu cu texts.py)
+python generate.py --quality high --only <slug-uri>     # PROMPT_SET: setul intreg pe masa
+python manifest.py --only <slug-uri>
+#   cadrele RO / RU in "Toate pozele jpg" prin Figma MCP (vezi "Pasul 4 fara plugin")
+#   randate cu get_screenshot (maxDimension 1000) -> data/bundles/covers/<slug>-<ro|ru>.jpg
+HT_DB_HOST=127.0.0.1:10051 php upload_to_wp.php --jpg-dir data/bundles/covers --only <slug-uri>
+```
+
+Pe 2026-10-28 FIGMA_TOKEN din `.env` expirase, deci exportul prin API nu
+mergea; de aceea `--jpg-dir`, care ia cadrele randate din fisiere (merge si pe
+productie, fara token). Cadrele pachetelor sunt in "Toate pozele jpg" in
+coloana de la x = 199032 (id-urile in `data/figma_nodes.json`, 66:2 ... 66:47).
+Textele finale difera putin de manifest, corectate in Figma ca sa nu treaca
+peste fete sau produse (si salvate in `copy.json`): la familie verbul si
+substantivul sunt micsorate la 495 px, iar textele RU sunt mai scurte.
+
+Pe productie (2026-10-28), tot fara deploy: o copie `export_products.php` +
+`upload_to_wp.php` + `data/figma_nodes.json` (doar pachetele) + `data/covers/*.jpg`
+in `/tmp/ht-banners` (stearsa dupa), rulata cu `HT_WP_ROOT`, intai
+`export_products.php --only ...` (id-urile de pe live), apoi
+`upload_to_wp.php --jpg-dir data/covers --only ...`. Bannerele de pe live sunt
+atasamentele #2863-#2872; Polylang nu sincronizeaza imaginile acolo (`sync` gol).
+
+`upload_to_wp.php` muta poza setului in galerie (vechea imagine
+reprezentativa). `bundles.php` tine cont de asta la rulari ulterioare: poza
+setului se cauta si in galerie (`_ht_bundle_image`) si ramane acolo cat timp
+imaginea reprezentativa e un banner (`_ht_figma_node`); perechea RU isi
+pastreaza bannerul ei.
