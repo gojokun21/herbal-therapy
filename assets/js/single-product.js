@@ -318,3 +318,74 @@
         });
     });
 })();
+
+/* ---------------------------------------------------------------------------
+ * Raspunsul magazinului la o recenzie
+ *
+ * Butonul "Raspunde" il primesc doar cei care modereaza comentariile. Mutarea
+ * formularului sub recenzie si campul comment_parent le face scriptul
+ * nucleului, comment-reply.js; aici formularul doar trece pe modul de raspuns:
+ * fara stele (un raspuns nu da nota) si cu textele lui, pe care sablonul le
+ * pune in data-ht-rev-review / data-ht-rev-reply. "Anuleaza" il intoarce.
+ * ------------------------------------------------------------------------ */
+(function () {
+    'use strict';
+
+    var block = document.querySelector('[data-ht-rev]');
+    var form = block ? block.querySelector('.ht-rev__form') : null;
+
+    if (!form || !block.querySelector('.comment-reply-link')) {
+        return;
+    }
+
+    var rating = form.querySelector('[data-ht-rev-rating]');
+    var texts = form.querySelectorAll('[data-ht-rev-reply]');
+
+    function setReply(on) {
+        form.classList.toggle('is-reply', on);
+
+        /* un fieldset dezactivat nu se trimite si nu mai cere nota (required) */
+        if (rating) {
+            rating.disabled = on;
+        }
+
+        Array.prototype.forEach.call(texts, function (node) {
+            var text = node.getAttribute(on ? 'data-ht-rev-reply' : 'data-ht-rev-review');
+
+            if ('TEXTAREA' === node.tagName) {
+                node.placeholder = text;
+            } else {
+                node.textContent = text;
+            }
+        });
+    }
+
+    /* pe document, deci dupa handler-ele lui comment-reply.js de pe link-uri */
+    document.addEventListener('click', function (event) {
+        var target = event.target instanceof Element ? event.target : null;
+
+        if (!target) {
+            return;
+        }
+
+        if (target.closest('.comment-reply-link')) {
+            setReply(true);
+            return;
+        }
+
+        if (target.closest('#cancel-comment-reply-link')) {
+            setReply(false);
+            return;
+        }
+
+        /* "Scrie o recenzie" cu formularul mutat sub o recenzie: il aducem
+         * inapoi inainte ca ancora sa sara la el */
+        if (target.closest('.ht-rev__cta') && form.classList.contains('is-reply')) {
+            var cancel = document.getElementById('cancel-comment-reply-link');
+
+            if (cancel) {
+                cancel.click();
+            }
+        }
+    });
+})();

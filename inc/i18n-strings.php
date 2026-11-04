@@ -468,7 +468,7 @@ return array(
         'În stoc',
     ),
 
-    /* Recenzii (28) */
+    /* Recenzii (33) */
     'Recenzii' => array(
         '%1$d din 5 - %2$s',
         '%s comentarii',
@@ -492,11 +492,16 @@ return array(
         'Recenzia ta',
         'Recenzia ta așteaptă aprobarea',
         'Recenzii pot lăsa doar clienții autentificați care au cumpărat acest produs.',
+        'Răspunde',
         'Răspunde lui %s',
+        'Răspunsul magazinului',
+        'Răspunsul se publică sub recenzie, în numele magazinului.',
+        'Răspunsul tău',
         'Scrie o recenzie',
         'Slab',
         'Spune-ne cum ți s-a părut produsul: textura, mirosul, rezultatul după câteva utilizări.',
         'Trebuie să fii %1$sautentificat%2$s ca să lași o recenzie.',
         'Trimite recenzia',
+        'Trimite răspunsul',
     ),
 );

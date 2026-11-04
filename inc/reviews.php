@@ -228,6 +228,97 @@ function ht_review_list_args($args)
 add_filter('woocommerce_product_review_list_args', 'ht_review_list_args');
 
 /* ---------------------------------------------------------------------------
+ * Raspunsurile magazinului
+ *
+ * Sub o recenzie raspunde doar magazinul. Din pagina produsului, butonul
+ * "Raspunde" il vad numai cei care modereaza comentariile (administratorul,
+ * managerul de magazin); din administrare merge si nativ, din
+ * Produse -> Recenzii -> Raspunde. Raspunsul e un comentariu cu parinte, deci
+ * WooCommerce nu-l pune nici la numarul de recenzii, nici la nota medie.
+ * ------------------------------------------------------------------------ */
+
+/**
+ * Poate utilizatorul curent sa raspunda la recenzii din pagina produsului?
+ *
+ * @return bool
+ */
+function ht_review_can_reply()
+{
+    return is_user_logged_in() && current_user_can('moderate_comments');
+}
+
+/**
+ * E un raspuns al magazinului?
+ *
+ * Se recunoaste dupa autor - un cont care modereaza comentariile -, deci merge
+ * la fel pentru raspunsurile scrise din pagina si pentru cele din administrare.
+ *
+ * @param WP_Comment $comment Comentariul.
+ *
+ * @return bool
+ */
+function ht_review_is_staff_reply($comment)
+{
+    if (!$comment instanceof WP_Comment) {
+        return false;
+    }
+
+    $user_id = (int)$comment->user_id;
+
+    return (int)$comment->comment_parent > 0
+        && $user_id > 0
+        && user_can($user_id, 'moderate_comments');
+}
+
+/**
+ * Recenzia la care se raspunde, cand pagina e deschisa cu ?replytocom=.
+ *
+ * Asa ajunge pagina doar fara JavaScript - altfel comment-reply.js muta
+ * formularul pe loc. Atunci formularul vine direct in modul de raspuns.
+ *
+ * @return int ID-ul recenziei sau 0.
+ */
+function ht_review_reply_target()
+{
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- doar alege modul formularului.
+    if (empty($_GET['replytocom']) || !ht_review_can_reply()) {
+        return 0;
+    }
+
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- vezi mai sus.
+    $comment = get_comment(absint(wp_unslash($_GET['replytocom'])));
+
+    if (!$comment || (int)$comment->comment_post_ID !== (int)get_the_ID() || '1' !== $comment->comment_approved) {
+        return 0;
+    }
+
+    return (int)$comment->comment_ID;
+}
+
+/**
+ * Raspunsul magazinului trece de regula "doar cumparatorii".
+ *
+ * Cand WooCommerce cere ca recenziile sa vina doar de la cei care au cumparat
+ * produsul, el opreste orice comentariu pe produs al altcuiva - si deci si
+ * raspunsul magazinului. Pentru un raspuns scris de cineva care modereaza
+ * comentariile, verificarea se scoate pe cererea curenta.
+ *
+ * @param int $post_id Produsul.
+ */
+function ht_review_allow_staff_reply($post_id)
+{
+    // phpcs:ignore WordPress.Security.NonceVerification.Missing -- formularul de comentarii nu are nonce; valoarea doar se compara.
+    $parent = isset($_POST['comment_parent']) ? absint(wp_unslash($_POST['comment_parent'])) : 0;
+
+    if ($parent > 0 && ht_review_can_reply() && 'product' === get_post_type($post_id)) {
+        remove_action('pre_comment_on_post', array('WC_Comments', 'validate_product_review_verified_owners'));
+    }
+}
+
+/* inaintea verificarii pluginului, care sta pe prioritatea implicita (10) */
+add_action('pre_comment_on_post', 'ht_review_allow_staff_reply', 5);
+
+/* ---------------------------------------------------------------------------
  * Formularul
  * ------------------------------------------------------------------------ */
 
@@ -308,7 +399,7 @@ function ht_review_rating_field()
     }
 
     return sprintf(
-        '<fieldset class="ht-rev__field ht-rev__field--rating">'
+        '<fieldset class="ht-rev__field ht-rev__field--rating" data-ht-rev-rating>'
         . '<legend class="ht-rev__label">%1$s%2$s</legend>'
         . '<div class="ht-rev__picker">%3$s</div>'
         . '</fieldset>',
@@ -319,7 +410,30 @@ function ht_review_rating_field()
 }
 
 /**
+ * Atributele unui text care difera intre recenzie si raspuns.
+ *
+ * Ambele variante stau pe element, iar single-product.js o alege pe cea
+ * potrivita cand formularul trece pe raspuns si inapoi.
+ *
+ * @param string $review Textul pentru recenzie.
+ * @param string $reply  Textul pentru raspuns.
+ *
+ * @return string
+ */
+function ht_review_text_attrs($review, $reply)
+{
+    return sprintf(
+        ' data-ht-rev-review="%1$s" data-ht-rev-reply="%2$s"',
+        esc_attr($review),
+        esc_attr($reply)
+    );
+}
+
+/**
  * Formularul de recenzie, in stilul temei.
+ *
+ * Acelasi formular scrie si raspunsul magazinului: cand se apasa "Raspunde",
+ * scriptul ascunde stelele si schimba textele (vezi ht_review_text_attrs()).
  *
  * @param array $args Argumentele construite de sablonul pluginului.
  *
@@ -330,18 +444,33 @@ function ht_review_form_args($args)
     $commenter = wp_get_current_commenter();
     $required = (bool)get_option('require_name_email', 1);
 
+    /* fara JavaScript, pagina cu ?replytocom= vine direct cu formularul de raspuns */
+    $is_reply = ht_review_reply_target() > 0;
+
+    $submit_review = __('Trimite recenzia', 'herbal-therapy');
+    $submit_reply = __('Trimite răspunsul', 'herbal-therapy');
+    $label_review = __('Recenzia ta', 'herbal-therapy');
+    $label_reply = __('Răspunsul tău', 'herbal-therapy');
+    $hint_review = __('Spune-ne cum ți s-a părut produsul: textura, mirosul, rezultatul după câteva utilizări.', 'herbal-therapy');
+    $hint_reply = __('Răspunsul se publică sub recenzie, în numele magazinului.', 'herbal-therapy');
+
     $args['title_reply'] = __('Scrie o recenzie', 'herbal-therapy');
     $args['title_reply_before'] = '<span id="reply-title" class="ht-rev__form-title" role="heading" aria-level="3">';
     $args['title_reply_after'] = '</span>';
+    $args['cancel_reply_link'] = __('Anulează', 'herbal-therapy');
     $args['class_container'] = 'comment-respond ht-rev__respond';
     $args['class_form'] = 'comment-form ht-rev__form';
     $args['class_submit'] = 'ht-rev__submit';
-    $args['label_submit'] = __('Trimite recenzia', 'herbal-therapy');
+    $args['label_submit'] = $is_reply ? $submit_reply : $submit_review;
     $args['logged_in_as'] = '';
     $args['comment_notes_before'] = '';
     $args['comment_notes_after'] = '';
     $args['submit_field'] = '<p class="form-submit ht-rev__actions">%1$s %2$s</p>';
-    $args['submit_button'] = '<button name="%1$s" type="submit" id="%2$s" class="%3$s">%4$s</button>';
+
+    /* submit_button trece prin sprintf(), deci un '%' din traducere se dubleaza */
+    $args['submit_button'] = '<button name="%1$s" type="submit" id="%2$s" class="%3$s"'
+        . str_replace('%', '%%', ht_review_text_attrs($submit_review, $submit_reply))
+        . '>%4$s</button>';
 
     $args['fields'] = array(
         'author' => ht_review_form_field(
@@ -376,14 +505,17 @@ function ht_review_form_args($args)
         );
     }
 
-    $args['comment_field'] = ht_review_rating_field()
+    /* un raspuns nu da nota, deci fara JavaScript stelele nici nu se scriu */
+    $args['comment_field'] = ($is_reply ? '' : ht_review_rating_field())
         . sprintf(
             '<p class="ht-rev__field comment-form-comment">'
-            . '<label class="ht-rev__label" for="comment">%1$s&nbsp;<span class="required">*</span></label>'
+            . '<label class="ht-rev__label" for="comment"><span%1$s>%2$s</span>&nbsp;<span class="required">*</span></label>'
             . '<textarea class="ht-rev__textarea" id="comment" name="comment" cols="45" rows="8" '
-            . 'placeholder="%2$s" required></textarea></p>',
-            esc_html__('Recenzia ta', 'herbal-therapy'),
-            esc_attr__('Spune-ne cum ți s-a părut produsul: textura, mirosul, rezultatul după câteva utilizări.', 'herbal-therapy')
+            . 'placeholder="%3$s"%4$s required></textarea></p>',
+            ht_review_text_attrs($label_review, $label_reply),
+            esc_html($is_reply ? $label_reply : $label_review),
+            esc_attr($is_reply ? $hint_reply : $hint_review),
+            ht_review_text_attrs($hint_review, $hint_reply)
         );
 
     return $args;
@@ -398,8 +530,9 @@ add_filter('woocommerce_product_review_comment_form_args', 'ht_review_form_args'
 /**
  * CSS-ul recenziilor.
  *
- * Nu are JavaScript: stelele din formular sunt butoane radio, iar butonul
- * "Scrie o recenzie" e o ancora catre formular.
+ * Nu are JavaScript separat: stelele din formular sunt butoane radio, butonul
+ * "Scrie o recenzie" e o ancora catre formular, iar sortarea si modul de
+ * raspuns al formularului stau in assets/js/single-product.js.
  */
 function ht_enqueue_reviews_assets()
 {

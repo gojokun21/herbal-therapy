@@ -19,8 +19,10 @@ if (!defined('ABSPATH')) {
 
 $ht_rating = (int)get_comment_meta($comment->comment_ID, 'rating', true);
 $ht_images = ht_review_images($comment);
+$ht_depth = isset($depth) ? (int)$depth : 1;
+$ht_classes = ht_review_is_staff_reply($comment) ? 'ht-rev__item ht-rev__item--staff' : 'ht-rev__item';
 ?>
-<li <?php comment_class('ht-rev__item'); ?> id="li-comment-<?php comment_ID(); ?>"
+<li <?php comment_class($ht_classes); ?> id="li-comment-<?php comment_ID(); ?>"
     data-rating="<?php echo esc_attr($ht_rating); ?>"
     data-time="<?php echo esc_attr(get_comment_date('U')); ?>">
 
@@ -74,5 +76,30 @@ $ht_images = ht_review_images($comment);
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
+
+            <?php
+            /*
+             * "Raspunde" - doar pentru echipa magazinului si doar sub recenzii,
+             * nu sub raspunsuri (max_depth 2). Formularul il muta sub
+             * '#comment-ID' scriptul nucleului, comment-reply.js; textul
+             * linkului ramane simplu, ca Turnstile sa-si reseteze widget-ul la
+             * click (verifica event.target.matches('.comment-reply-link')).
+             */
+            if (1 === $ht_depth && '1' === $comment->comment_approved && ht_review_can_reply()) {
+                comment_reply_link(
+                    array(
+                        'add_below'     => 'comment',
+                        'depth'         => 1,
+                        'max_depth'     => 2,
+                        'reply_text'    => esc_html__('Răspunde', 'herbal-therapy'),
+                        /* translators: %s: numele autorului recenziei la care se raspunde. */
+                        'reply_to_text' => __('Răspunde lui %s', 'herbal-therapy'),
+                        'before'        => '<p class="ht-rev__reply">',
+                        'after'         => '</p>',
+                    ),
+                    $comment
+                );
+            }
+            ?>
         </div>
     </div>

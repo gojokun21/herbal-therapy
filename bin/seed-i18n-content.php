@@ -471,12 +471,17 @@ return array(
             'Recenzia ta' => 'Ваш отзыв',
             'Recenzia ta așteaptă aprobarea' => 'Ваш отзыв ожидает одобрения',
             'Recenzii pot lăsa doar clienții autentificați care au cumpărat acest produs.' => 'Оставлять отзывы могут только авторизованные клиенты, купившие этот товар.',
+            'Răspunde' => 'Ответить',
             'Răspunde lui %s' => 'Ответить %s',
+            'Răspunsul magazinului' => 'Ответ магазина',
+            'Răspunsul se publică sub recenzie, în numele magazinului.' => 'Ответ будет опубликован под отзывом от имени магазина.',
+            'Răspunsul tău' => 'Ваш ответ',
             'Scrie o recenzie' => 'Написать отзыв',
             'Slab' => 'Плохо',
             'Spune-ne cum ți s-a părut produsul: textura, mirosul, rezultatul după câteva utilizări.' => 'Расскажите о своих впечатлениях: текстура, запах, результат после нескольких применений.',
             'Trebuie să fii %1$sautentificat%2$s ca să lași o recenzie.' => 'Чтобы оставить отзыв, нужно %1$sвойти в аккаунт%2$s.',
             'Trimite recenzia' => 'Отправить отзыв',
+            'Trimite răspunsul' => 'Отправить ответ',
         ),
 
         /* Contact rapid - butoanele plutitoare de apel si WhatsApp */

@@ -385,6 +385,40 @@
     list-style: none;
 }
 
+/* raspunsul magazinului - in verdele etichetei de cumparator verificat */
+.ht-rev__item--staff > .ht-rev__item-inner {
+    background: #eef7eb;
+}
+
+.ht-rev__badge--staff {
+    background: var(--ht-rev-green);
+    color: #fff;
+}
+
+/* butonul "Raspunde", vizibil doar echipei magazinului */
+.ht-rev__reply {
+    margin: 0;
+}
+
+.ht-rev__reply .comment-reply-link {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    color: var(--ht-rev-green);
+    text-decoration: none;
+}
+
+.ht-rev__reply .comment-reply-link:hover {
+    text-decoration: underline;
+}
+
+/* formularul mutat de comment-reply.js sub recenzia la care se raspunde */
+.ht-rev__item > .ht-rev__respond {
+    margin: 12px 0 0 24px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+}
+
 .ht-rev__empty {
     display: flex;
     flex-direction: column;
@@ -438,6 +472,18 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+/* un raspuns nu da nota; fieldset-ul e si dezactivat din script, ca sa nu se trimita */
+.ht-rev__form.is-reply .ht-rev__field--rating {
+    display: none;
+}
+
+#cancel-comment-reply-link {
+    margin-left: 8px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ht-rev-dim);
 }
 
 .ht-rev__field {

@@ -12,8 +12,10 @@ defined('ABSPATH') || exit;
 
 global $comment;
 
+/* raspunsul magazinului e semnat cu numele magazinului, nu cu al contului din administrare */
+$ht_staff = ht_review_is_staff_reply($comment);
 $ht_verified = wc_review_is_from_verified_owner($comment->comment_ID);
-$ht_show_badge = 'yes' === get_option('woocommerce_review_rating_verification_label') && $ht_verified;
+$ht_show_badge = !$ht_staff && 'yes' === get_option('woocommerce_review_rating_verification_label') && $ht_verified;
 $ht_replies = ht_review_replies($comment);
 
 if ('0' === $comment->comment_approved) : ?>
@@ -27,7 +29,19 @@ if ('0' === $comment->comment_approved) : ?>
 <?php else : ?>
 
     <p class="meta ht-rev__meta">
-        <strong class="woocommerce-review__author ht-rev__author"><?php comment_author(); ?></strong>
+        <strong class="woocommerce-review__author ht-rev__author">
+            <?php
+            if ($ht_staff) {
+                echo esc_html(get_bloginfo('name'));
+            } else {
+                comment_author();
+            }
+            ?>
+        </strong>
+
+        <?php if ($ht_staff) : ?>
+            <span class="ht-rev__badge ht-rev__badge--staff"><?php esc_html_e('Răspunsul magazinului', 'herbal-therapy'); ?></span>
+        <?php endif; ?>
 
         <time class="woocommerce-review__published-date ht-rev__date"
               datetime="<?php echo esc_attr(get_comment_date('c')); ?>">

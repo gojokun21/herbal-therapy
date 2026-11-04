@@ -123,7 +123,11 @@ $ht_can_review = 'no' === get_option('woocommerce_review_rating_verification_req
                 </div>
             <?php endif; ?>
 
-            <?php if ($ht_can_review) : ?>
+            <?php
+            /* echipa magazinului are nevoie de formular ca sa raspunda, chiar daca
+             * n-a cumparat produsul (vezi ht_review_allow_staff_reply()) */
+            if ($ht_can_review || ht_review_can_reply()) :
+                ?>
                 <div id="review_form_wrapper" class="ht-rev__form-wrap">
                     <div id="review_form">
                         <?php
