@@ -426,7 +426,7 @@ return array(
             'Beneficii:' => 'Преимущества:',
             'Cantitate:' => 'Количество:',
             'Ce conține pachetul:' => 'Что входит в комплект:',
-            'Comandă acum, livrare estimată între %s' => 'Закажите сейчас, ориентировочная доставка %s',
+            'Comanda se livrează în 1–3 zile lucrătoare' => 'Заказ доставляется в течение 1–3 рабочих дней',
             'Descriere' => 'Описание',
             'Descriere detaliată' => 'Подробное описание',
             'Imaginea anterioară' => 'Предыдущее изображение',
@@ -444,6 +444,7 @@ return array(
             'Plată la livrare sau online, securizat cu cardul' => 'Оплата при доставке или онлайн, безопасно картой',
             'Produse asemănătoare' => 'Похожие товары',
             'În stoc' => 'В наличии',
+            'Precomandă' => 'Предзаказ',
         ),
 
         /* Recenzii */

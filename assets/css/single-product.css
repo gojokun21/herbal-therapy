@@ -17,6 +17,7 @@
     --ht-pp-sale-bg: #ffe0e0;
     --ht-pp-sale-ink: #ff4949;
     --ht-pp-stock: #3ba55c;
+    --ht-pp-backorder: #f2994a;
 
     color: var(--ht-pp-ink);
 }
@@ -569,6 +570,10 @@ a.ht-pp__bundle-name:hover {
 
 .ht-pp__stock--no::before {
     background: var(--ht-pp-sale-ink);
+}
+
+.ht-pp__stock--backorder::before {
+    background: var(--ht-pp-backorder);
 }
 
 .ht-pp__price-box {

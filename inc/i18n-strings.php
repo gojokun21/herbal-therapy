@@ -429,7 +429,7 @@ return array(
         'Slide %d',
     ),
 
-    /* Produs (34) */
+    /* Produs (35) */
     'Produs' => array(
         '%1$s - imaginea %2$d',
         '%1$s capsule în loc de %2$s',
@@ -445,7 +445,7 @@ return array(
         'Cantitate:',
         'Ce conține pachetul:',
         'Cod produs: %s',
-        'Comandă acum, livrare estimată între %s',
+        'Comanda se livrează în 1–3 zile lucrătoare',
         'Comută pe tot ecranul',
         'Descarcă',
         'Descriere',
@@ -462,6 +462,7 @@ return array(
         'Plată la livrare sau online, securizat cu cardul',
         'Pornește sau oprește prezentarea',
         'Poți închide această fereastră cu tasta ESC',
+        'Precomandă',
         'Produse asemănătoare',
         'Vezi produsul',
         'În stoc',

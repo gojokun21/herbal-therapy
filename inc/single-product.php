@@ -158,28 +158,6 @@ function ht_product_benefits($product)
 }
 
 /**
- * Intervalul estimat de livrare, calculat de la ziua curenta.
- *
- * Ex. "17–21 august"; cand capetele pica in luni diferite, "30 august – 3 septembrie".
- * Numele lunii urmeaza limba curenta (wp_date). Offset-urile in zile se pot
- * ajusta prin filtrul 'ht_delivery_estimate_days'.
- *
- * @return string Intervalul formatat.
- */
-function ht_delivery_estimate()
-{
-    $days  = apply_filters('ht_delivery_estimate_days', array('start' => 3, 'end' => 7));
-    $start = time() + DAY_IN_SECONDS * max(0, (int)$days['start']);
-    $end   = time() + DAY_IN_SECONDS * max(0, (int)$days['end']);
-
-    if (wp_date('Y-m', $start) === wp_date('Y-m', $end)) {
-        return wp_date('j', $start) . '–' . wp_date('j F', $end);
-    }
-
-    return wp_date('j F', $start) . ' – ' . wp_date('j F', $end);
-}
-
-/**
  * Randurile de livrare si garantii, cu iconitele din design.
  *
  * Sunt aceleasi pe tot magazinul, deci se schimba dintr-un singur loc: fie prin
@@ -194,11 +172,7 @@ function ht_product_delivery($product)
     $items = array(
         array(
             'icon' => 'icon-delivery',
-            'text' => sprintf(
-                /* translators: %s: intervalul estimat de livrare, ex. "17–21 august". */
-                __('Comandă acum, livrare estimată între %s', 'herbal-therapy'),
-                ht_delivery_estimate()
-            ),
+            'text' => __('Comanda se livrează în 1–3 zile lucrătoare', 'herbal-therapy'),
         ),
         array(
             'icon' => 'icon-package',
@@ -1082,7 +1056,18 @@ function ht_single_product_upgrade($product)
  */
 function ht_single_product_buy($product)
 {
-    $in_stock = $product->is_in_stock();
+    /*
+     * is_in_stock() e adevarat si la precomanda - pentru WooCommerce orice
+     * status in afara de 'outofstock' inseamna "in stoc" -, deci precomanda
+     * se verifica separat, inainte.
+     */
+    if ($product->is_on_backorder()) {
+        $stock = array('backorder', __('Precomandă', 'herbal-therapy'));
+    } elseif ($product->is_in_stock()) {
+        $stock = array('yes', __('În stoc', 'herbal-therapy'));
+    } else {
+        $stock = array('no', __('Stoc epuizat', 'herbal-therapy'));
+    }
     $discount = ht_product_discount($product);
     $regular = (float)$product->get_regular_price();
     ?>
@@ -1090,8 +1075,8 @@ function ht_single_product_buy($product)
 
         <div class="ht-pp__buy-head">
             <div class="ht-pp__buy-prices">
-                <p class="ht-pp__stock ht-pp__stock--<?php echo $in_stock ? 'yes' : 'no'; ?>">
-                    <?php echo esc_html($in_stock ? __('În stoc', 'herbal-therapy') : __('Stoc epuizat', 'herbal-therapy')); ?>
+                <p class="ht-pp__stock ht-pp__stock--<?php echo esc_attr($stock[0]); ?>">
+                    <?php echo esc_html($stock[1]); ?>
                 </p>
 
                 <div class="ht-pp__price-box">
