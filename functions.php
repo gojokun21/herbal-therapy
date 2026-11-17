@@ -61,6 +61,7 @@ $ht_modules = array(
     'floating',           // stiva de butoane plutitoare din coltul din dreapta-jos
     'call',               // butonul plutitor de apel telefonic
     'whatsapp',           // butonul plutitor de WhatsApp
+    'chat',               // chatul CreativeChat (scriptul lor, in subsol)
     'redirects',          // 301 de pe adresele vechi (Shopify) catre cele noi
     'admin',              // ajustari in zona de administrare
 );
