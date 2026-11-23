@@ -79,10 +79,73 @@ function ht_gtm_item_json($product)
     if (!isset($cache[$id])) {
         /* GTM4WP adauga atributul pe primul '<a ' - un link-proba e de ajuns */
         $probe = apply_filters('woocommerce_loop_add_to_cart_link', '<a href="#">', $product, array());
-        $cache[$id] = ht_gtm_item_from_link($probe);
+        $json = ht_gtm_item_from_link($probe);
+
+        /* filtrul de mai sus serveste doar produsele simple; pachetele trec pe aici */
+        if ('' === $json) {
+            $json = ht_gtm_item_from_link(ht_gtm4wp_single_markup($product));
+        }
+
+        $cache[$id] = $json;
     }
 
     return $cache[$id];
+}
+
+/**
+ * Span-ul .gtm4wp_single_productdata pe care GTM4WP il scrie langa butonul de
+ * pe pagina produsului (merge pentru orice tip de produs, inclusiv pachete).
+ *
+ * Ruleaza doar callback-ul GTM4WP de pe 'woocommerce_after_add_to_cart_button',
+ * nu tot hook-ul: alte pluginuri agatate acolo nu trebuie declansate din card.
+ *
+ * @param WC_Product $product Produsul.
+ *
+ * @return string HTML-ul scris de GTM4WP, sau ''.
+ */
+function ht_gtm4wp_single_markup($product)
+{
+    global $wp_filter;
+
+    $hook = 'woocommerce_after_add_to_cart_button';
+
+    if (empty($wp_filter[$hook]) || !isset($wp_filter[$hook]->callbacks)) {
+        return '';
+    }
+
+    foreach ((array)$wp_filter[$hook]->callbacks as $callbacks) {
+        foreach ((array)$callbacks as $callback) {
+            $fn = isset($callback['function']) ? $callback['function'] : null;
+
+            if (!is_array($fn) || !is_object($fn[0]) || 'single_add_to_cart_tracking' !== $fn[1]
+                || false === stripos(get_class($fn[0]), 'gtm4wp')) {
+                continue;
+            }
+
+            /* callback-ul citeste global $product */
+            $had = array_key_exists('product', $GLOBALS);
+            $previous = $had ? $GLOBALS['product'] : null;
+            $GLOBALS['product'] = $product;
+
+            ob_start();
+
+            try {
+                call_user_func($fn);
+            } finally {
+                $html = (string)ob_get_clean();
+
+                if ($had) {
+                    $GLOBALS['product'] = $previous;
+                } else {
+                    unset($GLOBALS['product']);
+                }
+            }
+
+            return $html;
+        }
+    }
+
+    return '';
 }
 
 /**

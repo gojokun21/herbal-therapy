@@ -22,6 +22,24 @@ final class GtmTrackingTest extends TestCase
     protected function tearDown(): void
     {
         HT_Test_Wp::reset();
+        unset($GLOBALS['wp_filter'], $GLOBALS['product']);
+    }
+
+    /**
+     * Imita ListTracking::single_add_to_cart_tracking() inregistrat pe
+     * 'woocommerce_after_add_to_cart_button' (WP_Hook->callbacks).
+     */
+    private function fakeGtm4wpSingle(array $extra = array())
+    {
+        $tracker = new GTM4WP_Fake_ListTracking();
+        $callbacks = array(10 => $extra + array(
+            'gtm4wp' => array('function' => array($tracker, 'single_add_to_cart_tracking'), 'accepted_args' => 1),
+        ));
+        $GLOBALS['wp_filter'] = array(
+            'woocommerce_after_add_to_cart_button' => (object)array('callbacks' => $callbacks),
+        );
+
+        return $tracker;
     }
 
     /**
@@ -119,11 +137,66 @@ final class GtmTrackingTest extends TestCase
         $this->assertSame('', ht_gtm_item_json(null));
     }
 
+    public function testPachetulIaDateleDinCallbackulGtm4wpDePePaginaProdusului()
+    {
+        /* filtrul de bucla nu raspunde (produs ne-simplu), callback-ul single da */
+        $this->fakeGtm4wpSingle();
+
+        $json = ht_gtm_item_json($this->product(900004));
+
+        $this->assertSame(array('item_id' => 'PACHET-900004', 'price' => 260.8), json_decode($json, true));
+    }
+
+    public function testCallbackulSingleNuDeclanseazaAlteFunctiiDePeHook()
+    {
+        $other = 0;
+        $this->fakeGtm4wpSingle(array(
+            'other' => array('function' => function () use (&$other) {
+                $other++;
+                echo '<p>alt plugin</p>';
+            }, 'accepted_args' => 1),
+        ));
+
+        ht_gtm_item_json($this->product(900005));
+
+        $this->assertSame(0, $other);
+    }
+
+    public function testRestaureazaGlobalProduct()
+    {
+        $this->fakeGtm4wpSingle();
+        $GLOBALS['product'] = 'pagina-curenta';
+
+        ht_gtm_item_json($this->product(900006));
+
+        $this->assertSame('pagina-curenta', $GLOBALS['product']);
+    }
+
+    public function testFaraGtm4wpPeHookNuIntoarceNimic()
+    {
+        $this->assertSame('', ht_gtm4wp_single_markup($this->product(900007)));
+    }
+
     public function testAtributulEsteEscapat()
     {
         $attr = ht_gtm_item_attr('{"item_id":"1","item_name":"A \"B\" & C"}');
 
         $this->assertSame(' data-ht-gtm-item="{&quot;item_id&quot;:&quot;1&quot;,&quot;item_name&quot;:&quot;A \&quot;B\&quot; &amp; C&quot;}"', $attr);
         $this->assertSame('', ht_gtm_item_attr(''));
+    }
+}
+
+/**
+ * Imitatia ListTracking din GTM4WP: scrie span-ul pentru global $product.
+ */
+final class GTM4WP_Fake_ListTracking
+{
+    public function single_add_to_cart_tracking()
+    {
+        global $product;
+
+        $item = array('item_id' => 'PACHET-' . $product->get_id(), 'price' => 260.8);
+
+        echo '<span class="gtm4wp_single_productdata" style="display:none; visibility:hidden;" data-gtm4wp_product_data="' . esc_attr(json_encode($item)) . '"></span>' . "\n";
     }
 }
