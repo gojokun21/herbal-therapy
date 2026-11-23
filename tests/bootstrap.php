@@ -44,3 +44,7 @@ require dirname(__DIR__) . '/inc/checkout.php';
 
 /* inc/shipping-progress.php - bara spre livrarea gratuita (calculul pur) */
 require dirname(__DIR__) . '/inc/shipping-progress.php';
+
+/* inc/gtm-tracking.php - datele add_to_cart luate de la GTM4WP (pluginul "activ") */
+define('GTM4WP_OPTIONS', 'gtm4wp-options');
+require dirname(__DIR__) . '/inc/gtm-tracking.php';
