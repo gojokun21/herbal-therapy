@@ -1112,6 +1112,14 @@ function ht_single_product_buy($product)
 
         <p class="ht-pp__tax"><?php esc_html_e('TVA inclus', 'herbal-therapy'); ?></p>
 
+        <?php
+        /*
+         * Loc pentru extensii intre pret si butoane (de ex. cronometrul de
+         * reducere din pluginul herbal-sale-countdown). Fara plugin nu scrie nimic.
+         */
+        do_action('ht_single_product_after_price', $product);
+        ?>
+
         <?php ht_single_product_buttons($product); ?>
 
         <?php
