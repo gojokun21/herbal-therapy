@@ -803,9 +803,7 @@ function ht_single_product_buttons($product)
                         value="<?php echo esc_attr($product->get_id()); ?>"
                         data-quantity="<?php echo esc_attr($min); ?>"
                         data-product_id="<?php echo esc_attr($product->get_id()); ?>"
-                        data-product_sku="<?php echo esc_attr($product->get_sku()); ?>"
-                        <?php /* add_to_cart in data layer, vezi inc/gtm-tracking.php; deja escapat */ ?>
-                        <?php echo ht_gtm_item_attr($product); ?>>
+                        data-product_sku="<?php echo esc_attr($product->get_sku()); ?>">
                     <?php ht_icon('cart-btn', 'ht-pp__cart-icon'); ?>
                     <span><?php echo esc_html($product->add_to_cart_text()); ?></span>
                 </button>
@@ -1034,7 +1032,6 @@ function ht_single_product_upgrade($product)
                                     data-quantity="1"
                                     data-product_id="<?php echo esc_attr($item->get_id()); ?>"
                                     data-product_sku="<?php echo esc_attr($item->get_sku()); ?>"
-                                    <?php echo ht_gtm_item_attr($item); /* deja escapat */ ?>
                                     data-added-text="<?php esc_attr_e('În coș', 'herbal-therapy'); ?>">
                                 <?php ht_icon('cart-btn', 'ht-pp__cart-icon'); ?>
                                 <span data-ht-cart-text><?php esc_html_e('Adaugă în coș', 'herbal-therapy'); ?></span>

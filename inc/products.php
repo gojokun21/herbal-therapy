@@ -253,8 +253,6 @@ function ht_product_card_data($product)
             'ajax' => $ajax,
             'text' => $product->add_to_cart_text(),
             'sku'  => $product->get_sku(),
-            /* datele GA4 pentru add_to_cart, vezi inc/gtm-tracking.php */
-            'gtm'  => ($ajax && function_exists('ht_gtm_item_json')) ? ht_gtm_item_json($product) : '',
         ),
     );
 
@@ -412,8 +410,6 @@ function ht_product_card($card, $index = 0)
                         data-quantity="1"
                         data-product_id="<?php echo esc_attr($card['id']); ?>"
                         data-product_sku="<?php echo esc_attr($cart['sku']); ?>"
-                        <?php /* atributul e deja escapat in ht_gtm_item_attr() */ ?>
-                        <?php echo function_exists('ht_gtm_item_attr') ? ht_gtm_item_attr(isset($cart['gtm']) ? (string)$cart['gtm'] : '') : ''; ?>
                         data-added-text="<?php esc_attr_e('În coș', 'herbal-therapy'); ?>">
                     <?php ht_icon('cart-btn', 'ht-card__cart-icon'); ?>
                     <span class="ht-card__cart-text"><?php echo esc_html($cart_text); ?></span>
